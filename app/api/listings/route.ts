@@ -1,81 +1,81 @@
+
+
 //@ts-nocheck
 import { NextRequest, NextResponse } from "next/server";
 
-import { Prisma ,PrismaClient} from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 
-// import { MongoClient } from "mongodb"
+import { MongoClient } from "mongodb"
 
 
 
+let client: MongoClient;
+let clientPromise: Promise<MongoClient>;
 
-// let client;
-// let clientPromise;
+const uri: string | undefined = process.env.DATABASE_URL;
 
-// const uri = process.env.DATABASE_URL ;
+if (!uri) {
+  throw new Error("Please add your MongoDB URI to .env.local");
+}
 
-// if (!uri) {
-//   throw new Error("Please add your MongoDB URI to .env.local");
-// }
-
-// if (process.env.NODE_ENV === "production") {
-//   client = new MongoClient(uri);
-//   clientPromise = client.connect();
-// } else {
-//   if (!global._mongoClientPromise) {
-//     client = new MongoClient(uri);
-//     global._mongoClientPromise = client.connect();
-//   }
-//   clientPromise = global._mongoClientPromise;
-// }
+if (process.env.NODE_ENV === "production") {
+  client = new MongoClient(uri);
+  clientPromise = client.connect();
+} else {
+  if (!global._mongoClientPromise) {
+    client = new MongoClient(uri);
+    global._mongoClientPromise = client.connect();
+  }
+  clientPromise = global._mongoClientPromise;
+}
     
     
     
     
     
-    
-    // async function getListingsWithinRadius(centerLat, centerLng, radius) {
-    //     const query =[
-    //       {
-    //         $geoNear: {
-    //           near: { type: "Point", coordinates: [74.8411, 34.1251] },
-    //           distanceField: "distance",
-    //           maxDistance: radius, // Radius in meters
-    //           spherical: true,
-    //         },
-    //       },
-    //       {
-    //         $match: {
-    //           price: { $lt: 100, $gt: 10 }, // Filter for  price less than 10 and greater than 100
-    //           reservations: {
+    async function getListingsWithinRadius(centerLat, centerLng, radius) {
+        const query =[
+          {
+            $geoNear: {
+              near: { type: "Point", coordinates: [74.8411, 34.1251] },
+              distanceField: "distance",
+              maxDistance: radius, // Radius in meters
+              spherical: true,
+            },
+          },
+          {
+            $match: {
+              price: { $lt: 100, $gt: 10 }, // Filter for  price less than 10 and greater than 100
+              reservations: {
                 
-    //               $elemMatch: {
-    //                 $or: [
-    //                   { startdate: { $lt: new Date(endDate), $gte: new Date(startDate) } },
-    //                   { enddate: { $gt: new Date(startDate), $lte: new Date(endDate) } }
-    //                 ]
+                  $elemMatch: {
+                    $or: [
+                      { startdate: { $lt: new Date(endDate), $gte: new Date(startDate) } },
+                      { enddate: { $gt: new Date(startDate), $lte: new Date(endDate) } }
+                    ]
                   
-    //             }
-    //           }
+                }
+              }
               
-    //         }
-    //       },
-    //       {
-    //         $sort: { distance: 1 }, // Sort by  distance
-    //       },
-    //     ];
-    // const prisma =new PrismaClient();
+            }
+          },
+          {
+            $sort: { distance: 1 }, // Sort by  distance
+          },
+        ];
+    const prisma =new PrismaClient();
     
     
-    // return  await prisma.$runCommandRaw({
-    //     aggregate: 'Listing',
-    //     pipeline: query,
-    //     cursor: {}
-    //   });
+    return  await prisma.$runCommandRaw({
+        aggregate: 'Listing',
+        pipeline: query,
+        cursor: {}
+      });
       
   
   
-    // }
+    }
   
   
   
@@ -259,17 +259,17 @@ const range= url.searchParams.get('range:');
     
         
         
-  //         const client = await clientPromise;
-  // const database = client.db('test');
-  // const collection = database.collection('Listing');
+          const client = await clientPromise;
+  const database = client.db('test');
+  const collection = database.collection('Listing');
 
-  // try {
-  //   // Create the geospatial index
-  //   await collection.createIndex({ location: '2dsphere' });
-  //   console.log('Index created');
-  // } catch (error) {
-  //   console.error('Error creating index:', error);
-  // }
+  try {
+    // Create the geospatial index
+    await collection.createIndex({ location: '2dsphere' });
+    console.log('Index created');
+  } catch (error) {
+    console.error('Error creating index:', error);
+  }
 
 
           
