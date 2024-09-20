@@ -12,7 +12,7 @@ import { MongoClient } from "mongodb"
 let client;
 let clientPromise;
 
-const uri = "mongodb+srv://rs3296471t:flqRiXltxjPhnh1h@cluster100.gnswa.mongodb.net/test";
+const uri = process.env.DATABASE_URL ;
 
 if (!uri) {
   throw new Error("Please add your MongoDB URI to .env.local");
