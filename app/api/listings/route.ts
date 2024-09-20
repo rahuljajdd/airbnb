@@ -9,25 +9,25 @@ import { MongoClient } from "mongodb"
 
 
 
-let client;
-let clientPromise;
+// let client;
+// let clientPromise;
 
-const uri = process.env.DATABASE_URL ;
+// const uri = process.env.DATABASE_URL ;
 
-if (!uri) {
-  throw new Error("Please add your MongoDB URI to .env.local");
-}
+// if (!uri) {
+//   throw new Error("Please add your MongoDB URI to .env.local");
+// }
 
-if (process.env.NODE_ENV === "production") {
-  client = new MongoClient(uri);
-  clientPromise = client.connect();
-} else {
-  if (!global._mongoClientPromise) {
-    client = new MongoClient(uri);
-    global._mongoClientPromise = client.connect();
-  }
-  clientPromise = global._mongoClientPromise;
-}
+// if (process.env.NODE_ENV === "production") {
+//   client = new MongoClient(uri);
+//   clientPromise = client.connect();
+// } else {
+//   if (!global._mongoClientPromise) {
+//     client = new MongoClient(uri);
+//     global._mongoClientPromise = client.connect();
+//   }
+//   clientPromise = global._mongoClientPromise;
+// }
     
     
     
