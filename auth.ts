@@ -23,7 +23,11 @@ export const {handlers}= NextAuth({
         clientId: process.env.ID,
         clientSecret:process.env.SECRET,
     
-         // Example URI
+          authorization: {
+      params: {
+        redirect_uri: process.env.NEXTAUTH_URL + '/api/auth/callback/google',
+      },
+    },
     }),
 
 
