@@ -20,8 +20,8 @@ export const {handlers}= NextAuth({
     
   providers: [
     GoogleProvider({
-        clientId: "46452253666-rfd5vgji7idi3875vmahml1a0brtj78c.apps.googleusercontent.com",
-        clientSecret:"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",
+        clientId: process.env.ID,
+        clientSecret:process.env.SECRET,
     
          // Example URI
     }),
