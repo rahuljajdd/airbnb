@@ -25,7 +25,7 @@ export const {handlers}= NextAuth({
     
           authorization: {
       params: {
-        redirect_uri: process.env.NEXTAUTH_URL + '/api/auth/callback/google',
+        redirect_uri: process.env.NEXTAUTH_URL,
       },
     },
     }),
