@@ -1,5 +1,4 @@
-
-// @ts-nocheck
+//@ts-nocheck
 "use client"
 import React from 'react'
 import 'react-date-range/dist/styles.css'; // main css file
@@ -12,7 +11,7 @@ import { FaAirbnb } from "react-icons/fa6";
 import { IoSearchCircle } from "react-icons/io5";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { RiAccountCircleFill } from "react-icons/ri";
-import { SessionProvider } from "next-auth/react";
+import { SessionProvider, useSession } from "next-auth/react";
 import { IoHeartOutline } from "react-icons/io5";
 import Logpop from '@/app/components/Logpop';
 import { AiFillHeart } from "react-icons/ai"
@@ -21,6 +20,7 @@ import Super from '@/app/components/Super'
 import Login from '@/app/components/Login';
 import { useEffect } from 'react';
 import { useRouter } from "next/navigation";
+import Filter from '@/app/components/Filter';
 import { useParams } from 'next/navigation';
 import {TbMountain, TbPool} from 'react-icons/tb'
 import Map from '@/app/components/Map';
@@ -113,6 +113,7 @@ function showPosition(position) {
   const params=useParams();
 const id=params.listingId ;
 let reservations:Date[]=[]
+const {data:session}=useSession()
 
 const [item, setitem] = useState<any[]|null>(null)
 useEffect(() => {
@@ -178,32 +179,50 @@ const [state, setState] = useState([
 
   return (
       
-    <SessionProvider>
+<>
   
-     
-<div className="">
-  {registerpop&&<Register setregister={setregisterpop} setuserinfo={setuserinfo}></Register>}
-  
-{login&&<Login setregister={setlogin}></Login>}
-<div className=" border-b w-full p-3 px-4 bg-white flex justify-between fixed z-40  shadow-sm">
+
+
+<div className=" w-screen overflow-x-hidden ">
+  <div className=" h-full  relative flex  justify-center  items-center ">
+<div className={`transition-all opacity-0  w-full h-full absolute z-40 ${registerpop&&'opacity-100'}`}>
+
+  </div>
+  </div>
+
+       <div className="w-full h-full relative flex justify-center items-center">
+<div className={`transition-all opacity-0  w-full h-full absolute z-40 ${rent&&'opacity-100'}`}>
+  {(rent&&session)&&<Rent login={login} listings={listings} register={rent} setlistings={setlistings} setregister={setrent}></Rent>}
+ 
+  </div></div>
+
+  <div className="w-full h-full relative flex justify-center items-center">
+<div className={`transition-all opacity-0  w-full h-full absolute z-40 ${login&&'opacity-100'}`}>
+
+</div></div>
+<div className=" border-b p-3 px-4  flex justify-between fixed z-30 bg-white w-screen">
   
   <div className="flex items-center text-red-500 text-sm mr-1 md:text-xl font-medium  " onClick={()=>{router.push('/')}}><FaAirbnb size={35}></FaAirbnb> airbnb</div>
-  <div className="flex border p-2 rounded-full text-sm font-medium text-gray-700 shadow-md items-center hover:shadow-lg w-2/3 md:w-auto justify-between ">
-  <div className="border-r px-3 hidden items-center  cursor-pointer md:flex ">anywhere</div>
-  <div className="border-r px-3 flex items-center  cursor-pointer">anywhere</div>
-  <div className=" pl-3 text-gray-500 hidden items-center  cursor-pointer  md:flex md:w-auto ">Add Guest</div>
-  <div className="text-rose-700"><IoSearchCircle size={35}/> </div>
-  </div>
-  <div className="flex items-center gap-4 relative ">
-    <div className="h-full hidden items-center text-sm font-medium md:flex  hover:bg-neutral-200 rounded-full px-2 cursor-pointer transition-all " onClick={()=>{setrent(true); console.log("hello")}}> Airbnb your home</div>
-    <Logpop setopenlog={setopenlog} setlogin={setlogin} userinfo={userinfo} setregister={setregisterpop}></Logpop>
-    
+  
+
+
+
+  <Filter></Filter>
+  
  
+  
+  <div className="flex items-center gap-4 relative ">
+    <div className="h-full hidden items-center text-sm font-medium md:flex  hover:bg-neutral-200 rounded-full md:px-2 px-0 cursor-pointer transition-all " onClick={()=>{ if(!session){router.push('/login')}if(session){setrent(true)}; console.log("hello")}}> Airbnb your home</div>
+
+
+
+ 
+
+ <Logpop setopenlog={setopenlog} setlogin={setlogin} userinfo={userinfo} setregister={setregisterpop}></Logpop>
   </div>
   </div>
 
   </div>
-
 
 
 
@@ -223,7 +242,7 @@ const [state, setState] = useState([
 /> */}
 </div>
  
-   </SessionProvider>
+   </>
   )
 }
 

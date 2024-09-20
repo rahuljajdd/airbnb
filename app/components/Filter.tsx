@@ -64,6 +64,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/ui/tabs"
 import{DateRange} from'react-date-range';
 import { addDays } from 'date-fns';
 import { useSearchParams } from "next/navigation"
+import { ScrollArea } from "@/components/ui/scroll-area"
 const Filter = () => {
   
   const pathname=usePathname();
@@ -167,8 +168,8 @@ const [min, setmin] = useState(([Number(params.get('min'))]));
 const [max, setmax] = useState(([Number(params.get('max'))]));
 
 const items=Categories
-  return (
-    <Dialog  >
+return (
+  <Dialog  >
   <DialogTrigger>  
   <div className="md:flex hidden border p-2 rounded-full text-sm font-medium text-gray-700 shadow-md items-center hover:shadow-lg w-2/3 md:w-auto justify-between ">
   <div className="border-r px-3 hidden items-center  cursor-pointer md:flex ">anywhere</div>
@@ -180,10 +181,13 @@ const items=Categories
   <div className="flex items-center md:hidden rounded-full bg-white shadow-md px-2"> Search <div className="text-rose-700"><IoSearchCircle size={35}/> </div></div>
   
   </DialogTrigger>
-  <DialogContent>
+  <DialogContent className="mt-6 md:mt-0 pb-6 md:mb-0 px-1 md:px-7">
+ 
+
+  <ScrollArea className="w-full mb-7 md:mb-0 md:max-h-[900px] h-screen p-2 md:pt-0 pt-3 pr-4">
     <DialogHeader>
-      <DialogTitle>Search Filters</DialogTitle>
-      <DialogDescription>
+      <DialogTitle className="pb-4">Search Filters</DialogTitle>
+      <DialogDescription className="hidden md:block">
       Refine your search to find the perfect place to stay
       </DialogDescription>
     </DialogHeader>
@@ -208,13 +212,13 @@ const items=Categories
             autoFocus
             styling={ {zIndex:50,fontSize:"15px"}}
             fuseOptions={{ keys: ["display_name"] }}
-                resultStringKeyName="display_name"
+            resultStringKeyName="display_name"
             showItemsOnFocus
             formatResult={formatResult}
           />
 
 
-<div className='min-h-96 pt-2 mb-6 '>
+<div className='min-h-96 pt-2 md:mb-6  mb-2 '>
 <div> Set the radius for the loction search</div>
 <div className="flex gap-4">
     <Slider defaultValue={[30]} value={range} onValueChange={(value)=>{ setrange(value);}} max={100} step={1} />
@@ -223,10 +227,8 @@ const items=Categories
 <Map  geo={geo}></Map>
 
 </div>
-
-
   </TabsContent>
-  <TabsContent value="dates">
+  <TabsContent className="pb-4" value="dates">
 
   <h1 className='text-xl p-2'>When are you going?</h1>
   <p className='text-sm px-1 mb-2'>All the listings will be available on the choosen Dates </p>
@@ -247,15 +249,15 @@ const items=Categories
   </TabsContent>
   {/* <TabsContent value="category">
 
-  <h1 className='text-xl p-2'>What are your likings?</h1>
-  <p className='text-sm px-1 mb-2'>All the listings will be according to categories choosen </p>
-  {Categories&&<div className='  max-h-[525px] flex  flex-wrap gap-5 overflow-y-auto '>    {Categories?.map((items:any)=>{
-        return(
-          <Categoryinput onclick={(c)=>{ if(category.some(str => str === items.name)){setcategory(category.filter(str => str !== c))}else{ setcategory([...category,c]); }  console.log(category); console.log(c); console.log(items.name); console.log(Categories.some(str => str === items.name)) }} selected={  category.some(str => str === items.name) } name={items.name} icon={items.icon}></Categoryinput>
-        );
+<h1 className='text-xl p-2'>What are your likings?</h1>
+<p className='text-sm px-1 mb-2'>All the listings will be according to categories choosen </p>
+{Categories&&<div className='  max-h-[525px] flex  flex-wrap gap-5 overflow-y-auto '>    {Categories?.map((items:any)=>{
+  return(
+    <Categoryinput onclick={(c)=>{ if(category.some(str => str === items.name)){setcategory(category.filter(str => str !== c))}else{ setcategory([...category,c]); }  console.log(category); console.log(c); console.log(items.name); console.log(Categories.some(str => str === items.name)) }} selected={  category.some(str => str === items.name) } name={items.name} icon={items.icon}></Categoryinput>
+    );
     })}</div>}
- 
-  </TabsContent> */}
+    
+    </TabsContent> */}
   <TabsContent value="price">
   
   <h1 className='text-xl p-2'>What are your likings?</h1>
@@ -280,7 +282,7 @@ const items=Categories
 </Tabs>
 
 <Button variant="destructive" onClick={applyfilters} >Apply</Button>
-
+    </ScrollArea>
   </DialogContent>
 </Dialog>
   )

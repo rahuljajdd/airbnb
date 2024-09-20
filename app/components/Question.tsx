@@ -50,14 +50,14 @@ const {data:session}=useSession();
   return (
     <div>
 
-<Card className='w-[700px] h-[800px] m-5 mr-10 relative'>
+<Card className='    w-screen md:w-[700px] min-h-42 max-h-[800px] m-0 md:mt-0 mt-6 md:m-5 mr-10 relative'>
   <CardHeader>
     <CardTitle className='text-2xl'> Questions from users</CardTitle>
 
   </CardHeader>
   <CardContent className=''>
 
-<ScrollArea  className="h-[600px] w-full -m-2  p-4">
+<ScrollArea  className="h-[600px] w-full -m-2  md:p-4 p-0">
 
 
 
@@ -76,7 +76,7 @@ const {data:session}=useSession();
 
 
 
-  <Card className='w-[600px] mt-4'>
+  <Card className='md:w-[600px] w-full  md:mt-4 '>
 
 <CardContent className='flex justify-between'>
 
@@ -86,14 +86,14 @@ const {data:session}=useSession();
 
 <Avatar>
   <AvatarImage src={item.user?.image}></AvatarImage>
-  <AvatarFallback className='p-3 bg-slate-200 text-slate-500'><IoPersonSharp></IoPersonSharp></AvatarFallback>
+  <AvatarFallback className='md:p-3  bg-slate-200 text-slate-500'><IoPersonSharp></IoPersonSharp></AvatarFallback>
 </Avatar>
 <div className='pl-2'>
 
 
 
-  <div className='pt-4 font-semibold float-left '> {item?.question}</div>
-  <div  className='pt-3 text-gray-500 '> {item?.user?.email}</div>
+  <div className='pt-4 font-semibold float-left  text-sm'> {item?.question}</div>
+  <div  className='pt-3 text-gray-500 text-xs  '> {item?.user?.email}</div>
 </div>
 
 </div>
@@ -103,7 +103,7 @@ const {data:session}=useSession();
 
 {item?.answered?<Badge variant="destructive" className='h-min w-min mt-2'>answered</Badge>:<Badge variant="default" className='h-min w-min mt-2'>unanswered</Badge>}
 
-<div className='mt-7'>{ format(new Date(item.createdat), 'yyyy-MM-dd')}</div>
+<div className='mt-7  text-xs'>{ format(new Date(item.createdat), 'yyyy-MM-dd')}</div>
 </div>
 
 
