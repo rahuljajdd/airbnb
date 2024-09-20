@@ -180,7 +180,7 @@ const range= url.searchParams.get('range:');
   
   if(min&&maxx){
   const   price=  { $lt: Number(maxx), $gt:Number(min) }
-    // @ts-ignore
+   
     let category:any= { $exists: true, $ne: null }
 //  reservations =   {
 //     $not: {
@@ -259,17 +259,17 @@ const range= url.searchParams.get('range:');
     
         
         
-          const client = await clientPromise;
-  const database = client.db('test');
-  const collection = database.collection('Listing');
+  //         const client = await clientPromise;
+  // const database = client.db('test');
+  // const collection = database.collection('Listing');
 
-  try {
-    // Create the geospatial index
-    await collection.createIndex({ location: '2dsphere' });
-    console.log('Index created');
-  } catch (error) {
-    console.error('Error creating index:', error);
-  }
+  // try {
+  //   // Create the geospatial index
+  //   await collection.createIndex({ location: '2dsphere' });
+  //   console.log('Index created');
+  // } catch (error) {
+  //   console.error('Error creating index:', error);
+  // }
 
 
           
