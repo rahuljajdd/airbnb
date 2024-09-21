@@ -88,7 +88,7 @@ const Super = () => {
         <Skeleton className="h-6 w-48" />
       
 
-      <div className="flex text-xs gap-2 mt-2 text-gray-500 pb-6 border-b md:w-[700px] w-screen">
+      <div className="flex text-xs gap-2 mt-2 text-gray-500 pb-6 border-b md:w-[700px] w-screen ">
      
           <Skeleton className="h-4 w-24" />
         
