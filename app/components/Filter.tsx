@@ -169,122 +169,111 @@ const [max, setmax] = useState(([Number(params.get('max'))]));
 
 const items=Categories
 return (
-  <Dialog  >
+<Dialog>
   <DialogTrigger>  
-  <div className="md:flex hidden border p-2 rounded-full text-sm font-medium text-gray-700 shadow-md items-center hover:shadow-lg w-2/3 md:w-auto justify-between ">
-  <div className="border-r px-3 hidden items-center  cursor-pointer md:flex ">anywhere</div>
-
-  <div className="border-r px-3 flex items-center  cursor-pointer">anywhere</div>
-  <div className=" pl-3 text-gray-500 hidden items-center  cursor-pointer  md:flex md:w-auto ">Add Guest</div>
-  <div className="text-rose-700"><IoSearchCircle size={35}/> </div>
-  </div>
-  <div className="flex items-center md:hidden rounded-full bg-white shadow-md px-2"> Search <div className="text-rose-700"><IoSearchCircle size={35}/> </div></div>
-  
+    {/* Dialog Trigger for larger and smaller screens */}
+    <div className="md:flex hidden border p-2 rounded-full text-sm font-medium text-gray-700 shadow-md items-center hover:shadow-lg w-2/3 md:w-auto justify-between">
+      <div className="border-r px-3 hidden items-center cursor-pointer md:flex">Anywhere</div>
+      <div className="border-r px-3 flex items-center cursor-pointer">Anywhere</div>
+      <div className="pl-3 text-gray-500 hidden items-center cursor-pointer md:flex md:w-auto">Add Guest</div>
+      <div className="text-rose-700"><IoSearchCircle size={35} /></div>
+    </div>
+    <div className="flex items-center md:hidden rounded-full bg-white shadow-md px-2">
+      Search 
+      <div className="text-rose-700"><IoSearchCircle size={35} /></div>
+    </div>
   </DialogTrigger>
-  <DialogContent className="mt-6 md:mt-0 pb-6 md:mb-0 px-1 md:px-7">
- 
 
-  <ScrollArea className="w-full mb-7 md:mb-0 md:max-h-[900px] h-screen p-2 md:pt-0 pt-3 pr-4">
-    <DialogHeader>
-      <DialogTitle className="pb-4">Search Filters</DialogTitle>
-      <DialogDescription className="hidden md:block">
-      Refine your search to find the perfect place to stay
-      </DialogDescription>
-    </DialogHeader>
+  {/* Dialog Content */}
+  <DialogContent className="mt-0 pb-6 px-1 md:px-7 w-full h-screen flex flex-col justify-start items-start md:h-auto md:w-auto overflow-y-auto">
+    {/* Scrollable Area for Dialog Content */}
 
-    <Tabs defaultValue="account" className="  ">
-  <TabsList>
-    <TabsTrigger value="location">Location</TabsTrigger>
-    <TabsTrigger value="dates">Dates</TabsTrigger>
-  
-    <TabsTrigger value="price">Price</TabsTrigger>
-  </TabsList>
-  <TabsContent value="location"> 
-    
-    <h1 className='text-xl p-2'>Where are you going?</h1>
-     <p className='text-sm px-1 mb-2'>All the listings will be near the choosen location </p>
-    <ReactSearchAutocomplete
+      <DialogHeader>
+        <DialogTitle className="pb-4">Search Filters</DialogTitle>
+        <DialogDescription className="hidden md:block">
+          Refine your search to find the perfect place to stay
+        </DialogDescription>
+      </DialogHeader>
+
+      <Tabs defaultValue="account">
+        <TabsList>
+          <TabsTrigger value="location">Location</TabsTrigger>
+          <TabsTrigger value="dates">Dates</TabsTrigger>
+          <TabsTrigger value="price">Price</TabsTrigger>
+        </TabsList>
+
+        {/* Location Tab */}
+        <TabsContent  value="location"> 
+          <h1 className='text-xl p-2'>Where are you going?</h1>
+          <p className='text-sm px-1 mb-2'>All the listings will be near the chosen location</p>
+          <ReactSearchAutocomplete
             items={item}
             onSearch={handleOnSearch}
             onHover={handleOnHover}
             onSelect={handleOnSelect}
             onFocus={handleOnFocus}
             autoFocus
-            styling={ {zIndex:50,fontSize:"15px"}}
+            styling={{ zIndex: 50, fontSize: "15px" }}
             fuseOptions={{ keys: ["display_name"] }}
             resultStringKeyName="display_name"
             showItemsOnFocus
             formatResult={formatResult}
           />
+          <div className='min-h-96 w-screen md:w-full pt-2 md:mb-6 mb-2'>
+            <div>Set the radius for the location search</div>
+            <div className="flex gap-4">
+              <Slider defaultValue={[30]} value={range} onValueChange={(value) => setrange(value)} max={100} step={1} />
+              {range && (
+                <div className='p-3 rounded-lg border text-gray-600'>
+                  {range[0] === 100 ? <div>{range[0] * 10}Km+</div> : <div>{range[0] * 10}Km</div>}
+                </div>
+              )}
+            </div>
+            <Map geo={geo}></Map>
+          </div>
+        </TabsContent>
 
+        {/* Dates Tab */}
+        <TabsContent className="pb-4" value="dates">
+          <h1 className='text-xl p-2'>When are you going?</h1>
+          <p className='text-sm px-1 mb-2'>All the listings will be available on the chosen Dates</p>
+          <div className='w-[400px] text-sm flex justify-center border-b border-black'>
+            <DateRange
+              onChange={(item) => { setState([item.selection]); console.log(item); }}
+              moveRangeOnFirstSelection={false}
+              disabledDates={[]}
+              ranges={state}
+              direction="horizontal"
+            />
+          </div>
+        </TabsContent>
 
-<div className='min-h-96 pt-2 md:mb-6  mb-2 '>
-<div> Set the radius for the loction search</div>
-<div className="flex gap-4">
-    <Slider defaultValue={[30]} value={range} onValueChange={(value)=>{ setrange(value);}} max={100} step={1} />
-    {range&&<div className='p-3 rounded-lg border  text-gray-600'>{(range[0]===100)?<div>{range[0]*10}Km+</div>:<div>{(range[0]*10)}Km</div>}</div>}
-</div>
-<Map  geo={geo}></Map>
+        {/* Price Tab */}
+        <TabsContent value="price">
+          <h1 className='text-xl p-2'>What are your price preferences?</h1>
+          <p className='text-sm px-1 mb-2'>All the listings will be according to the selected price range</p>
+          <div className='p-4'>
+            <div>Min</div>
+            <div className='flex gap-4'>
+              <Slider defaultValue={[30]} value={min} onValueChange={(value) => setmin(value)} max={100} step={1} />
+              {min && <div className='p-3 rounded-lg border bg-slate-900 text-white'>${min[0] * 10}</div>}
+            </div>
+          </div>
+          <div>Max</div>
+          <div className='flex gap-4 px-3'>
+            <Slider defaultValue={[30]} value={max} onValueChange={(value) => setmax(value)} max={100} step={1} />
+            {max && <div className='p-3 rounded-lg border bg-slate-900 text-white'>${max[0] * 10}</div>}
+          </div>
+        </TabsContent>
+      </Tabs>
 
-</div>
-  </TabsContent>
-  <TabsContent className="pb-4" value="dates">
+      {/* Apply Filters Button */}
+      <Button variant="destructive" onClick={applyfilters}>Apply</Button>
 
-  <h1 className='text-xl p-2'>When are you going?</h1>
-  <p className='text-sm px-1 mb-2'>All the listings will be available on the choosen Dates </p>
-
-  <div className=' w-[400px] pl- text-sm flex justify-center border-b border-black'>
-  <DateRange
-  
-  onChange={(item)=> {setState([item.selection]); console.log(item)}}
-  // showSelectionPreview={}
-  moveRangeOnFirstSelection={false}
-  disabledDates={[]}
-  ranges={state}
-  direction="horizontal"
-/>
-
-
-</div>
-  </TabsContent>
-  {/* <TabsContent value="category">
-
-<h1 className='text-xl p-2'>What are your likings?</h1>
-<p className='text-sm px-1 mb-2'>All the listings will be according to categories choosen </p>
-{Categories&&<div className='  max-h-[525px] flex  flex-wrap gap-5 overflow-y-auto '>    {Categories?.map((items:any)=>{
-  return(
-    <Categoryinput onclick={(c)=>{ if(category.some(str => str === items.name)){setcategory(category.filter(str => str !== c))}else{ setcategory([...category,c]); }  console.log(category); console.log(c); console.log(items.name); console.log(Categories.some(str => str === items.name)) }} selected={  category.some(str => str === items.name) } name={items.name} icon={items.icon}></Categoryinput>
-    );
-    })}</div>}
-    
-    </TabsContent> */}
-  <TabsContent value="price">
-  
-  <h1 className='text-xl p-2'>What are your likings?</h1>
-  <p className='text-sm px-1 mb-2'>All the listings will be according to choose price range </p>
-<div className='p-4'>
-<div>Min</div>
-<div className='flex gap-4'>
-  <Slider defaultValue={[30]} value={min} onValueChange={(value)=>{ setmin(value);}} max={100} step={1} />
-  {min&&<div className='p-3 rounded-lg border bg-slate-900 text-white'>{(min[0]===100)?<div>-${min[0]*10}</div>:<div>${(min[0]*10)}</div>}</div>}
-</div>
-
-</div>
-<div>Max</div>
-<div className='flex gap-4 px-3'>
-  <Slider defaultValue={[30]} value={max} onValueChange={(value)=>{ setmax(value);}} max={100} step={1} />
-  {max&&<div className='p-3 rounded-lg border bg-slate-900 text-white'>{(max[0]===100)?<div>${max[0]*10}+</div>:<div>${(max[0]*10)}</div>}</div>}
-</div>
-
-
-
-  </TabsContent>
-</Tabs>
-
-<Button variant="destructive" onClick={applyfilters} >Apply</Button>
-    </ScrollArea>
   </DialogContent>
 </Dialog>
+
+
   )
 }
 

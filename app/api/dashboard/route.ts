@@ -18,16 +18,14 @@ const prisma= new PrismaClient();
     const {userid}= body;
 const email= userid
 
-  
-  
 
     
     const listings=await prisma.listing.findMany(
-        {where:{user:{email:'rs3296472t@gmail.com'}},  
+        {where:{user:{email:email}},  
         include:{reservations:true}
     })
     
-    console.log(listings);
+
 
 const reservation= await prisma.reservation.findMany({
 

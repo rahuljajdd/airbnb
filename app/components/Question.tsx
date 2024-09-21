@@ -76,7 +76,7 @@ const {data:session}=useSession();
 
 
 
-  <Card className='md:w-[600px] w-full  md:mt-4 '>
+  <Card className='md:w-[600px] w-full   md:mt-4 '>
 
 <CardContent className='flex justify-between'>
 
@@ -101,9 +101,9 @@ const {data:session}=useSession();
 
 
 
-{item?.answered?<Badge variant="destructive" className='h-min w-min mt-2'>answered</Badge>:<Badge variant="default" className='h-min w-min mt-2'>unanswered</Badge>}
+{item?.answered?<Badge variant="destructive" className='h-min md:text-xs text-[7px] w-min mt-2'>answered</Badge>:<Badge variant="default" className='h-min w-min mt-2 md:text-xs text-[7px]'>unanswered</Badge>}
 
-<div className='mt-7  text-xs'>{ format(new Date(item.createdat), 'yyyy-MM-dd')}</div>
+<div className='mt-7  md:text-xs text-[10px] ' >{ format(new Date(item.createdat), 'yyyy-MM-dd')}</div>
 </div>
 
 
@@ -114,8 +114,8 @@ const {data:session}=useSession();
   </DialogTrigger>
   <DialogContent>
     <DialogHeader>
-      <DialogTitle className='text-3xl'>{item.question}?</DialogTitle>
-      <DialogDescription className='text-xl'>
+      <DialogTitle className='text-xl'>{item.question}?</DialogTitle>
+      <DialogDescription className='text-base'>
       {item.answer?<>{item?.answer}</>:<div className='mt-5 text-2xl'><Alert><AlertTitle><div className='text-2xl font-semibold'>Sorry</div></AlertTitle><AlertDescription className='text-lg text-gray-600'>Sorry, this question is not yet answerd by the listing owner</AlertDescription></Alert></div>}
       </DialogDescription>
     </DialogHeader>

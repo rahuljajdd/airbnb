@@ -71,7 +71,7 @@ const Page = () => {
 
   
   
-<div className='flex flex-wrap  w-full  '>
+<div className='flex flex-wrap  w-full mx-auto  '>
 <Properties></Properties>
 </div>
   

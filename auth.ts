@@ -25,7 +25,7 @@ export const {handlers}= NextAuth({
     
           authorization: {
       params: {
-        redirect_uri: process.env.NEXTAUTH_URL,
+        redirect_uri: 'http://localhost:3000/api/auth/callback/google',
       },
     },
     }),
@@ -98,14 +98,16 @@ console.log(user)
 
     
 
-  ],secret:"mxckwdcxwmxck", session: {
-    strategy: 'jwt', // Use 'jwt' if you are using JWT for session management
-    maxAge: 60 * 60 * 24 * 7, // Session will expire after 7 days
-    updateAge: 24 * 60 * 60,  // Optional, the session is updated every 24 hours
-  },
-  jwt: {
-    maxAge: 60 * 60 * 24 * 7, // JWT token expires after 7 days
-  },
+  ],secret:"mxckwdcxwmxck",
+  
+  // session: {
+  //   strategy: 'jwt', // Use 'jwt' if you are using JWT for session management
+  //   maxAge: 60 * 60 * 24 * 7, // Session will expire after 7 days
+  //   updateAge: 24 * 60 * 60,  // Optional, the session is updated every 24 hours
+  // },
+  // jwt: {
+  //   maxAge: 60 * 60 * 24 * 7, // JWT token expires after 7 days
+  // },
   
   pages: {
     signIn: "/login" // Custom sign-in Page
@@ -117,7 +119,7 @@ console.log(user)
  callbacks:{
 
     async signIn(credentials) {
-
+console.log(credentials);
 
       if(credentials.account.provider==="google"){
 
@@ -165,6 +167,8 @@ return true
 
 ,async session({ session, user, token }) {
   try{
+
+    console.log(token,'toekn')
 
     if (token && token.email) {
       // Fetch the user from the database using Prisma

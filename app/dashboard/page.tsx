@@ -37,8 +37,8 @@ const Page = () => {
   useEffect(() => {
   
         console.log(session?.user)
-    axios.post('api/dashboard' ,{userid:"rs3296472t@gmail.com"}).then((res)=>{setreservation(res.data)})
-      }, [])
+    axios.post('api/dashboard' ,{userid:session?.user}).then((res)=>{setreservation(res.data)})
+      }, [session])
 
 
 
@@ -51,12 +51,7 @@ const Page = () => {
 
     
     <div className="flex items-center text-red-500 text-sm mr-1 md:text-xl font-medium  " ><FaAirbnb size={35}></FaAirbnb> airbnb</div>
-    <div className="flex border p-2 rounded-full text-sm font-medium text-gray-700 shadow-md items-center hover:shadow-lg w-2/3 md:w-auto justify-between ">
-    <div className="border-r px-3 hidden items-center  cursor-pointer md:flex ">anywhere</div>
-    <div className="border-r px-3 flex items-center  cursor-pointer">anywhere</div>
-    <div className=" pl-3 text-gray-500 hidden items-center  cursor-pointer  md:flex md:w-auto ">Add Guest</div>
-    <div className="text-rose-700"><IoSearchCircle size={35}/> </div>
-    </div>
+   
     <div className="flex items-center gap-4 relative ">
       <div className="h-full hidden items-center text-sm font-medium md:flex  hover:bg-neutral-200 rounded-full px-2 cursor-pointer transition-all " onClick={()=>{ console.log("hello")}}> Airbnb your home</div>
 <Logpop></Logpop>

@@ -37,7 +37,7 @@ model Users {
   listings Listing[]
   reservation Reservation[]
   questions Question[]
-
+favourites  Favourites[]
   Reviews Reviews[]
 }
 
@@ -109,6 +109,14 @@ totalprice Int
 createdat DateTime @default(now())
 user Users @relation(fields: [userid],references: [id],onDelete:Cascade)
 listing Listing @relation(fields: [listingId],references: [id],onDelete:Cascade)
+}
+model Favourites {
+id String @id @default(auto()) @map("_id") @db.ObjectId
+userid String @db.ObjectId
+listingId String @db.ObjectId
+
+user Users @relation(fields: [userid],references: [id],onDelete:Cascade)
+
 }
 
 

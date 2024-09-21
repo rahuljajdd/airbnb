@@ -33,6 +33,7 @@ import Rent from './Rentmodal';
 import EditModal from './EditModal';
 import { useSession } from 'next-auth/react';
 import { json } from 'stream/consumers';
+import { addtofavourites } from '@/actions';
 
 
 // @ts-ignore
@@ -52,9 +53,23 @@ const router=useRouter();
     <div className='p-5  mx-auto md:mx-0 cursor-pointer group'  >
     
     <div className='md:w-60 w-60 h-60 relative overflow-hidden rounded-lg  ' onClick={()=>{ 
+
+
       // @ts-ignore
       console.log(items._id);router.push(`/listings/${items.id}`)}}>
-        <div className=' z-50' onClick={(e)=>{ e.stopPropagation(); console.log(id);console.log(items.id);console.log(items.id); if(!localStorage.getItem('likes')){ setlike(true);  localStorage.setItem('like',JSON.stringify([item.id])); toast.success('added to favourites'); return  }  if(JSON.parse(localStorage.getItem('likes'))?.inludes(items.id)){ localStorage.setItem('like',JSON.parse(localStorage.getItem('likes')).filter(item=>item==!items.id)); toast.success('added to favourites');setlike(true)} else{ localStorage.setItem('likes',JSON.stringify([...JSON.parse(localStorage.getItem('likes'),items.id)]));toast.success('removed from favourites');setlike(false)}}}>
+        <div className=' z-50'  onClick={async(e)=>{e.stopPropagation();
+
+setlike(true)
+console.log(session?.user?.email)
+const result= await addtofavourites(session?.user?.email,id)
+if(result?.status===400){
+  toast.error(result?.message)
+}
+else{
+  toast.success(result?.message)
+}
+
+        }}>
 
         <IoHeart size={30}    className= { `   absolute top-3  right-3 z-10  transition-all hover:scale-110 ${like?"text-red-700":'text-gray-600 opacity-50'} shadow-2xl `}></IoHeart>
         </div>
@@ -71,10 +86,10 @@ const router=useRouter();
   <div className='flex '>
 
     
-{delisting&&<div className='w-full  '>
+{delisting&&<div className='w-full    '>
 <Dialog >
   <DialogTrigger><Button className='w-60 mt-2 '  >Edit</Button></DialogTrigger>
-  <DialogContent>
+  <DialogContent className='md:h-auto h-full    min-h-screen overflow-y-auto  '>
     <DialogHeader>
       <DialogTitle>Edit</DialogTitle>
 

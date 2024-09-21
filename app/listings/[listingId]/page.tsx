@@ -183,64 +183,87 @@ const [state, setState] = useState([
   
 
 
-<div className=" w-screen overflow-x-hidden ">
-  <div className=" h-full  relative flex  justify-center  items-center ">
-<div className={`transition-all opacity-0  w-full h-full absolute z-40 ${registerpop&&'opacity-100'}`}>
-
+<div className="w-screen overflow-x-hidden">
+  {/* Main container with full-screen height */}
+  <div className="h-full relative flex justify-center items-center">
+    {/* Register pop-up */}
+    <div className={`transition-all opacity-0 w-full h-full absolute z-40 ${registerpop && 'opacity-100'}`}>
+      {/* Add your Register component content */}
+    </div>
   </div>
-  </div>
 
-       <div className="w-full h-full relative flex justify-center items-center">
-<div className={`transition-all opacity-0  w-full h-full absolute z-40 ${rent&&'opacity-100'}`}>
-  {(rent&&session)&&<Rent login={login} listings={listings} register={rent} setlistings={setlistings} setregister={setrent}></Rent>}
- 
-  </div></div>
-
+  {/* Rent pop-up */}
   <div className="w-full h-full relative flex justify-center items-center">
-<div className={`transition-all opacity-0  w-full h-full absolute z-40 ${login&&'opacity-100'}`}>
-
-</div></div>
-<div className=" border-b p-3 px-4  flex justify-between fixed z-30 bg-white w-screen">
-  
-  <div className="flex items-center text-red-500 text-sm mr-1 md:text-xl font-medium  " onClick={()=>{router.push('/')}}><FaAirbnb size={35}></FaAirbnb> airbnb</div>
-  
-
-
-
-  <Filter></Filter>
-  
- 
-  
-  <div className="flex items-center gap-4 relative ">
-    <div className="h-full hidden items-center text-sm font-medium md:flex  hover:bg-neutral-200 rounded-full md:px-2 px-0 cursor-pointer transition-all " onClick={()=>{ if(!session){router.push('/login')}if(session){setrent(true)}; console.log("hello")}}> Airbnb your home</div>
-
-
-
- 
-
- <Logpop setopenlog={setopenlog} setlogin={setlogin} userinfo={userinfo} setregister={setregisterpop}></Logpop>
-  </div>
+    <div className={`transition-all opacity-0 w-full h-full absolute z-40 ${rent && 'opacity-100'}`}>
+      {(rent && session) && (
+        <Rent 
+          login={login} 
+          listings={listings} 
+          register={rent} 
+          setlistings={setlistings} 
+          setregister={setrent}
+        />
+      )}
+    </div>
   </div>
 
+  {/* Login pop-up */}
+  <div className="w-full h-full relative flex justify-center items-center">
+    <div className={`transition-all opacity-0 w-full h-full absolute z-40 ${login && 'opacity-100'}`}>
+      {/* Add your Login component content */}
+    </div>
   </div>
 
+  {/* Header (Fixed) */}
+  <div className="border-b p-3 px-4 flex justify-between fixed top-0 left-0 z-30 bg-white w-full">
+    <div className="flex items-center text-red-500 text-sm mr-1 md:text-xl font-medium" onClick={() => { router.push('/') }}>
+      <FaAirbnb size={35} />
+      Airbnb
+    </div>
+ {/* Dialog Trigger for larger and smaller screens */}
+ <div className="md:flex hidden border p-2 rounded-full text-sm font-medium text-gray-700 shadow-md items-center hover:shadow-lg w-2/3 md:w-auto justify-between " >
+      <div className="border-r px-3 hidden items-center cursor-pointer md:flex">Anywhere</div>
+      <div className="border-r px-3 flex items-center cursor-pointer">Anywhere</div>
+      <div className="pl-3 text-gray-500 hidden items-center cursor-pointer md:flex md:w-auto">Add Guest</div>
+      <div className="text-rose-700"><IoSearchCircle size={35} /></div>
+    </div>
+    <div  onClick={()=>{router.push('/')}} className="flex  items-center md:hidden rounded-full bg-white shadow-md px-2">
+      Search 
+      <div className="text-rose-700"><IoSearchCircle size={35} /></div>
+    </div>
+    <div className="flex items-center gap-4 relative">
+      <div 
+        className="h-full hidden items-center text-sm font-medium md:flex hover:bg-neutral-200 rounded-full md:px-2 px-0 cursor-pointer transition-all"
+        onClick={() => { !session ? router.push('/login') : setrent(true) }}
+      >
+        Airbnb your home
+      </div>
+      <Logpop setopenlog={setopenlog} setlogin={setlogin} userinfo={userinfo} setregister={setregisterpop} />
+    </div>
+  </div>
 
-
-
-  
- {item?<Iteminfo  item={item} reviews={item.reviews} id={item.id} user={user} description={item.descriptiom} image={item.imagesrc} guest={item.guestcount} room={item.roomcount} bathrooms={item.bathroomcount} locations={item.locationValue} title={item.title} category={item.category} price={item.price}   ></Iteminfo>:  <Super></Super>}
-
-{/* {reseravtions  } */}
-<div>
-{/* <DateRange
-  onChange={(item)=> {setState([item.selection]); console.log(item)}}
-  showSelectionPreview={true}
-  moveRangeOnFirstSelection={false}
-  
-  ranges={state}
-  direction="horizontal"
-/> */}
+  {/* Item or Super component */}
+  {item ? (
+    <Iteminfo
+      item={item}
+      reviews={item.reviews}
+      id={item.id}
+      user={user}
+      description={item.descriptiom}
+      image={item.imagesrc}
+      guest={item.guestcount}
+      room={item.roomcount}
+      bathrooms={item.bathroomcount}
+      locations={item.locationValue}
+      title={item.title}
+      category={item.category}
+      price={item.price}
+    />
+  ) : (
+    <Super />
+  )}
 </div>
+
  
    </>
   )

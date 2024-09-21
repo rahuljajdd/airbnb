@@ -58,7 +58,7 @@ const Super = () => {
 
 
 
-<div className=" pt-24 p-10 w-[1200]">
+<div className=" pt-24 p-10 md:w-[1200] w-screen ">
 
 <div className='w-[700px]'>
 
@@ -88,7 +88,7 @@ const Super = () => {
         <Skeleton className="h-6 w-48" />
       
 
-      <div className="flex text-xs gap-2 mt-2 text-gray-500 pb-6 border-b w-[700px]">
+      <div className="flex text-xs gap-2 mt-2 text-gray-500 pb-6 border-b md:w-[700px] w-screen">
      
           <Skeleton className="h-4 w-24" />
         

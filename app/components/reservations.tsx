@@ -31,9 +31,10 @@ const Reservation = () => {
 {(reservation?.length===0)&&<> <div className='w-full h-96 text-2xl text-neutral-800 font-medium flex justify-center items-center flex-col '>No properties  created<div className='text-base font-normal text-neutral-500'>Please make reservations first</div></div>
   </>}
 
-<div className='flex flex-wrap  mx-auto w-screen'>
+<div className='flex flex-wrap   mx-auto w-screen'>
+  
 
-      {(reservation===null)&&[1,1,1,1,1,1,1,1,1,11,1].map((item)=>{return(<SkeletonCard></SkeletonCard>)})}</div>
+      {(reservation===null)&&[1,1,1,1,1,1,1,1,1,11,1].map((item)=>{return(<div className='mx-auto'><SkeletonCard></SkeletonCard></div>)})}</div>
 
       {reservation?.map((trip:any)=>{   
         

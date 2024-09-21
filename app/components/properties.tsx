@@ -38,7 +38,7 @@ const [loader, setloader] = useState()
 
 <div className='flex flex-wrap '>
 
-      {(properties===null)&&[1,1,1,1,1,1,1,1,1,11,1].map((item)=>{return(<SkeletonCard></SkeletonCard>)})}
+      {(properties===null)&&[1,1,1,1,1,1,1,1,1,11,1].map((item)=>{return(<div className='mx-auto'><SkeletonCard></SkeletonCard></div>)})}
 
 {properties?.map((item:any)=>{ 
 
