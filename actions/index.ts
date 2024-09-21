@@ -5,7 +5,7 @@ const prism = new PrismaClient();
 
 export const addtofavourites= async({email,listingId}:{email:string,listingId:string})=>{
 
-console.log(email)s
+console.log(email)
 
 
     if(!email){
