@@ -51,6 +51,7 @@ import dynamic from 'next/dynamic';
 import { differenceInCalendarDays, differenceInDays, eachDayOfInterval } from 'date-fns';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -185,13 +186,13 @@ return (
       <div className="text-rose-700"><IoSearchCircle size={35} /></div>
     </div>
   </DialogTrigger>
-
   {/* Dialog Content */}
-  <DialogContent className="mt-0 pb-6 px-1 md:px-7 w-full h-screen flex flex-col justify-start items-start md:h-auto  overflow-y-auto md:w-[700px]">
+  <DialogContent className="mt-0 pb-6  md:px-7 px-3 rounded-lg  md:scale-100  scale-90  w-full h-screen flex flex-col justify-start items-start md:h-auto  overflow-y-auto md:w-[700px]">
     {/* Scrollable Area for Dialog Content */}
 
       <DialogHeader>
         <DialogTitle className="pb-4">Search Filters</DialogTitle>
+<DialogClose></DialogClose>
         <DialogDescription className="hidden md:block">
           Refine your search to find the perfect place to stay
         </DialogDescription>
@@ -231,7 +232,11 @@ return (
                 </div>
               )}
             </div>
+
+            <div className="scale-x-95 md:scale-100 pr-4 md:pr-0 w-full ">
+
             <Map geo={geo}></Map>
+            </div>
           </div>
         </TabsContent>
 
