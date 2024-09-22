@@ -94,7 +94,7 @@ export default function Home() {
     <SessionProvider>
   
  
-<div className="fixed bottom-0 md:hidden  bg-red-600 right-0 text-white flex items-center rounded-full p-2 z-50 m-2"  onClick={()=>{ if(!userInfo){router.push('/auth/sign-in')}if(userInfo){setrent(true)}; console.log("hello")}}>Create listing<MdAdd size={20}></MdAdd></div>
+<div className="fixed bottom-0 md:hidden  bg-red-600 right-0 text-white flex items-center rounded-full p-2 z-50 m-2"  onClick={()=>{ if(!userInfo){router.push('/auth/sign-up')}if(userInfo){setrent(true)}; console.log("hello")}}>Create listing<MdAdd size={20}></MdAdd></div>
 
 <div className=" ">
   <div className="w-full h-full relative flex justify-center items-center">

@@ -1,7 +1,7 @@
 
 //@ts-nocheck
 'use client'
-
+import { categories } from "./Categories"
 import {
   Dialog,
   DialogContent,
