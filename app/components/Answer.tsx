@@ -14,7 +14,8 @@ import { ScrollArea } from '@/components/ui/scroll-area'
   import { Avatar, AvatarImage } from '../ui/avatar'
   import { AvatarFallback } from '@radix-ui/react-avatar'
   import { IoPersonSharp } from 'react-icons/io5'
-
+import { useContext } from 'react'
+import { Context } from './UserProvider'
 import {
     Card,
     CardContent,
@@ -27,12 +28,21 @@ import {
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
 import { Alert, AlertDescription, AlertTitle } from '@/app/ui/alert'
+import { Item } from '@radix-ui/react-dropdown-menu'
+import { Skeleton } from '../ui/skeleton'
 const Answer = () => {
 
-const {data:session}=useSession();
+  const context = useContext(Context);
+
+  // Check if the context is defined
+  if (!context) {
+    throw new Error('MyComponent must be used within a UserProviders');
+  }
+
+  const { userInfo } = context;
 
     const [questions, setquestions] = useState('')
-    const [questionset, setquestionset] = useState([])
+    const [questionset, setquestionset] = useState([1])
     const [loader, setloader] = useState(false)
 
 
@@ -43,11 +53,11 @@ if(!loader){
 
 
   
-          axios.post('/api/answers',{email:session?.user?.email}).then((res)=>{setquestionset(res.data)}).catch(e=>console.log(e));
+          axios.post('/api/answers',{email:userInfo?.email}).then((res)=>{setquestionset(res.data)}).catch(e=>console.log(e));
 
 }
     
-    }, [loader,session])
+    }, [loader,userInfo])
     
   return (
     <div>
@@ -63,7 +73,21 @@ if(!loader){
 
 
 
-{questionset.length>0&&questionset.map((item:any)=>{
+{(questionset[0]===1)&&<div>
+  
+{[1,1,1,1,1,1,1].map((item)=>{return( <div> <Skeleton className='w-[550px] mt-4 h-32'></Skeleton> </div>)})}
+  
+  
+  </div>}
+
+{(questionset.length===0)&&<div className='  h-full   items-center flex justify-center'>
+  
+no qouestion ywt on your listings
+  
+  
+  </div>}
+
+{(questionset[0]!==1)&&questionset.map((item:any)=>{
 
   
   return(
@@ -125,7 +149,7 @@ if(!loader){
    
       </DialogDescription>
     </DialogHeader>
-  <DialogFooter>{!(item.answer)&&<Button disabled={loader} onClick={()=>{ setloader(true); axios.put('/api/answers',{questions,id:item.id,email:session?.user?.email}).then((res)=>{setquestionset(res.data);setloader(false)})}} className='p-5'>{loader?"Posting..":"Answer"}</Button>}</DialogFooter>
+  <DialogFooter>{!(item.answer)&&<Button disabled={loader} onClick={()=>{ setloader(true); axios.put('/api/answers',{questions,id:item.id,email:userInfo?.email}).then((res)=>{setquestionset(res.data);setloader(false)})}} className='p-5'>{loader?"Posting..":"Answer"}</Button>}</DialogFooter>
   </DialogContent>
 </Dialog>
 

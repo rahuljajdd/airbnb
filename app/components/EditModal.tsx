@@ -1,6 +1,6 @@
 //@ts-nocheck
 "use client"
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 
 
@@ -48,7 +48,7 @@ import {
   import { IoMdAdd } from "react-icons/io";
 
 import { MdClose, MdDelete } from 'react-icons/md';
-  
+  import { Context } from './UserProvider'
 
 
 enum steps{
@@ -86,7 +86,14 @@ console.log(items);
 
 
 
-const {data:session}=useSession();
+    const context = useContext(Context);
+
+    // Check if the context is defined
+    if (!context) {
+      throw new Error('MyComponent must be used within a UserProviders');
+    }
+  
+    const { userInfo } = context;
 
 
 
@@ -619,7 +626,7 @@ const [loadr, setloadr] = useState(false)
    }
  
 
-   axios.put('/api/listings',{data:data,user:session?.user,listingid:items.id}).then((res)=>{ toast.success(res.data.msg);  setstep(steps.CATEGORY);
+   axios.put('/api/listings',{data:data,user:userInfo,listingid:items.id}).then((res)=>{ toast.success(res.data.msg);  setstep(steps.CATEGORY);
    
 
     setproperties(res.data);

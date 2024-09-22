@@ -11,7 +11,8 @@ import { FaAirbnb } from "react-icons/fa6";
 import { IoSearchCircle } from "react-icons/io5";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { RiAccountCircleFill } from "react-icons/ri";
-import { SessionProvider, useSession } from "next-auth/react";
+import { useContext } from 'react';
+import { Context } from '@/app/components/UserProvider';
 import { IoHeartOutline } from "react-icons/io5";
 import Logpop from '@/app/components/Logpop';
 import { AiFillHeart } from "react-icons/ai"
@@ -113,7 +114,14 @@ function showPosition(position) {
   const params=useParams();
 const id=params.listingId ;
 let reservations:Date[]=[]
-const {data:session}=useSession()
+const context = useContext(Context);
+
+// Check if the context is defined
+if (!context) {
+  throw new Error('MyComponent must be used within a UserProviders');
+}
+
+const { userInfo } = context;
 
 const [item, setitem] = useState<any[]|null>(null)
 useEffect(() => {
@@ -195,7 +203,7 @@ const [state, setState] = useState([
   {/* Rent pop-up */}
   <div className="w-full h-full relative flex justify-center items-center">
     <div className={`transition-all opacity-0 w-full h-full absolute z-40 ${rent && 'opacity-100'}`}>
-      {(rent && session) && (
+      {(rent && userInfo) && (
         <Rent 
           login={login} 
           listings={listings} 
@@ -234,11 +242,11 @@ const [state, setState] = useState([
     <div className="flex items-center gap-4 relative">
       <div 
         className="h-full hidden items-center text-sm font-medium md:flex hover:bg-neutral-200 rounded-full md:px-2 px-0 cursor-pointer transition-all"
-        onClick={() => { !session ? router.push('/login') : setrent(true) }}
+        onClick={() => { !userInfo ? router.push('/login') : setrent(true) }}
       >
         Airbnb your home
       </div>
-      <Logpop setopenlog={setopenlog} setlogin={setlogin} userinfo={userinfo} setregister={setregisterpop} />
+      <Logpop setopenlog={setopenlog} setlogin={setlogin} userinfo={userInfo} setregister={setregisterpop} />
     </div>
   </div>
 

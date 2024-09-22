@@ -1,5 +1,5 @@
 "use client"
-
+//@ts-nocheck
 import {
   Card,
   CardContent,
@@ -41,6 +41,9 @@ import { BiMap } from "react-icons/bi";
 import { DialogTrigger } from "@radix-ui/react-dialog";
 import { FaSearchLocation } from "react-icons/fa"
 import { MdAdd } from "react-icons/md"
+import { useContext } from "react"
+import { Context } from "./components/UserProvider"
+import { Skeleton } from "./ui/skeleton"
 export default function Home() {
   const [openlog, setopenlog] = useState(false);
   const [login, setlogin] = useState(false);
@@ -49,7 +52,22 @@ export default function Home() {
   const [userinfo, setuserinfo] = useState(null);
   const [listings, setlistings] = useState([])
   const Maps = dynamic(() => import('@/app/components/Maps'), { ssr: false });
-const{data:session}=useSession();
+
+
+
+
+
+
+
+  const context = useContext(Context);
+
+  // Check if the context is defined
+  if (!context) {
+    throw new Error('MyComponent must be used within a UserProviders');
+  }
+
+  const { userInfo } = context;
+
 
   const pathname=usePathname();
   
@@ -76,7 +94,7 @@ const{data:session}=useSession();
     <SessionProvider>
   
  
-<div className="fixed bottom-0 bg-red-600 right-0 text-white flex items-center rounded-full p-2 z-50 m-2"  onClick={()=>{ if(!session){router.push('/login')}if(session){setrent(true)}; console.log("hello")}}>Create listing<MdAdd size={20}></MdAdd></div>
+<div className="fixed bottom-0 md:hidden  bg-red-600 right-0 text-white flex items-center rounded-full p-2 z-50 m-2"  onClick={()=>{ if(!userInfo){router.push('/auth/sign-in')}if(userInfo){setrent(true)}; console.log("hello")}}>Create listing<MdAdd size={20}></MdAdd></div>
 
 <div className=" ">
   <div className="w-full h-full relative flex justify-center items-center">
@@ -87,7 +105,7 @@ const{data:session}=useSession();
 
        <div className="w-full h-full relative flex justify-center items-center">
 <div className={`transition-all opacity-0  w-full h-full absolute z-40 ${rent&&'opacity-100'}`}>
-  {(rent&&session)&&<Rent login={login} listings={listings} register={rent} setlistings={setlistings} setregister={setrent}></Rent>}
+  {(rent&&userInfo)&&<Rent login={login} listings={listings} register={rent} setlistings={setlistings} setregister={setrent}></Rent>}
  
   </div></div>
 
@@ -153,7 +171,7 @@ const{data:session}=useSession();
  
   
   <div className="flex items-center gap-4 relative ">
-    <div className="h-full hidden items-center text-sm font-medium md:flex  hover:bg-neutral-200 rounded-full px-2 cursor-pointer transition-all " onClick={()=>{ if(!session){router.push('/login')}if(session){setrent(true)}; console.log("hello")}}> Airbnb your home</div>
+    <div className="h-full hidden items-center text-sm font-medium md:flex  hover:bg-neutral-200 rounded-full px-2 cursor-pointer transition-all " onClick={()=>{ if(!userInfo){router.push('/auth/sign-up')}if(userInfo){setrent(true)}; console.log("hello")}}> Airbnb your home</div>
 
 
 
@@ -182,7 +200,7 @@ const{data:session}=useSession();
  <div className="  w-full md:w-2/5 " >
 
  
- {!(listings.length===0)&& <div className="hidden md:block"><Maps listings={listings}></Maps></div>} 
+ {(listings.length!==0)?<div className="hidden md:block"><Maps listings={listings}></Maps></div>:<div className="w-full   h-full">  <Skeleton className="w-full h-[70vh]"></Skeleton></div>} 
   </div>
 </div>
 

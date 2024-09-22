@@ -1,5 +1,6 @@
-
 //@ts-nocheck
+
+'use client'
 import React, { useEffect, useState } from 'react'
 import { Badge } from "@/app/ui/badge"
 
@@ -24,7 +25,9 @@ import {
   } from "@/app/ui/card"
   import { Button } from '@/app/ui/button'
 import axios from 'axios'
-import { useSession } from 'next-auth/react'
+
+import { Context } from './UserProvider'
+import { useContext } from 'react';
 import { Alert, AlertDescription, AlertTitle } from '@/app/ui/alert'
 import { Avatar, AvatarImage } from '../ui/avatar'
 import { AvatarFallback } from '@radix-ui/react-avatar'
@@ -32,7 +35,14 @@ import { FaPerson } from 'react-icons/fa6'
 import { IoPersonSharp } from 'react-icons/io5'
 const Question = () => {
 
-const {data:session}=useSession();
+  const context = useContext(Context);
+
+  // Check if the context is defined
+  if (!context) {
+    throw new Error('MyComponent must be used within a UserProviders');
+  }
+
+  const { userInfo } = context;
 
     const [questions, setquestions] = useState('')
     const [questionset, setquestionset] = useState([])
@@ -62,7 +72,7 @@ const {data:session}=useSession();
 
 
 
-{questionset?.map((item:any)=>{
+{(questionset.length!==0)&&questionset?.map((item:any)=>{
   
   
   return(
@@ -162,7 +172,7 @@ const {data:session}=useSession();
     </DialogHeader>
 
 <textarea onChange={(e)=>{setquestions(e.target.value)}} placeholder='ask question here' className='p-3 border rounded-lg min-h-28'></textarea>
-<Button disabled={!(questions.length>1&&session?.user)} className='w-min px-4' onClick={()=>{  axios.post('/api/questions',{questions,email:session?.user?.email}).then((res)=>{setquestionset([...questionset,res.data])})  }}>Post</Button>
+<Button disabled={!(questions.length>1&&userInfo)} className='w-min px-4' onClick={()=>{  axios.post('/api/questions',{questions,email:userInfo?.email}).then((res)=>{setquestionset([...questionset,res.data])})  }}>Post</Button>
 
 
 

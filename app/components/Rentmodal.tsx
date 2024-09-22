@@ -1,5 +1,7 @@
 
 //@ts-nocheck
+'use client'
+
 import {
   Dialog,
   DialogContent,
@@ -27,20 +29,21 @@ import Categoryinput from './Categoryinput';
 import { useForm } from 'react-hook-form';
 
 import { useRouter } from 'next/navigation';
-import { categories } from './Categories';
-
+import Categories from "./Categories";
+import { Context } from "./UserProvider";
 import axios from 'axios';
-
+import { useContext } from "react";
 import dynamic from 'next/dynamic';
 
 import Counter from './Counter';
 
-import { useSession } from 'next-auth/react';
+
 import { Button } from "@/app/ui/button";
 import { FcWiFiLogo } from "react-icons/fc";
 import { FaDog, FaMountain, FaParking, FaTv } from "react-icons/fa";
 import { FaKitchenSet } from "react-icons/fa6";
 import { IoMdAdd } from "react-icons/io";
+import { userInfo } from "os";
 
 
 
@@ -64,7 +67,13 @@ const [dropup, setdropup] = useState(false)
 const [dropdown, setdropdown] = useState(false)
 const [loading, setloading] = useState(false)
 const [step, setstep] = useState(steps.CATEGORY);
-const {data:session}=useSession();
+
+
+
+
+
+
+
 const [geo, setgeo] = useState([48.8566,2.3522])
 const [Location, setLocation] = useState('')
 
@@ -130,7 +139,14 @@ const [Location, setLocation] = useState('')
 
   
 
+  const context = useContext(Context);
 
+  // Check if the context is defined
+  if (!context) {
+    throw new Error('MyComponent must be used within a UserProviders');
+  }
+
+  const { userInfo } = context;
 
 
 
@@ -756,7 +772,7 @@ const submit=handleSubmit((data)=>{
   }
 
   
-  axios.post('/api/listings',{data:data,user:session?.user}).then((res)=>{
+  axios.post('/api/listings',{data:data,user:userInfo}).then((res)=>{
     
     const{error}=res.data
     if(error){

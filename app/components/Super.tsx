@@ -58,64 +58,49 @@ const Super = () => {
 
 
 
-<div className=" pt-24 p-10 md:w-[1200] w-screen ">
+<div className="pt-24 p-10 md:w-[1200px] w-screen">
 
-<div className='w-[700px]'>
-
+  {/* First Section */}
+  <div className="md:w-[700px] w-full"> 
     <Skeleton className="h-6 w-40" />
+  </div>
 
-</div>
-<div className='w-[700px]'>
-
+  {/* Second Section */}
+  <div className="w-full md:w-[700px]">
     <Skeleton className="h-6 w-40" />
+  </div>
 
-</div>
-
-  
-
-    <div className="flex flex-col space-y-3 w-[1100px]">
-      <Skeleton className="h-[500px] w-[250px]  rounded-xl" />
-      <div className="space-y-2">
-        <Skeleton className="h-4 w-[250px]" />
-        <Skeleton className="h-4 w-[200px]" />
-      </div>
+  {/* Third Section */}
+  <div className="flex flex-col space-y-3 w-full md:w-[1100px]">
+    <Skeleton className="h-[500px] w-full md:w-[250px] rounded-xl" />
+    <div className="space-y-2">
+      <Skeleton className="h-4 w-full md:w-[250px]" />
+      <Skeleton className="h-4 w-full md:w-[200px]" />
     </div>
-  
+  </div>
 
-  <div className="flex flex-col lg:flex-row gap-24">
-    <div className="">
-    
-        <Skeleton className="h-6 w-48" />
+  {/* Fourth Section */}
+  <div className="flex flex-col lg:flex-row gap-8 lg:gap-24">
+    <div className="w-full">
+      <Skeleton className="h-6 w-48" />
       
-
-      <div className="flex text-xs gap-2 mt-2 text-gray-500 pb-6 border-b md:w-[700px] w-screen ">
-     
-          <Skeleton className="h-4 w-24" />
-        
-     
-          <Skeleton className="h-4 w-24" />
-        
-      
-          <Skeleton className="h-4 w-24" />
-        
+      <div className="flex text-xs gap-2 mt-2 text-gray-500 pb-6 border-b w-full">
+        <Skeleton className="h-4 w-24" />
+        <Skeleton className="h-4 w-24" />
+        <Skeleton className="h-4 w-24" />
       </div>
 
-    
-        <Skeleton className="h-6 w-96" />
-      
-
-        <Skeleton className="h-6 w-[700px]" />
+      <Skeleton className="h-6 w-96" />
+      <Skeleton className="h-6 w-full md:w-[700px]" />
 
       <div className="w-full mt-3 h-full">
-     
-          <Skeleton className="h-[300px] w-full" />
-
+        <Skeleton className="h-[300px] w-full" />
       </div>
     </div>
 
-    <div className="w-96 h-auto m-6 lg:mt-12 p-6 border rounded-3xl shadow-xl">
-     
-        <Skeleton className="h-8 w-24" />
+    {/* Right Section */}
+    <div className="w-full lg:w-96 h-auto mt-6 lg:mt-12 p-6 border rounded-3xl shadow-xl">
+      <Skeleton className="h-8 w-24" />
 
       <div className="w-full flex justify-center border-b border-black">
         <Skeleton className="h-[300px] w-full" />
@@ -125,12 +110,11 @@ const Super = () => {
         Reserve
       </button>
 
-  
-        <Skeleton className="h-6 w-24" />
-
+      <Skeleton className="h-6 w-24" />
     </div>
   </div>
 </div>
+
 
    </>
   )

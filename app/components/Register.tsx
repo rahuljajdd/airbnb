@@ -1,3 +1,5 @@
+
+//@ts-nocheck
 "use client"
 import React from 'react'
 import { useState } from 'react';
@@ -11,6 +13,8 @@ import { FcGoogle } from "react-icons/fc";
 import { toast } from 'react-hot-toast';
 import { PassThrough } from 'stream';
 import { signIn } from 'next-auth/react';
+import { Context } from './UserProvider';
+import { useContext } from 'react';
 import { sign } from 'crypto';
 import { Session } from 'inspector';
 import { connect } from 'http2';
@@ -45,7 +49,14 @@ const Register = ({setregister,setuserinfo}:any) => {
    //   axios.post("/api/register",{data}).then((res)=>{console.log(res)}).catch((e)=>{ toast("Something went wrong")})
      
     }
-   const{data:session}=useSession();
+    const context = useContext(Context);
+
+    // Check if the context is defined
+    if (!context) {
+      throw new Error('MyComponent must be used within a UserProviders');
+    }
+  
+    const { userInfo } = context;
  const {register,formState:{errors},handleSubmit}=useForm<formschema>({resolver:zodResolver(Signupschema)});
     return (
     < >

@@ -22,6 +22,7 @@ model Users {
   id                 String    @id @default(auto()) @map("_id") @db.ObjectId
   email              String    @unique
   hashedpassword     String?
+  clerkId                String?
   image              String?
   username           String
   verified           Boolean ?  @default(false)
@@ -80,6 +81,7 @@ model Listing{
    createdat DateTime @default(now())
    category String
    roomcount Int
+  
    bathroomcount Int
    wifi Boolean?
    tv Boolean?

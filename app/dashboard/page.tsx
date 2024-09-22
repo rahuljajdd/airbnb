@@ -9,6 +9,7 @@ import { FaAirbnb } from "react-icons/fa6";
 import { IoSearchCircle } from "react-icons/io5";
 import { format } from 'date-fns';
 import { Button } from "@/app/ui/button"
+import { Skeleton } from '../ui/skeleton';
 import axios from 'axios';
 import {
   Card,
@@ -25,20 +26,27 @@ import Answer from '../components/Answer';
 import Edituser from '../components/Edituser';
 import ReservationTable from '../components/ReservationTable';
 import Logpop from '../components/Logpop';
-
-
+import { useContext } from 'react';
+import { Context } from '../components/UserProvider';
 const Page = () => {
   const [reservation, setreservation] = useState([])
 
 
-  const{data:session}=useSession();
+  const context = useContext(Context);
+
+  // Check if the context is defined
+  if (!context) {
+    throw new Error('MyComponent must be used within a UserProviders');
+  }
+
+  const { userInfo } = context;
 
 
   useEffect(() => {
   
-        console.log(session?.user)
-    axios.post('api/dashboard' ,{userid:session?.user}).then((res)=>{setreservation(res.data)})
-      }, [session])
+    
+    axios.post('api/dashboard' ,{userid:userInfo?.email}).then((res)=>{setreservation(res.data)})
+      }, [userInfo])
 
 
 
@@ -100,6 +108,8 @@ const Page = () => {
 </div>
 
   <div className='md:p-4  md:m-7  mx-4 md:w-[900px] w-[620px]   bg-white border rounded-xl shadow '>
+
+
 <Component reservations={reservation} ></Component>
 
 
@@ -127,7 +137,19 @@ const Page = () => {
 
 
 
-    {reservation.map((item)=>{
+  {(reservation[0]===1)&&<div>
+  
+  {[1,1,1,1,1,1,1].map((item)=>{return( <div> <Skeleton className='w-[550px] mt-4 h-32'></Skeleton> </div>)})}
+    
+    
+    </div>}
+
+
+
+{reservation.length===0&&<div className='flex w-full h-full justify-center items-center'>Sorry no reservaton on your listing Yet </div>}
+
+
+    {(reservation[0]!==1&&reservation.length>0)&&reservation.map((item)=>{
       return(
 
 

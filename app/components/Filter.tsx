@@ -1,4 +1,4 @@
-// @ts-nocheck
+//@ts-nocheck
 "use client"
 
 
@@ -29,7 +29,7 @@ import { useParams, usePathname } from 'next/navigation'
 
 import { useSession } from 'next-auth/react'
 import { compareSync } from 'bcrypt'
-import getReseravtions from '../getReservation'
+
 import { constants } from 'buffer'
 import toast from 'react-hot-toast'
 import Skeleton from 'react-loading-skeleton'
@@ -65,6 +65,8 @@ import{DateRange} from'react-date-range';
 import { addDays } from 'date-fns';
 import { useSearchParams } from "next/navigation"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { useToast } from "@/hooks/use-toast"
+import { Toast } from "@radix-ui/react-toast"
 const Filter = () => {
   
   const pathname=usePathname();
@@ -112,7 +114,7 @@ const Filter = () => {
 console.log([Number(params.get('geo')?.split(',')[0]),Number(params.get('geo')?.split('')[1])]);
 
     const [geo, setgeo] = useState<null|Number[]>(null);
-
+const [step, setstep] = useState('location')
   const [item, setitem] = useState([])
   const [location, setlocation] = useState('');
   const handleOnSearch = (string, results) => {
@@ -166,7 +168,7 @@ const [category, setcategory] = useState<any>([])
 const [Categories, setCategories] = useState<any>(categories)
 const [min, setmin] = useState(([Number(params.get('min'))]));
 const [max, setmax] = useState(([Number(params.get('max'))]));
-
+const{toast}=useToast()
 const items=Categories
 return (
 <Dialog>
@@ -185,7 +187,7 @@ return (
   </DialogTrigger>
 
   {/* Dialog Content */}
-  <DialogContent className="mt-0 pb-6 px-1 md:px-7 w-full h-screen flex flex-col justify-start items-start md:h-auto md:w-auto overflow-y-auto">
+  <DialogContent className="mt-0 pb-6 px-1 md:px-7 w-full h-screen flex flex-col justify-start items-start md:h-auto  overflow-y-auto md:w-[700px]">
     {/* Scrollable Area for Dialog Content */}
 
       <DialogHeader>
@@ -203,7 +205,7 @@ return (
         </TabsList>
 
         {/* Location Tab */}
-        <TabsContent  value="location"> 
+        <TabsContent className="md:w-[450px] w-auto"  value="location"> 
           <h1 className='text-xl p-2'>Where are you going?</h1>
           <p className='text-sm px-1 mb-2'>All the listings will be near the chosen location</p>
           <ReactSearchAutocomplete
@@ -221,7 +223,7 @@ return (
           />
           <div className='min-h-96 w-screen md:w-full pt-2 md:mb-6 mb-2'>
             <div>Set the radius for the location search</div>
-            <div className="flex gap-4">
+            <div className="flex gap-4 md:px-0 px-3">
               <Slider defaultValue={[30]} value={range} onValueChange={(value) => setrange(value)} max={100} step={1} />
               {range && (
                 <div className='p-3 rounded-lg border text-gray-600'>
@@ -264,11 +266,12 @@ return (
             <Slider defaultValue={[30]} value={max} onValueChange={(value) => setmax(value)} max={100} step={1} />
             {max && <div className='p-3 rounded-lg border bg-slate-900 text-white'>${max[0] * 10}</div>}
           </div>
+          <Button variant="destructive" onClick={()=>{ applyfilters();   toast({title:'succes',description:'filter succefully applied'})  }}>Apply</Button>
         </TabsContent>
       </Tabs>
 
       {/* Apply Filters Button */}
-      <Button variant="destructive" onClick={applyfilters}>Apply</Button>
+
 
   </DialogContent>
 </Dialog>

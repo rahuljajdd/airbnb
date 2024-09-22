@@ -62,3 +62,36 @@ console.log(email)
 }
 
 }
+
+
+export    async  function onCompleteUserRegistration(
+    fullname:string,type:string,clerkid:string,email:string
+){
+
+
+console.log(    fullname,type,clerkid,email)
+try{
+    const registerd = await prism.users.create({
+
+        data:{
+            email:email,clerkId:clerkid,username:fullname
+        },select:{
+            username:true,id:true
+        }
+    })
+
+    console.log(registerd);
+
+   
+
+    if (registerd){
+
+        return {status:200,user:registerd}
+    }
+
+}catch(e){
+    console.log(e)
+    return {status:400}
+}
+
+}

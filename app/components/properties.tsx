@@ -8,10 +8,19 @@ import { SkeletonCard } from './Listings'
 import { useRouter } from 'next/navigation'
 import { Snippet } from 'next/font/google'
 import Reservation from './reservations'
+import { useContext } from 'react'
+import { Context } from './UserProvider'
 type Props = {}
 
 const Properties = (props: Props) => {
-const {data:session}=useSession();
+  const context = useContext(Context);
+
+  // Check if the context is defined
+  if (!context) {
+    throw new Error('MyComponent must be used within a UserProviders');
+  }
+
+  const { userInfo } = context;
 const router=useRouter();
 const [properties, setproperties] = useState(null);
 const [loader, setloader] = useState()
@@ -19,9 +28,9 @@ const [loader, setloader] = useState()
     useEffect(() => {
 
     setloader(true);
-    axios.post('/api/getlistings',{email:session?.user?.email,name:session?.user?.name}).then((res)=>{setproperties(res.data);setloader(false)}).catch((e)=>{console.log(e); setloader(false)})
+    axios.post('/api/getlistings',{email:userInfo?.email,name:userInfo?.username}).then((res)=>{setproperties(res.data);setloader(false)}).catch((e)=>{console.log(e); setloader(false)})
     
-    }, [session])
+    }, [userInfo])
     
   return (
     <>

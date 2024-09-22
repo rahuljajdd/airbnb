@@ -43,7 +43,8 @@ import {
 } from "@/app/ui/avatar"
 
 import { Rating } from 'react-simple-star-rating'
-import { useSession } from 'next-auth/react'
+import { useContext } from 'react';
+import { Context } from './UserProvider';
 import { compareSync } from 'bcrypt'
 
 import { constants } from 'buffer'
@@ -185,7 +186,7 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
     ranges=[...range,...ranges]
   
   
-    axios.put('/api/reviews',{user:session?.user.email,listingid:listingId}).then((res)=>{
+    axios.put('/api/reviews',{user:userInfo?.email,listingid:listingId}).then((res)=>{
       const{error,alredyhaveanreview}=res.data;
       if(error){
         toast.error(error);
@@ -253,8 +254,14 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
   
   
   
-  
-  const {data:session}=useSession();
+  const context = useContext(Context);
+
+  // Check if the context is defined
+  if (!context) {
+    throw new Error('MyComponent must be used within a UserProviders');
+  }
+
+  const { userInfo } = context;
   const ceta=categories.find( (c)=>(c.name)===category);
   const [totalprice, settotalprice] = useState(1);
   const [state, setState] = useState([
@@ -293,7 +300,7 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
   const handleReservation= function (){
   
     console.log(param);
-  axios.post('/api/reservation',{state,totalprice,listingId:param.listingId,user:session?.user}).then((res)=>{;
+  axios.post('/api/reservation',{state,totalprice,listingId:param.listingId,user:userInfo}).then((res)=>{;
     
     console.log(res.data)
     router.push(res.data.url)
@@ -329,11 +336,11 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
    
     return (
      <>
-  {imgview&&<div className=' w-screen bg-black  absolute z-50 md:p-10  lg:p-40'><div className='text-white text-4xl ' onClick={()=>{setimgview(false)}}><RxCross2></RxCross2></div> {image?.split("=").map(item=><div className="gallery-item relative"> <img src={item} className=" rounded-lg m-3"></img> </div>)}</div>}
+  {imgview&&<div className=' w-screen h-[5000px] bg-black  absolute z-50 md:p-10  lg:p-40'><div className='text-white text-4xl ' onClick={(e)=>{  e.preventDefault();setimgview(false)}}><RxCross2></RxCross2></div> {image?.split("=").map(item=><div className="gallery-item relative"> <img src={item} className=" rounded-lg m-3"></img> </div>)}</div>}
   
-    <div className='md:p-10 pl-3 pt-24' >
+    <div className='md:p-10 md:pt-24 pl-3 pt-24' >
         {title&&<div className='text-2xl font-medium'>{title}</div>}
-      <div className=' md:text-xl text-base text-gray-500 pt-3 flex item-center gap-3  md:flex-row-reverse '><FaLocationDot />{locations?.split('?')[0] }</div>
+      <div className=' md:text-xl text-base text-gray-500 pt-3 flex item-center gap-3   '><FaLocationDot />{locations?.split('?')[0] }</div>
      {distance&&<div className=' md:text-2xl text-lg  pt-3 flex items-center gap-3 '><FaCar />{`${parseInt((distance/1000).toString())} Km`}</div>}
   
   
@@ -592,7 +599,7 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
   
   </textarea>
   
-  <Button disabled={rdescription.length<3||loading} variant={'destructive'}onClick={()=>{ setloading(true); axios.post('/api/reviews',{rdescription,rating,listingId:id,email:session?.user?.email}).then((res)=>{console.log(res.data);setreview([...res.data]);setloading(false)}).catch((e)=>{setloading(false)})} }>{loading?"Uploading":"Add Review"}</Button>
+  <Button disabled={rdescription.length<3||loading} variant={'destructive'}onClick={()=>{ setloading(true); axios.post('/api/reviews',{rdescription,rating,listingId:id,email:userInfo?.email}).then((res)=>{console.log(res.data);setreview([...res.data]);setloading(false)}).catch((e)=>{setloading(false)})} }>{loading?"Uploading":"Add Review"}</Button>
   </>:<div>
     
     Soory you dont have a reservation at this place so you cant add review

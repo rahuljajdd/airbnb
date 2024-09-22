@@ -35,7 +35,7 @@ return NextResponse.json(question)
 
 
 }catch(e){console.log(e)}
-return NextResponse.json('ok')
+return NextResponse.json([])
 
 
 
@@ -77,7 +77,7 @@ return NextResponse.json(question)
 
 
 }catch(e){console.log(e)}
-return NextResponse.json('ok')
+return NextResponse.json([])
 
 
 

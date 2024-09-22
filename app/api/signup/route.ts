@@ -1,5 +1,4 @@
 
-//@ts-nocheck
 import { NextRequest } from "next/server";
 
 import bcrypt from 'bcrypt';
@@ -23,23 +22,27 @@ async function hashPassword(password:any) {
 
 export async function POST(request:NextRequest){
 
-    const {data}= await request.json()
-    const {email,username,password}=data
+
+
+
   
+    const {email,username,password,clerkId}=await request.json()
+  console.log(email,username,password,clerkId)
 
 const hashedPassword= await hashPassword(password)
 const user= await prisma.users.findFirst({where:{email,username}})
-console.log(user)
+
+console.log(user,'user')
 if(user){
 
     return Response.json({err:'user already exist'});
 }
 let newuser
 try{
-     newuser= await prisma.users.create({data:{email,username,hashedpassword:hashedPassword}});
+     newuser= await prisma.users.create({data:{email,username,hashedpassword:hashedPassword,clerkId}});
 
 }catch(e){
-
+console.log(e);
     return Response.json({err:'something went wrong'});
 }
 
@@ -49,5 +52,7 @@ try{
 
    const help= await sendemail({email,emailtype:'VERIFY',userid:newuser.id})
    console.log(help);
+
+   console.log(newuser,'newuser')
     return Response.json({message:newuser});
     }

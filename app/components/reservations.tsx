@@ -1,5 +1,6 @@
+//@ts-nocheck
 
-// @ts-nocheck
+"use client"
 import React from 'react'
 import axios from 'axios'
 import { useState } from 'react'
@@ -7,20 +8,31 @@ import { useEffect } from 'react'
 import { SkeletonCard } from './Listings'
 import { useSession } from 'next-auth/react'
 import Skeleton from 'react-loading-skeleton'
-
+import { useContext } from 'react'
+import { Context } from './UserProvider'
 import Card from './Card'
 import { format } from 'date-fns'
 
 const Reservation = () => {
     const [trips, settrips] = useState([])
     const [reservation, setreservation] = useState(null)
-    const {data:session}=useSession()
+
     
+    
+
+    const context = useContext(Context);
+
+    // Check if the context is defined
+    if (!context) {
+      throw new Error('MyComponent must be used within a UserProviders');
+    }
+  
+    const { userInfo } = context;
 
     useEffect(() => {
         
-    axios.post('api/ownerreservations' ,{userid:session?.user?.email}).then((res)=>{setreservation(res.data)})
-      }, [session])
+    axios.post('api/ownerreservations' ,{userid:userInfo?.email}).then((res)=>{setreservation(res.data)})
+      }, [userInfo])
 
      
       
