@@ -49,7 +49,7 @@ import {
 
 import { MdClose, MdDelete } from 'react-icons/md';
   import { Context } from './UserProvider'
-
+import { DialogClose } from '@/app/ui/dialog'
 
 enum steps{
     CATEGORY =0,
@@ -148,7 +148,8 @@ let bodycontent=
 
 
 <>
-    <div className="flex justify-center p-3 border-b">Airbnb your home</div>
+
+<div className="flex justify-between p-3 border-b"> <div></div>Airbnb your home <DialogClose className="md:hidden block"><MdClose></MdClose></DialogClose> </div>
     <div className="p-3 font-bold">Which of the best describes your place</div>
     <div className="px-3 text-gray-500 text-sm">Pick a category</div>
     

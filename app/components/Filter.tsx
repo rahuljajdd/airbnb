@@ -187,12 +187,12 @@ return (
     </div>
   </DialogTrigger>
   {/* Dialog Content */}
-  <DialogContent className="mt-0 pb-6  md:px-7 px-3 rounded-lg  md:scale-100  scale-90  w-full h-screen flex flex-col justify-start items-start md:h-auto  overflow-y-auto md:w-[700px]">
+  <DialogContent className="mt-0 pb-6  md:px-7 px-3 overflow-hidden rounded-lg   md:scale-100  scale-90  w-full h-screen flex flex-col  justify-start items-center  md:h-auto  overflow-y-auto md:w-[700px]">
     {/* Scrollable Area for Dialog Content */}
 
       <DialogHeader>
         <DialogTitle className="pb-4">Search Filters</DialogTitle>
-<DialogClose></DialogClose>
+
         <DialogDescription className="hidden md:block">
           Refine your search to find the perfect place to stay
         </DialogDescription>
@@ -206,9 +206,9 @@ return (
         </TabsList>
 
         {/* Location Tab */}
-        <TabsContent className="md:w-[450px] w-auto"  value="location"> 
-          <h1 className='text-xl p-2'>Where are you going?</h1>
-          <p className='text-sm px-1 mb-2'>All the listings will be near the chosen location</p>
+        <TabsContent className="md:w-[450px] w-full pl-4 md:pl-0"  value="location"> 
+          <h1 className='text-xl p-2  md:pl-0 pl-3'>Where are you going?</h1>
+          <p className='text-sm px-1   md:pl-0 pl-3 mb-2'>All the listings will be near the chosen location</p>
           <ReactSearchAutocomplete
             items={item}
             onSearch={handleOnSearch}
@@ -223,8 +223,8 @@ return (
             formatResult={formatResult}
           />
           <div className='min-h-96 w-screen md:w-full pt-2 md:mb-6 mb-2'>
-            <div>Set the radius for the location search</div>
-            <div className="flex gap-4 md:px-0 px-3">
+            <div className=" md:pl-0 pl-3">Set the radius for the location search</div>
+            <div className="flex gap-4   md:px-0 px-3">
               <Slider defaultValue={[30]} value={range} onValueChange={(value) => setrange(value)} max={100} step={1} />
               {range && (
                 <div className='p-3 rounded-lg border text-gray-600'>

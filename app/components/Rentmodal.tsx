@@ -4,6 +4,7 @@
 import { categories } from "./Categories"
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -23,7 +24,7 @@ import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 import { TbPhotoPlus } from 'react-icons/tb';
-import { BiCurrentLocation, BiWifi, BiWifi1 } from "react-icons/bi";
+import { BiCross, BiCurrentLocation, BiWifi, BiWifi1 } from "react-icons/bi";
 import Categoryinput from './Categoryinput';
 
 import { useForm } from 'react-hook-form';
@@ -41,9 +42,10 @@ import Counter from './Counter';
 import { Button } from "@/app/ui/button";
 import { FcWiFiLogo } from "react-icons/fc";
 import { FaDog, FaMountain, FaParking, FaTv } from "react-icons/fa";
-import { FaKitchenSet } from "react-icons/fa6";
+import { FaCross, FaKitchenSet } from "react-icons/fa6";
 import { IoMdAdd } from "react-icons/io";
 import { userInfo } from "os";
+import { Cross2Icon } from "@radix-ui/react-icons"
 
 
 
@@ -168,7 +170,7 @@ const [Location, setLocation] = useState('')
 
 let bodycontent=(<>
 <>
-    <div className="flex justify-center p-3 border-b">Airbnb your home</div>
+    <div className="flex justify-between p-3 border-b"> <div></div>Airbnb your home <DialogClose className="md:hidden block"><MdClose></MdClose></DialogClose> </div>
     <div className="p-3 font-bold">Which of the best describes your place</div>
     <div className="px-3 text-gray-500 text-sm">Pick a category</div>
     
