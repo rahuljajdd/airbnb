@@ -186,6 +186,7 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
     });
     ranges=[...range,...ranges]
   
+
   
     axios.put('/api/reviews',{user:userInfo?.email,listingid:listingId}).then((res)=>{
       const{error,alredyhaveanreview}=res.data;
@@ -262,6 +263,8 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
     throw new Error('MyComponent must be used within a UserProviders');
   }
 
+
+  const ref= React.useRef();
   const { userInfo } = context;
   const ceta=categories.find( (c)=>(c.name)===category);
   const [totalprice, settotalprice] = useState(1);
@@ -414,7 +417,7 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
     
     <div className='text-md text-neutral-800 mt-2 md:pr-0 pr-2 '>{description}</div>
     <Dialog>
-      <DialogTrigger><Button variant='ghost' className='-ml-2'>Show more</Button></DialogTrigger>
+      <DialogTrigger ><Button variant='ghost' className='-ml-2'>Show more</Button></DialogTrigger>
     
     <ScrollArea className='max-h-5/6 '>
       <DialogContent>
@@ -454,10 +457,10 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
   
   
   
-  <div className='md:w-96 w-screen  md:m-6  -mx-4 md:-mx-0 md:mt-12  md:p-6 p-3 border  rounded-3xl shadow-xl  md:h-[850px] '>
+
+  <div className='md:w-96 w-screen  md:m-6 md:scale-100 scale-90 -mx-4 md:-mx-0 md:mt-12  md:p-6 p-3 border  rounded-3xl shadow-xl  md:h-[850px] '>
     <div className='text-2xl font-medium flex items-baseline mb-2 border-b' >{`$${price}`} <div className='text-base text-gray-500 mb-2 ml-2'>night</div></div>
-  
-  <div className='md:w-full w-screen   flex justify-center  border-b  border-black'>
+  <div className='md:w-full w-screen  md:scale-100 scale-90 flex justify-center  border-b  border-black'>
     <DateRange
     onChange={(item)=> {setState([item.selection]); console.log(item)}}
     showSelectionPreview={true}
@@ -571,7 +574,7 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
   
   
   <Dialog>
-    <DialogTrigger>
+    <DialogTrigger ref={ref}>
     <Button className='mt-3'>Add Review</Button></DialogTrigger>
     <DialogContent className=''>
       <DialogHeader>
@@ -600,7 +603,7 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
   
   </textarea>
   
-  <Button disabled={rdescription.length<3||loading} variant={'destructive'}onClick={()=>{ setloading(true); axios.post('/api/reviews',{rdescription,rating,listingId:id,email:userInfo?.email}).then((res)=>{console.log(res.data);setreview([...res.data]);setloading(false)}).catch((e)=>{setloading(false)})} }>{loading?"Uploading":"Add Review"}</Button>
+  <Button disabled={rdescription.length<3||loading} variant={'destructive'}onClick={()=>{ setloading(true); axios.post('/api/reviews',{rdescription,rating,listingId:id,email:userInfo?.email}).then((res)=>{console.log(res.data);setreview([...res.data]);setloading(false);ref.current?.click()}).catch((e)=>{setloading(false)})} }>{loading?"Uploading":"Add Review"}</Button>
   </>:<div>
     
     Soory you dont have a reservation at this place so you cant add review

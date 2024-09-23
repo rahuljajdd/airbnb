@@ -1,3 +1,5 @@
+
+//@ts-nocheck
 import React, { useEffect, useState } from 'react'
 import { Badge } from "@/app/ui/badge"
 import {
@@ -33,7 +35,7 @@ import { Skeleton } from '../ui/skeleton'
 const Answer = () => {
 
   const context = useContext(Context);
-
+const ref=React.useRef()
   // Check if the context is defined
   if (!context) {
     throw new Error('MyComponent must be used within a UserProviders');
@@ -97,7 +99,7 @@ no qouestion ywt on your listings
     
     
 <Dialog  >
-  <DialogTrigger>
+  <DialogTrigger ref={ref}>
 
 
 
@@ -149,7 +151,7 @@ no qouestion ywt on your listings
    
       </DialogDescription>
     </DialogHeader>
-  <DialogFooter>{!(item.answer)&&<Button disabled={loader} onClick={()=>{ setloader(true); axios.put('/api/answers',{questions,id:item.id,email:userInfo?.email}).then((res)=>{setquestionset(res.data);setloader(false)})}} className='p-5'>{loader?"Posting..":"Answer"}</Button>}</DialogFooter>
+  <DialogFooter>{!(item.answer)&&<Button disabled={loader} onClick={()=>{ setloader(true); axios.put('/api/answers',{questions,id:item.id,email:userInfo?.email}).then((res)=>{setquestionset(res.data);setloader(false);ref.current?.click})}} className='p-5'>{loader?"Posting..":"Answer"}</Button>}</DialogFooter>
   </DialogContent>
 </Dialog>
 

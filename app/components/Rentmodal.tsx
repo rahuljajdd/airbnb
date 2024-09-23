@@ -15,7 +15,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/app/ui/alert"
 import { Checkbox } from "@/app/ui/checkbox"
 import { MdClose } from "react-icons/md";
 import { useToast } from "@/hooks/use-toast"
-
+import { useEffect } from "react"
 import CurrencyInput from 'react-currency-input-field';
 import { CldUploadWidget } from 'next-cloudinary';
 import React, { useState } from 'react';
@@ -215,36 +215,36 @@ let bodycontent=(<>
 
 
  
-//  const getlocation=function(){                          
+ const getlocation=function(){                          
 
-//     const options = {
-//       enableHighAccuracy: true,
-//       timeout: 5000,
-//       maximumAge: 0,
-//     };
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    };
   
-//     function success(pos:any) {
-//       const crd = pos.coords;
-//       console.log(crd);
-//       console.log("Your current position is:");
-//       console.log(`Latitude: ${crd.latitude}`);
-//       console.log(`Longitude: ${crd.longitude}`);
-//       console.log(`More or less ${crd.accuracy} meters.`);
-//      const l=[crd.latitude,crd.longitude];
-//      setgeo(l);
+    function success(pos:any) {
+      const crd = pos.coords;
+      console.log(crd);
+      console.log("Your current position is:");
+      console.log(`Latitude: ${crd.latitude}`);
+      console.log(`Longitude: ${crd.longitude}`);
+      console.log(`More or less ${crd.accuracy} meters.`);
+     const l=[crd.latitude,crd.longitude];
+     setgeo(l);
    
    
-//      axios.get(` https://geocode.maps.co/reverse?lat=${crd.latitude}&lon=${crd.longitude}&api_key=66439f8cd92b5061250040ubt6be173`).then((res)=>{const address=res.data.display_name; console.log(address);  setCustomvalue('location',address) }).catch((e)=>{console.log(e);})
-//     }
+     axios.get(` https://geocode.maps.co/reverse?lat=${crd.latitude}&lon=${crd.longitude}&api_key=66439f8cd92b5061250040ubt6be173`).then((res)=>{const address=res.data.display_name; console.log(address);  setCustomvalue('location',`${address}?${crd.latitude}?${crd.longitude}`) }).catch((e)=>{console.log(e);})
+    }
   
-//     function error(err:any) {
-//       console.warn(`ERROR(${err.code}): ${err.message}`);
-//     }
+    function error(err:any) {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
   
-//     navigator.geolocation.getCurrentPosition(success, error, options);
+    navigator.geolocation.getCurrentPosition(success, error, options);
 
 
-//    } 
+   } 
 
 
 
@@ -369,8 +369,8 @@ if(step===steps.LOCATION){
     <div className="mt-5">
         <div style={{ width: "100%", maxWidth: 600 }} className="z-50 ">
             <ReactSearchAutocomplete
-                placeholder={location?.split("?")[0]}
-                items={item || location?.split("?")[0]}
+             
+                items={item}
                 onSearch={handleOnSearch}
                 onHover={handleOnHover}
                 onSelect={handleOnSelect}
@@ -387,10 +387,10 @@ if(step===steps.LOCATION){
       
 
         <div>
-            <button className="border p-2 mt-1  rounded-lg text-neutral-700 flex items-center">
+            {/* <button onClick={async()=>{ await getlocation()}} className="border p-2 mt-1  rounded-lg text-neutral-700 flex items-center">
                 <BiCurrentLocation />
                 Use Current Location
-            </button>
+            </button> */}
         </div>
 
         <div className="min-h-96 pt-2 mb-6">
@@ -529,7 +529,9 @@ return new Promise((resolve, reject) => {
 
 const [imgs, setimgs] = useState<null|any[]>([])
 
-
+useEffect(() => {
+  setCustomvalue('imageSrc', imgs.join('='));
+}, [imgs]);
 
 if(step===steps.IMAGES){
   bodycontent=(<>
@@ -590,7 +592,7 @@ if(step===steps.IMAGES){
         const base64Image = await convertImageToBase64(file);
         axios.post('/api/imageupload', { path: base64Image }).then((res) => {
           setimgs([...imgs, res.data.url]);
-          setCustomvalue('imageSrc', imgs?.join('='));
+        
           console.log(imageSrc);
         });
       }}
@@ -786,6 +788,7 @@ const submit=handleSubmit((data)=>{
 
       toast({title:'Succes',description:'listing vreated succes fully'}) 
       setstep(steps.CATEGORY);
+      ref.current.click()
 
     }
     setloader(false)
@@ -797,7 +800,7 @@ const submit=handleSubmit((data)=>{
 
 })
 
-
+const ref = React.useRef();
 
 
   return (
@@ -819,17 +822,13 @@ const submit=handleSubmit((data)=>{
 
 
 
-  <div className='w-screen absolute z-10 bg-black  h-screen opacity-0 flex justify-center items-center cursor-pointer ' > </div>
-
-
-
 
 {register&&
   
   
   <Dialog   open={true} onOpenChange={()=>{setregister(false)}} >
-
-<DialogContent className="h-screen max-h-[93vh] overflow-y-auto">
+<DialogTrigger ref={ref}></DialogTrigger>
+<DialogContent className="h-screen md:max-h-[72vh] overflow-y-auto">
 
 <div className="w-full ">
 

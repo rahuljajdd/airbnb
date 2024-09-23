@@ -643,6 +643,7 @@ const [loadr, setloadr] = useState(false)
  setloadr(false)
  })
  
+ const ref = React.useRef();
  
 if(step===steps.PRICE){
  
@@ -660,7 +661,7 @@ if(step===steps.PRICE){
           <div className='flex justify-between  w-full mt-3 gap-3'>
    
    <Button className="px-10 py-2 m-2 mx-3 text-base md:px-20 md:py-5 md:text-lg"  variant={"ghost"}onClick={()=>{setstep(step-1)}}> Back</Button>
-   <Button className="px-10 py-2 m-2 mx-3 text-base md:px-20 md:py-5 md:text-lg " disabled={!(price>0)||loadr}  variant={"destructive"} onClick={()=>{ setloadr(true); submit() }}> {loadr?"Saving...":"Save Changes"} </Button>
+   <Button className="px-10 py-2 m-2 mx-3 text-base md:px-20 md:py-5 md:text-lg " disabled={!(price>0)||loadr}  variant={"destructive"} onClick={()=>{ setloadr(true); submit(); toast({title:'Sucess',description:'listing updated succesfully'});  }}> {loadr?"Saving...":"Save Changes"} </Button>
    
    
    </div>

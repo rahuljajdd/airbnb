@@ -1,4 +1,4 @@
-
+//@ts-nocheck
 "useclient"
 import React, { useState } from 'react'
 import { IoHeart } from "react-icons/io5";
@@ -46,7 +46,9 @@ const Card:React.FC<props> = ({ distance,setreservation,setproperties,items,loca
   if (!context) {
     throw new Error('MyComponent must be used within a UserProviders');
   }
+  
 
+  console.log(items,'hello')
   const { userInfo } = context;
   const [loader, setloader] = useState(false);
   const [pop, setpop] = useState()
@@ -65,7 +67,7 @@ const router=useRouter();
 
 
       // @ts-ignore
-      console.log(items._id);router.push(`/listings/${items.id}`)}}>
+      console.log(items._id);router.push(`/listings/${id}`)}}>
         <div className=' z-50'  onClick={async(e)=>{e.stopPropagation();
   axios.put('api/user',{user:userInfo,id}).then((res)=>{
 
@@ -83,7 +85,7 @@ else{
 
         }}>
 
-        <IoHeart size={30}    className= { `   absolute top-3  right-3 z-10  transition-all hover:scale-110 ${like?"text-red-700":'text-gray-600 opacity-50'} shadow-2xl `}></IoHeart>
+        <IoHeart size={30}    className={ `   absolute top-3  right-3 z-10  transition-all hover:scale-110 ${like?"text-red-700":'text-gray-600 opacity-50'} shadow-2xl `}></IoHeart>
         </div>
         <img  className ='w-full h-full rounded-lg transition-all  cursor-pointer object-cover  group-hover:scale-105'src={imagesrc}></img></div>
     <div className='mt-1 w-60 '>{location?.split(',')[0]+","+location?.split(',')[1] }</div>

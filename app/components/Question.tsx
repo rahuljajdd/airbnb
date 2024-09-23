@@ -36,7 +36,7 @@ import { IoPersonSharp } from 'react-icons/io5'
 const Question = () => {
 
   const context = useContext(Context);
-
+  const ref = React.useRef();
   // Check if the context is defined
   if (!context) {
     throw new Error('MyComponent must be used within a UserProviders');
@@ -161,7 +161,7 @@ const Question = () => {
     
     
   <Dialog>
-  <DialogTrigger>    <Button className='p-6'>Post Question</Button></DialogTrigger>
+  <DialogTrigger ref={ref}>    <Button className='p-6'>Post Question</Button></DialogTrigger>
   <DialogContent>
     <DialogHeader>
       <DialogTitle>Post question?</DialogTitle>
@@ -172,7 +172,7 @@ const Question = () => {
     </DialogHeader>
 
 <textarea onChange={(e)=>{setquestions(e.target.value)}} placeholder='ask question here' className='p-3 border rounded-lg min-h-28'></textarea>
-<Button disabled={!(questions.length>1&&userInfo)} className='w-min px-4' onClick={()=>{  axios.post('/api/questions',{questions,email:userInfo?.email}).then((res)=>{setquestionset([...questionset,res.data])})  }}>Post</Button>
+<Button disabled={!(questions.length>1&&userInfo)} className='w-min px-4' onClick={()=>{  axios.post('/api/questions',{questions,email:userInfo?.email}).then((res)=>{setquestionset([...questionset,res.data]);ref?.current?.click()})  }}>Post</Button>
 
 
 
