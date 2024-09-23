@@ -10,10 +10,11 @@ import { Dialog, DialogTitle, DialogTrigger } from '@radix-ui/react-dialog'
 import { DialogContent } from '../ui/dialog'
 import { BiImageAdd } from 'react-icons/bi'
 import axios from 'axios'
-import toast from 'react-hot-toast'
+
 
 import { useContext } from 'react'
 import { Context } from './UserProvider'
+import { useToast } from '@/hooks/use-toast'
 
 
 
@@ -31,6 +32,8 @@ function convertImageToBase64(file) {
 
 const Edituser = () => {
   const context = useContext(Context);
+const {toast}=useToast();
+
 
   // Check if the context is defined
   if (!context) {
@@ -39,7 +42,7 @@ const Edituser = () => {
 
   const { userInfo } = context;
     const [loader, setloader] = useState(false)
-    const [name, setname] = useState(userInfo?.username||'')
+    const [name, setname] = useState(null)
 
     const [imgs, setimgs] = useState(null);
   return (
@@ -63,7 +66,7 @@ const Edituser = () => {
 
 
 <div  className='pl-24'>
-<div className='text-lg font-medium'> {userInfo?.username}</div>
+<div className='text-lg font-medium'> {name||userInfo?.username}</div>
 <div className='text-gray-600'> {userInfo?.email}</div>
 </div>
 
@@ -78,7 +81,7 @@ const Edituser = () => {
 
        <DialogTitle className='text-lg font-semibold'>Edit your profile</DialogTitle>
 
-       <div className='flex gap-5'><div className=''>   <img  className='rounded-full size-24' src={imgs||userInfo?.image}></img> <div className='flex justify-between w-full relative  items-center mt-4 gap-8 '><div className=''><Button className=' ' variant='secondary'>  <input  placeholder={userInfo?.username}  className='opacity-0 w-36 absolute b' onChange={async(e)=>{ setloader(true);axios.post('/api/imageupload',{path: await convertImageToBase64(e.target.files[0])}).then((res)=>{ setloader(false); setimgs(res.data.url);  toast.success('img uploaded succefully') }).catch(e=>{setloader(false); toast.error('something went wrong')})}} type='file'></input> <BiImageAdd size={25}></BiImageAdd> {loader?'uploading...':'Add image'}</Button> </div></div> </div><div className='flex-col '> <div>Name</div><input  value={name} onChange={(e)=>{ setname(e.target.value)}} className='border rounded-lg p-2'></input> <div className='h-full relative w-full'><Button   onClick={()=>{ setloader(true); axios.post('/api/edituser',{name,image:imgs,email:userInfo?.email}).then(res=>setloader(false)).catch(e=>setloader(true)) }} disabled={ !(name?.length>1)||loader  } className='  absolute bottom-14 right-0'>{loader?'Savings..':'Save'}</Button></div></div></div>
+       <div className='flex gap-5'><div className=''>   <img  className='rounded-full size-24' src={imgs||userInfo?.image}></img> <div className='flex justify-between w-full relative  items-center mt-4 gap-8 '><div className=''><Button className=' ' variant='secondary'>  <input  placeholder={userInfo?.username}  className='opacity-0 w-36 absolute b' onChange={async(e)=>{ setloader(true);axios.post('/api/imageupload',{path: await convertImageToBase64(e.target.files[0])}).then((res)=>{ setloader(false); setimgs(res.data.url);  toast({title:'Succes',description:'image uploaded succesfully'}) }).catch(e=>{setloader(false); toast({title:'Succes',description:'something went wrong'})})}} type='file'></input> <BiImageAdd size={25}></BiImageAdd> {loader?'uploading...':'Add image'}</Button> </div></div> </div><div className='flex-col '> <div>Name</div><input  value={name} onChange={(e)=>{ setname(e.target.value)}} className='border rounded-lg p-2'></input> <div className='h-full relative w-full'><Button   onClick={()=>{ setloader(true); axios.post('/api/edituser',{name,image:imgs,email:userInfo?.email}).then(res=>setloader(false)).catch(e=>setloader(true)) }} disabled={ !(name?.length>1)||loader  } className='  absolute bottom-14 right-0'>{loader?'Savings..':'Save'}</Button></div></div></div>
         </DialogContent>
     </Dialog>
     

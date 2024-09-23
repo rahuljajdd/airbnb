@@ -1,4 +1,4 @@
-//@ts-nocheck
+
 "useclient"
 import React, { useState } from 'react'
 import { IoHeart } from "react-icons/io5";
@@ -39,7 +39,7 @@ import { Context } from './UserProvider';
 import { useToast } from '@/hooks/use-toast';
 
 // @ts-ignore
-const Card:React.FC<props> = ({ distance,setreservation,setproperties,items,location, price,category,imagesrc,id,night,title,description,cancelreservation,delisting ,roomcount,guestcount,bathroomcount,onclick}) => {
+const Card:React.FC<props> = ({ distance,setreservation,setproperties,items,location, price,category,imagesrc,id,night,title,description,fav,cancelreservation,delisting ,roomcount,guestcount,bathroomcount,onclick}) => {
   const context = useContext(Context);
 
   // Check if the context is defined
@@ -50,12 +50,12 @@ const Card:React.FC<props> = ({ distance,setreservation,setproperties,items,loca
   const { userInfo } = context;
   const [loader, setloader] = useState(false);
   const [pop, setpop] = useState()
-  const [like, setlike] = useState(false)  
+  const [like, setlike] = useState(fav)  
   console.log(price);
   // @ts-ignore
-  const deletreservation=  function (){ axios.post('/api/delreservation',{id}).then((res)=>{const{error} =res.data; setloader(false); if(error){toast.error(error);}else{toast.success('Reservation sucessfull deleted');   axios.post('api/ownerreservations' ,{userid:userInfo?.email}).then((res)=>{setreservation(res.data)})   } }).catch((e)=>{console.log(e); setloader(false)}) }     
+  const deletreservation=  function (){ axios.post('/api/delreservation',{id}).then((res)=>{const{error} =res.data; setloader(false); if(error){toast({title:'Error',description:error});}else{toast({title:'Succes',description:'Reservation sucessfull deleted'});   axios.post('api/ownerreservations' ,{userid:userInfo?.email}).then((res)=>{setreservation(res.data)})   } }).catch((e)=>{console.log(e); setloader(false)}) }     
 // @ts-ignore
-  const deleltelisting= function (){   console.log(id); axios.post('/api/dellisting',{id}).then((res)=>{     const{error} =res.data; if(error){toast.error(error);}else{toast.success('Listing sucessfull deleted');}    axios.post('/api/getlistings',{email:userInfo?.email,name:userInfo?.username}).then((res)=>{setproperties(res.data)}).catch((e)=>{console.log(e);}) ;   console.log(res);  setpop(false); setloader(false);}).catch((e)=>{console.log(e);}) }     
+  const deleltelisting= function (){   console.log(id); axios.post('/api/dellisting',{id}).then((res)=>{     const{error} =res.data; if(error){if(error){toast({title:'Error',description:error})}else{toast({title:'Succes',description:'Listing sucessfull deleted'});}    axios.post('/api/getlistings',{email:userInfo?.email,name:userInfo?.username}).then((res)=>{setproperties(res.data)}).catch((e)=>{console.log(e);}) ;   console.log(res);  setpop(false); setloader(false);}}).catch((e)=>{console.log(e);}) }     
 const{toast}=useToast()
 const router=useRouter();
   return (

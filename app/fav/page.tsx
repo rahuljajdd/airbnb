@@ -1,8 +1,8 @@
-
 //@ts-nocheck
+
 "use client"
 import React, { useEffect, useInsertionEffect } from 'react'
-
+import { SkeletonCard } from '../components/Listings';
 import Card from '../components/Card';
 import Image from "next/image";
 import { useState } from "react";
@@ -34,7 +34,7 @@ const Page = () => {
     const [registerpop, setregisterpop] = useState(false)
     const [rent, setrent] = useState(false);
     const [userinfo, setuserinfo] = useState(null);
-    const [properties, setproperties] = useState([])
+    const [properties, setproperties] = useState([1])
     const router =useRouter();
 
     const context = useContext(Context);
@@ -51,7 +51,7 @@ const Page = () => {
 
 axios.post('api/favourites',{user:userInfo}).then((res)=>{setproperties(res.data);}).catch(e=>{console.log(e)})
 
-   }, [userinfo])
+   }, [userInfo])
    
     
 
@@ -82,8 +82,8 @@ axios.post('api/favourites',{user:userInfo}).then((res)=>{setproperties(res.data
     
       <div className=' pt-24 p-3'>
     
-    <div className='text-2xl font-semibold'>My properties</div>
-     <div className='text-sm text-gray-500'>your listings</div>
+    <div className='text-2xl font-semibold'>Favourites</div>
+     <div className='text-sm text-gray-500'>your check list</div>
       </div>
 
   
@@ -105,16 +105,16 @@ axios.post('api/favourites',{user:userInfo}).then((res)=>{setproperties(res.data
  
  <div className='flex flex-wrap '>
  
-       {(properties===null)&&[1,1,1,1,1,1,1,1,1,11,1].map((item)=>{return(<div className='mx-auto'><SkeletonCard></SkeletonCard></div>)})}
+       {(properties[0]===1)&&[1,1,1,1,1,1,1,1,1,11,1].map((item)=>{return(<div className='mx-auto'><SkeletonCard></SkeletonCard></div>)})}
  
- {properties?.map((item:any)=>{ 
+ {(properties[0]!==1&&properties.length>0) &&properties?.map((item:any)=>{ 
  
  
  
  return(
  <>
  
- <Card setproperties={setproperties} items={item} title={item.title}  description={item.description} category={item.category} location={item.locationValue} roomcount={item.roomCount} guestcount={item.guestCount} bathroomcount={item.bathroomCount} price={item.price} imagesrc={item.imagesrc.split('=')[0]} id={item.id} delisting={true} cancelreservation={false} ></Card>
+ <Card items={item}  distance={item.distance} category={item.category} location={item?.locationValue.split("?")[0]} price={item.price} imagesrc={item.imagesrc.split("=")[0]}   fav={true} id={item.id}></Card>
  
  </>
  

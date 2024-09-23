@@ -17,7 +17,7 @@ import {
   import { Alert, AlertDescription, AlertTitle } from "@/app/ui/alert"
   import { Checkbox } from "@/app/ui/checkbox"
   import { BiWifi } from 'react-icons/bi'
-  import toast from 'react-hot-toast';
+
   import CurrencyInput from 'react-currency-input-field';
   import { CldUploadWidget } from 'next-cloudinary';
 
@@ -50,6 +50,7 @@ import {
 import { MdClose, MdDelete } from 'react-icons/md';
   import { Context } from './UserProvider'
 import { DialogClose } from '@/app/ui/dialog'
+import { useToast } from '@/hooks/use-toast'
 
 enum steps{
     CATEGORY =0,
@@ -76,7 +77,7 @@ const EditModal = ({items,setproperties}:{items:any,setproperties:any}) => {
 
 
 
-
+const {toast}=useToast()
 
 console.log(items);
 
@@ -627,14 +628,14 @@ const [loadr, setloadr] = useState(false)
    }
  
 
-   axios.put('/api/listings',{data:data,user:userInfo,listingid:items.id}).then((res)=>{ toast.success(res.data.msg);  setstep(steps.CATEGORY);
+   axios.put('/api/listings',{data:data,user:userInfo,listingid:items.id}).then((res)=>{ toast({title:'Succes',description:res.data.msg}); setstep(steps.CATEGORY);
    
 
     setproperties(res.data);
     const {error}=res.data;
     if(error){
-        toast.error(error);
-    }else{ toast.success("listing updated successfully")}
+      toast({title:'Error',description:error})
+    }else{toast({title:'Succes',description:'listing created succefully'})}
     //    axios.get('api/listings').then((res)=>{setlistings(res.data);}).catch((e)=>{console.log(e);})
  
  setloadr(false);

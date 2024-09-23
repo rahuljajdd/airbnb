@@ -48,7 +48,7 @@ import { Context } from './UserProvider';
 import { compareSync } from 'bcrypt'
 
 import { constants } from 'buffer'
-import toast, { Toaster } from 'react-hot-toast'
+
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { FaLocationDot } from "react-icons/fa6";
@@ -83,6 +83,7 @@ import {
   DialogTrigger,
 } from "@/app/ui/dialog"
 import { Description } from '@radix-ui/react-dialog';
+import { useToast } from '@/hooks/use-toast';
 
 
 
@@ -141,7 +142,7 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
   const icons = Object.entries(item).find(([key, value]) => value === true)?.[0];
   console.log(icons)
   console.log(item)
-  
+  const{toast}=useToast();
   const router=useRouter();
    const Map = dynamic(() => import('./Map'), { ssr: false });
   
@@ -189,7 +190,7 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
     axios.put('/api/reviews',{user:userInfo?.email,listingid:listingId}).then((res)=>{
       const{error,alredyhaveanreview}=res.data;
       if(error){
-        toast.error(error);
+        toast({title:'Error',description:error})
       }
       if(alredyhaveanreview){
     
@@ -318,7 +319,7 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
     //      setdisableddates([...disableddates,rangestring])
     //      console.log(disableddates);
   
-         toast.success('succesfully reserved')}).catch(e=>console.log(e));
+    toast({title:'Succes',description:'sucessfully reserved'})}).catch(e=>console.log(e));
          
         }
         

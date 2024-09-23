@@ -14,8 +14,8 @@ import {
 import { Alert, AlertDescription, AlertTitle } from "@/app/ui/alert"
 import { Checkbox } from "@/app/ui/checkbox"
 import { MdClose } from "react-icons/md";
+import { useToast } from "@/hooks/use-toast"
 
-import toast from 'react-hot-toast';
 import CurrencyInput from 'react-currency-input-field';
 import { CldUploadWidget } from 'next-cloudinary';
 import React, { useState } from 'react';
@@ -150,6 +150,7 @@ const [Location, setLocation] = useState('')
 
   const { userInfo } = context;
 
+const{toast}=useToast();
 
 
 
@@ -779,11 +780,11 @@ const submit=handleSubmit((data)=>{
     
     const{error}=res.data
     if(error){
-      return toast.error(erroe)
+      return toast({title:'Error',description:error})
     }else{
 
 
-      toast.success("listing created succesfully");  
+      toast({title:'Succes',description:'listing vreated succes fully'}) 
       setstep(steps.CATEGORY);
 
     }

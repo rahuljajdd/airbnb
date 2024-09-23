@@ -42,7 +42,7 @@ const [loader, setloader] = useState()
         <div className='text-gray-500'>Try changing or removing some of your filters</div>
         <button className='text-sm p-3 border-2 border-black rounded-md ' onClick={()=>{router.push('/');}}>Remove all filters</button>
       </div>  </div></>} */}
-{(properties?.length===0)&&<> <div className='w-full h-96 text-2xl text-neutral-800 font-medium flex justify-center items-center flex-col '>No properties  created yet<div className='text-base font-normal text-neutral-500'>Please make reservations first</div></div>
+{(properties?.length===0)&&<> <div className='w-full h-96 text-2xl text-neutral-800 font-medium flex justify-center items-center flex-col '>No favourites created yet<div className='text-base font-normal text-neutral-500'>Please make reservations first</div></div>
   </>}
 
 <div className='flex flex-wrap '>
@@ -56,7 +56,8 @@ const [loader, setloader] = useState()
 return(
 <>
 
-<Card setproperties={setproperties} items={item} title={item.title}  description={item.description} category={item.category} location={item.locationValue} roomcount={item.roomCount} guestcount={item.guestCount} bathroomcount={item.bathroomCount} price={item.price} imagesrc={item.imagesrc.split('=')[0]} id={item.id} delisting={true} cancelreservation={false} ></Card>
+
+<Card setproperties={setproperties} items={item} title={item.title}  description={item.description} category={item.category} location={item.locationValue} roomcount={item.roomCount} guestcount={item.guestCount} bathroomcount={item.bathroomCount} price={item.price} imagesrc={item.imagesrc.split('=')[0]} id={item.id} delisting={false} cancelreservation={false} ></Card>
 
 </>
 

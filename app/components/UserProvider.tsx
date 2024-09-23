@@ -36,6 +36,7 @@ interface UserProvidersProps {
 
 export const UserProviders = ({ children }: UserProvidersProps) => {
   const { user } = useUser();
+  console.log(user)
   const [userInfo, setuserInfo] = useState<userInfo | null>(null);
 
   useEffect(() => {
