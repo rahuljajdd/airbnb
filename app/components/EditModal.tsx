@@ -149,7 +149,7 @@ let bodycontent=
 
 <>
 
-<div className="flex justify-center p-3 border-b"> Airbnb your home <DialogClose className="md:hidden block"><MdClose></MdClose></DialogClose> </div>
+<div className="flex justify-ce p-3 border-b"> Airbnb your home <DialogClose className="md:hidden block"><MdClose></MdClose></DialogClose> </div>
     <div className="p-3 font-bold">Which of the best describes your place</div>
     <div className="px-3 text-gray-500 text-sm">Pick a category</div>
     
@@ -439,7 +439,7 @@ if(step===steps.IMAGES){
 
 
 <>
-  <div className="flex justify-center p-3 border-b">Airbnb your home</div>
+  <div className="flex justify-center  p-3 border-b">Airbnb your home</div>
 
   <div className="p-3 font-bold text-lg sm:text-xl">
     Add some photos of your space
@@ -473,7 +473,7 @@ if(step===steps.IMAGES){
     />
   </Button>
 
-  <div className="gallery max-h-96 overflow-y-auto overflow-x-hidden">
+  <div className="gallery  max-h-96 min-h-60 overflow-y-auto  border overflow-x-hidden">
     {imgs?.map((item, index) => (
       <div key={index} className="gallery-item relative">
         <div

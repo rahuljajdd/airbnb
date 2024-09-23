@@ -170,7 +170,7 @@ const [Location, setLocation] = useState('')
 
 let bodycontent=(<>
 <>
-    <div className="flex justify-between p-3 border-b"> <div></div>Airbnb your home <DialogClose className="md:hidden block"><MdClose></MdClose></DialogClose> </div>
+    <div className="flex justify-between p-3 border-b"> <div></div>Airbnb your home  </div>
     <div className="p-3 font-bold">Which of the best describes your place</div>
     <div className="px-3 text-gray-500 text-sm">Pick a category</div>
     
@@ -561,7 +561,7 @@ if(step===steps.IMAGES){
 
 
 <>
-<>
+<div className="">
   <div className="flex justify-center p-3 border-b">Airbnb your home</div>
 
   <div className="p-3 font-bold text-lg sm:text-xl">
@@ -596,7 +596,7 @@ if(step===steps.IMAGES){
     />
   </Button>
 
-  <div className="gallery max-h-96 min-h-60 overflow-y-auto overflow-x-hidden">
+  <div className="gallery max-h-96 min-h-60 overflow-y-auto  overflow-x-hidden">
     {imgs?.map((item, index) => (
       <div key={index} className="gallery-item relative">
         <div
@@ -641,7 +641,7 @@ if(step===steps.IMAGES){
       Next
     </Button>
   </div>
-</>
+</div>
 
 </></>
 

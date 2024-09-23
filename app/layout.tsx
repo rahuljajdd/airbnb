@@ -1,3 +1,5 @@
+
+
 import { Toaster } from "@/components/ui/toaster"
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -40,8 +42,10 @@ export default async function RootLayout({
 <ClerkProvider>
       <Providers>
         <html lang="en">
-              <ToastContainer />
+          
           <body className={inter.className}>
+     
+
             <UserProviders>
               {/* Toast Container for notifications */}
 
@@ -50,13 +54,14 @@ export default async function RootLayout({
               
 
                 {children}
-              
               </Suspense>
 
               {/* Toaster for hot toast notifications */}
             </UserProviders>
+                <Toaster />
+           
           </body>
-              <Toaster />
+           
         </html>
       </Providers>
     </ClerkProvider>

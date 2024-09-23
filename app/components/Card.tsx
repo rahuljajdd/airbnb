@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import countries from 'world-countries';
 import { number, string } from 'zod';
 import { handleClientScriptLoad } from 'next/script';
-import toast from 'react-hot-toast'
+
 import axios from 'axios';
 import { Button } from '@/app/ui/button';
 interface props {
@@ -36,6 +36,7 @@ import { json } from 'stream/consumers';
 import { addtofavourites } from '@/actions';
 import { useContext } from 'react';
 import { Context } from './UserProvider';
+import { useToast } from '@/hooks/use-toast';
 
 // @ts-ignore
 const Card:React.FC<props> = ({ distance,setreservation,setproperties,items,location, price,category,imagesrc,id,night,title,description,cancelreservation,delisting ,roomcount,guestcount,bathroomcount,onclick}) => {
@@ -55,27 +56,30 @@ const Card:React.FC<props> = ({ distance,setreservation,setproperties,items,loca
   const deletreservation=  function (){ axios.post('/api/delreservation',{id}).then((res)=>{const{error} =res.data; setloader(false); if(error){toast.error(error);}else{toast.success('Reservation sucessfull deleted');   axios.post('api/ownerreservations' ,{userid:userInfo?.email}).then((res)=>{setreservation(res.data)})   } }).catch((e)=>{console.log(e); setloader(false)}) }     
 // @ts-ignore
   const deleltelisting= function (){   console.log(id); axios.post('/api/dellisting',{id}).then((res)=>{     const{error} =res.data; if(error){toast.error(error);}else{toast.success('Listing sucessfull deleted');}    axios.post('/api/getlistings',{email:userInfo?.email,name:userInfo?.username}).then((res)=>{setproperties(res.data)}).catch((e)=>{console.log(e);}) ;   console.log(res);  setpop(false); setloader(false);}).catch((e)=>{console.log(e);}) }     
-
+const{toast}=useToast()
 const router=useRouter();
   return (
     <div className='p-5  mx-auto md:mx-0 cursor-pointer group'  >
     
-    <div className='md:w-60 w-60 h-60 relative overflow-hidden rounded-lg  ' onClick={()=>{ 
+    <div className='md:w-60 w-60 h-60 relative overflow-hidden rounded-lg  ' onClick={async()=>{ 
 
 
       // @ts-ignore
       console.log(items._id);router.push(`/listings/${items.id}`)}}>
         <div className=' z-50'  onClick={async(e)=>{e.stopPropagation();
+  axios.put('api/user',{user:userInfo,id}).then((res)=>{
 
-setlike(true)
-
-const result= await addtofavourites(userInfo?.email,id)
-if(result?.status===400){
-  toast.error(result?.message)
+const{error}=res.data
+if(error){
+  toast({title:'Error',description:'You are not loged in'})
 }
 else{
-  toast.success(result?.message)
+  setlike(true)
+  toast({title:'Success',description:'property added to favourites'})
+
 }
+
+ })
 
         }}>
 
