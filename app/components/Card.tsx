@@ -97,9 +97,9 @@ else{
 {delisting&&<div className='w-full    '>
 <Dialog >
   <DialogTrigger><Button className='w-60 mt-2 '  >Edit</Button></DialogTrigger>
-  <DialogContent className='md:h-auto h-full    min-h-screen overflow-y-auto  '>
+  <DialogContent className="h-screen justify-start max-h-[93vh] overflow-y-auto pt-0 ">
     <DialogHeader>
-      <DialogTitle>Edit</DialogTitle>
+     
 
     </DialogHeader>
 

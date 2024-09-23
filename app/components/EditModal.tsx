@@ -149,7 +149,7 @@ let bodycontent=
 
 <>
 
-<div className="flex justify-between p-3 border-b"> <div></div>Airbnb your home <DialogClose className="md:hidden block"><MdClose></MdClose></DialogClose> </div>
+<div className="flex justify-center p-3 border-b"> Airbnb your home <DialogClose className="md:hidden block"><MdClose></MdClose></DialogClose> </div>
     <div className="p-3 font-bold">Which of the best describes your place</div>
     <div className="px-3 text-gray-500 text-sm">Pick a category</div>
     
@@ -695,15 +695,21 @@ if(step===steps.PRICE){
   
   
 
-  <div className="w-full md:-mx-0 ">
-  
-  
-  {bodycontent}
-  
-  
-  
-  
-  </div>
+    <div    >
+
+
+
+<div className="w-full  h-full  ">
+
+
+{bodycontent}
+
+
+
+
+</div>
+
+</div>
 
     
   </>

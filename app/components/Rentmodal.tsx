@@ -828,7 +828,7 @@ const submit=handleSubmit((data)=>{
   
   <Dialog   open={true} onOpenChange={()=>{setregister(false)}} >
 
-<DialogContent className="h-screen overflow-y-auto">
+<DialogContent className="h-screen max-h-[93vh] overflow-y-auto">
 
 <div className="w-full ">
 
