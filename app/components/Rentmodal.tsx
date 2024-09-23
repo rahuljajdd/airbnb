@@ -179,7 +179,8 @@ let bodycontent=(<>
             {categories.map((items: any) => {
                 return (
                     <Categoryinput 
-                        onClick={(category) => { setCustomvalue('category', category) }} 
+                    
+                        onclick={(category) => {  console.log(category); setCustomvalue('category', category) }} 
                         selected={category === items.name} 
                         name={items.name} 
                         icon={items.icon} 
