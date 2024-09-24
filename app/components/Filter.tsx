@@ -213,9 +213,11 @@ const [min, setmin] = useState(([Number(params.get('min'))]));
 const [max, setmax] = useState(([Number(params.get('max'))]));
 const{toast}=useToast()
 const items=Categories
+
+const ref=React.useRef();
 return (
 <Dialog>
-  <DialogTrigger>  
+  <DialogTrigger ref={ref}>  
     {/* Dialog Trigger for larger and smaller screens */}
     <div className="md:flex hidden border p-2 rounded-full text-sm font-medium text-gray-700 shadow-md items-center hover:shadow-lg w-2/3 md:w-auto justify-between">
       <div className="border-r px-3 hidden items-center cursor-pointer md:flex">Anywhere</div>
@@ -321,7 +323,7 @@ return (
             <Slider defaultValue={[30]} value={max} onValueChange={(value) => setmax(value)} max={100} step={1} />
             {max && <div className='p-3 rounded-lg border bg-slate-900 text-white'>${max[0] * 10}</div>}
           </div>
-          <Button variant="destructive" onClick={()=>{ applyfilters();   toast({title:'succes',description:'filter succefully applied'})  }}>Apply</Button>
+          <Button variant="destructive" onClick={()=>{ applyfilters(); ref.current.click();   toast({title:'succes',description:'filter succefully applied'})  }}>Apply</Button>
         </TabsContent>
       </Tabs>
 
