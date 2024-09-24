@@ -45,6 +45,7 @@ const{signOut}=useClerk()
     <DropdownMenuLabel>My Account</DropdownMenuLabel>
     <DropdownMenuSeparator />
 
+    <DropdownMenuItem><div className="cursor-pointer hover:bg-neutral-100 p-2  " onClick={()=>{router.push('/')}}>Home </div></DropdownMenuItem>
     <DropdownMenuItem><div className="cursor-pointer hover:bg-neutral-100 p-2  " onClick={()=>{router.push('/dashboard')}}>My Dashboard </div></DropdownMenuItem>
     <DropdownMenuItem><div className="cursor-pointer hover:bg-neutral-100 p-2  " onClick={()=>{router.push('/trips')}}>My trips </div></DropdownMenuItem>
     <DropdownMenuItem><div className="cursor-pointer hover:bg-neutral-100 p-2  " onClick={()=>{router.push('fav')}}>My favourites </div></DropdownMenuItem>
