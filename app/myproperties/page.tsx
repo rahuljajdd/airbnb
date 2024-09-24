@@ -47,7 +47,7 @@ const Page = () => {
   <div className=" border-b w-full p-3 px-4 bg-white flex justify-between fixed z-40  shadow-sm">
     
     <div className="flex items-center text-red-500 text-sm mr-1 md:text-xl font-medium  " onClick={()=>{router.push('/')}}><FaAirbnb size={35}></FaAirbnb> airbnb</div>
-    <div className="flex border p-2 rounded-full text-sm font-medium text-gray-700 shadow-md items-center hover:shadow-lg w-2/3 md:w-auto justify-between ">
+    <div className="md:flex hidden border p-2 rounded-full text-sm font-medium text-gray-700 shadow-md items-center hover:shadow-lg w-2/3 md:w-auto justify-between " onClick={()=>{router.push('/')}}  >
     <div className="border-r px-3 hidden items-center  cursor-pointer md:flex ">anywhere</div>
     <div className="border-r px-3 flex items-center  cursor-pointer">anywhere</div>
     <div className=" pl-3 text-gray-500 hidden items-center  cursor-pointer  md:flex md:w-auto ">Add Guest</div>
