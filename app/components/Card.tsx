@@ -53,11 +53,23 @@ const Card:React.FC<props> = ({ distance,setreservation,setproperties,items,loca
   const [loader, setloader] = useState(false);
   const [pop, setpop] = useState()
   const [like, setlike] = useState(fav)  
-  console.log(price);
+  
+const ref=React.useRef();
+
   // @ts-ignore
-  const deletreservation=  function (){ axios.post('/api/delreservation',{id}).then((res)=>{const{error} =res.data; setloader(false); if(error){toast({title:'Error',description:error});}else{toast({title:'Succes',description:'Reservation sucessfull deleted'});   axios.post('api/ownerreservations' ,{userid:userInfo?.email}).then((res)=>{setreservation(res.data)})   } }).catch((e)=>{console.log(e); setloader(false)}) }     
+  const deletreservation=  function (){ axios.post('/api/delreservation',{id}).then((res)=>{const{error} =res.data; setloader(false); if(error){toast({title:'Error',description:error});}else{toast({title:'Succes',description:'Reservation sucessfull deleted'});  
+
+  router.refresh();
+  ref.current?.click()
+  
+  axios.post('api/ownerreservations' ,{userid:userInfo?.email}).then((res)=>{setreservation(res.data)})   } }).catch((e)=>{console.log(e); setloader(false)}) }     
 // @ts-ignore
-  const deleltelisting= function (){   console.log(id); axios.post('/api/dellisting',{id}).then((res)=>{     const{error} =res.data; if(error){if(error){toast({title:'Error',description:error})}else{toast({title:'Succes',description:'Listing sucessfull deleted'});}    axios.post('/api/getlistings',{email:userInfo?.email,name:userInfo?.username}).then((res)=>{setproperties(res.data)}).catch((e)=>{console.log(e);}) ;   console.log(res);  setpop(false); setloader(false);}}).catch((e)=>{console.log(e);}) }     
+  const deleltelisting= function (){   console.log(id); axios.post('/api/dellisting',{id}).then((res)=>{     const{error} =res.data; if(error){if(error){toast({title:'Error',description:error})}else{toast({title:'Succes',description:'Listing sucessfull deleted'});} 
+
+  router.refresh();
+  ref.current?.click()
+  
+  axios.post('/api/getlistings',{email:userInfo?.email,name:userInfo?.username}).then((res)=>{setproperties(res.data)}).catch((e)=>{console.log(e);}) ;   console.log(res);  setpop(false); setloader(false);}}).catch((e)=>{console.log(e);}) }     
 const{toast}=useToast()
 const router=useRouter();
   return (
@@ -120,7 +132,7 @@ else{
 
 {cancelreservation&&<div className='w-full  '>
 <Dialog >
-  <DialogTrigger ><Button className='w-60 mt-2'  variant={"destructive"}>{loader?"Deleting...":"Cancle Reservation"}</Button></DialogTrigger>
+  <DialogTrigger ref={ref} ><Button className='w-60 mt-2'  variant={"destructive"}>{loader?"Deleting...":"Cancle Reservation"}</Button></DialogTrigger>
   <DialogContent >
     <DialogHeader>
       <DialogTitle>Are you absolutely sure?</DialogTitle>
@@ -130,7 +142,11 @@ else{
         <div className='flex justify-between pt-9'>
           <div></div>
 
-          <Button disabled={loader}  onClick={ (e)=>{ e.stopPropagation(); deletreservation();setloader(true) ; 
+          <Button disabled={loader}  onClick={ (e)=>{ e.stopPropagation(); deletreservation();setloader(true) ;
+          
+          toast({title:'Succes',description:'listing deleted succesfully'});
+          router.refresh();
+          ref.current?.click()
             // @ts-ignore
           } }variant={"destructive"}>{loader?"Deleting":"Delete"}</Button>
         </div>
@@ -149,7 +165,7 @@ else{
     
 {delisting&&<div className='w-full  '>
 <Dialog >
-  <DialogTrigger ><Button className='w-60 mt-2'  variant={"destructive"}>{loader?"Deleting...":"Delete"}</Button></DialogTrigger>
+  <DialogTrigger ref={ref} ><Button className='w-60 mt-2'  variant={"destructive"}>{loader?"Deleting...":"Delete"}</Button></DialogTrigger>
   <DialogContent >
     <DialogHeader>
       <DialogTitle>Are you absolutely sure?</DialogTitle>
@@ -159,7 +175,7 @@ else{
         <div className='flex justify-between pt-9'>
           <div></div>
 
-          <Button disabled={loader}  onClick={ (e)=>{ e.stopPropagation(); deleltelisting();setloader(true) ; 
+          <Button disabled={loader}  onClick={ (e)=>{ e.stopPropagation(); deleltelisting();setloader(true) 
             // @ts-ignore
            } }variant={"destructive"}>{loader?"Deleting":"Delete"}</Button>
         </div>

@@ -643,7 +643,7 @@ const [loadr, setloadr] = useState(false)
  setloadr(false)
  })
  
- const ref = React.useRef();
+
  
 if(step===steps.PRICE){
  
