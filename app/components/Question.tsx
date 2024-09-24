@@ -25,7 +25,7 @@ import {
   } from "@/app/ui/card"
   import { Button } from '@/app/ui/button'
 import axios from 'axios'
-
+import { useRouter } from 'next/router'
 import { Context } from './UserProvider'
 import { useContext } from 'react';
 import { Alert, AlertDescription, AlertTitle } from '@/app/ui/alert'
@@ -33,6 +33,7 @@ import { Avatar, AvatarImage } from '../ui/avatar'
 import { AvatarFallback } from '@radix-ui/react-avatar'
 import { FaPerson } from 'react-icons/fa6'
 import { IoPersonSharp } from 'react-icons/io5'
+import { Router } from 'next/router'
 const Question = () => {
 
   const [loader, setloader] = useState(false)
@@ -49,7 +50,7 @@ const Question = () => {
     const [questionset, setquestionset] = useState([])
 
 
-
+const router=useRouter();
 
     useEffect(() => {
 
@@ -173,7 +174,7 @@ const Question = () => {
     </DialogHeader>
 
 <textarea onChange={(e)=>{setquestions(e.target.value)}} placeholder='ask question here' className='p-3 border rounded-lg min-h-28'></textarea>
-<Button disabled={!(questions.length>1&&userInfo)} className='w-min px-4' onClick={()=>{ setloader(true);  axios.post('/api/questions',{questions,email:userInfo?.email}).then((res)=>{setquestionset([...questionset,res.data]);ref?.current?.click()})  }}>{loader?'posting...':'Post'}</Button>
+<Button disabled={!(questions.length>1&&userInfo)} className='w-min px-4' onClick={()=>{ setloader(true);  axios.post('/api/questions',{questions,email:userInfo?.email}).then((res)=>{ Router.refresh(); ref?.current?.click()})  }}>{loader?'posting...':'Post'}</Button>
 
 
 
