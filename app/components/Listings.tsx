@@ -100,7 +100,7 @@ console.log(listings);
 
 
  
-  return(<><Card items={item}  distance={item.distance} id={item.id} category={item.category} location={item?.locationValue.split("?")[0]} price={item.price} imagesrc={item.imagesrc.split("=")[0]} id={item.id||item._id.$iod}></Card></>)}):[1,1,1,1,1,1,1,1,1,1,1].map((item)=>{return(<div className=' mx-auto md:mx-0'><SkeletonCard></SkeletonCard></div>)})}
+  return(<><Card items={item}  distance={item.distance} id={item.id} category={item.category} location={item?.locationValue.split("?")[0]} price={item.price} imagesrc={item.imagesrc.split("=")[0]} id={item.id||item._id.$oid}></Card></>)}):[1,1,1,1,1,1,1,1,1,1,1].map((item)=>{return(<div className=' mx-auto md:mx-0'><SkeletonCard></SkeletonCard></div>)})}
 
 
 
