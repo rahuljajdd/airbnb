@@ -25,7 +25,7 @@ import {
   } from "@/app/ui/card"
   import { Button } from '@/app/ui/button'
 import axios from 'axios'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { Context } from './UserProvider'
 import { useContext } from 'react';
 import { Alert, AlertDescription, AlertTitle } from '@/app/ui/alert'
