@@ -45,9 +45,6 @@ getCurrentCoordinates()
    
   })
 
-  console.log(geo);
-  console.log(encodedPolyline);
-
   if (encodedPolyline) {
     const decodedPoints = polyline.decode(encodedPolyline).map(coord => [coord[0], coord[1]]);
 

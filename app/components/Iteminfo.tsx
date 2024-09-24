@@ -188,22 +188,16 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
   
 
   
-    axios.put('/api/reviews',{user:userInfo?.email,listingid:listingId}).then((res)=>{
-      const{error,alredyhaveanreview}=res.data;
-      if(error){
-        toast({title:'Error',description:error})
-      }
-      if(alredyhaveanreview){
-    
-      }
-    
-      seteditreview(res.data);
-    
-    console.log(res.data);
-    }
-    )
+   
     
   })
+
+
+
+
+
+  
+  
   
   
   let rangestring= ranges.map((date)=>date.toString())
@@ -213,6 +207,37 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
   
   }).catch(e=>console.log(e)).finally(()=>{ });
   }, [])
+
+
+  
+  const [editreview, seteditreview] = useState(false)
+  
+  const context = useContext(Context);
+
+  // Check if the context is defined
+  if (!context) {
+    throw new Error('MyComponent must be used within a UserProviders');
+  }
+
+  const { userInfo } = context;
+  useEffect(() => {
+   
+if(userInfo){
+
+  
+  axios.put('/api/reviews',{email:userInfo?.email,listingid:listingId}).then((res)=>{
+    
+    seteditreview(res.data);
+    console.log(editreview,'hello bahi')
+    
+    
+  }
+)
+}
+
+
+
+  }, [userInfo])
   
   const [review, setreview] = useState(reviews)
   
@@ -220,8 +245,7 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
   
   
   
-  
-  console.log(locations);
+
   
   console.log([parseFloat(locations?.split('?')[1]),parseFloat(locations?.split('?')[2])])
   
@@ -245,7 +269,7 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
   
     
       setgeo([parseFloat(locations?.split('?')[1]),parseFloat(locations?.split('?')[2])]);
-      console.log(geo);
+     
       
     }
   
@@ -254,18 +278,10 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
    
   }, [locations])
   
-  
-  
-  const context = useContext(Context);
-
-  // Check if the context is defined
-  if (!context) {
-    throw new Error('MyComponent must be used within a UserProviders');
-  }
 
 
   const ref= React.useRef();
-  const { userInfo } = context;
+
   const ceta=categories.find( (c)=>(c.name)===category);
   const [totalprice, settotalprice] = useState(1);
   const [state, setState] = useState([
@@ -294,7 +310,7 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
   if(locations){
   
   
-    axios.get(`https://us1.locationiq.com/v1/directions/driving/${locations?.split('?')[2]},${locations?.split('?')[1]};${localStorage.getItem("longitude")},${localStorage.getItem("latitude")}?key=pk.deb87b54fd43801d7fd7b12571d34439&overview=full`).then(res=>{setdistance(res.data.routes[0].legs[0].distance); setpolyline(res.data.routes[0].geometry); console.log(res.data.routes.legs[0].distance);}).catch((E)=>{console.log(E);})
+    axios.get(`https://us1.locationiq.com/v1/directions/driving/${locations?.split('?')[2]},${locations?.split('?')[1]};${localStorage.getItem("longitude")},${localStorage.getItem("latitude")}?key=pk.deb87b54fd43801d7fd7b12571d34439&overview=full`).then(res=>{setdistance(res.data.routes[0].legs[0].distance); setpolyline(res.data.routes[0].geometry); }).catch((E)=>{console.log(E);})
   
   }
   }, [locations])
@@ -329,7 +345,6 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
         }
         
         const [loading, setloading] = useState(false);
-  const [editreview, seteditreview] = useState(false)
   
   function getShortForm(fullName) {
     const nameParts = fullName.split(' ');  // Split the full name by spaces

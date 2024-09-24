@@ -36,7 +36,11 @@ interface UserProvidersProps {
 
 export const UserProviders = ({ children }: UserProvidersProps) => {
   const { user } = useUser();
-  console.log(user)
+  if(user){
+
+console.log('user')
+    console.log(user)
+  }
   const [userInfo, setuserInfo] = useState<userInfo | null>(null);
 
   useEffect(() => {
@@ -47,6 +51,7 @@ export const UserProviders = ({ children }: UserProvidersProps) => {
           email: user.emailAddresses[0].emailAddress,
         })
         .then((res) => {
+          console.log(res.data)
           setuserInfo(res.data);
         })
         .catch((error) => {

@@ -174,7 +174,7 @@ const router=useRouter();
     </DialogHeader>
 
 <textarea onChange={(e)=>{setquestions(e.target.value)}} placeholder='ask question here' className='p-3 border rounded-lg min-h-28'></textarea>
-<Button disabled={!(questions.length>1&&userInfo)} className='w-min px-4' onClick={()=>{ setloader(true);  axios.post('/api/questions',{questions,email:userInfo?.email}).then((res)=>{ Router.refresh(); ref?.current?.click()})  }}>{loader?'posting...':'Post'}</Button>
+<Button disabled={!(questions.length>1&&userInfo)} className='w-min px-4' onClick={()=>{ setloader(true);  axios.post('/api/questions',{questions,email:userInfo?.email}).then((res)=>{ setquestionset([...questionset,res.data]); ref?.current?.click()})  }}>{loader?'posting...':'Post'}</Button>
 
 
 

@@ -90,6 +90,7 @@ export async function PUT(request:NextRequest){
 
 const {email,listingid}=await request.json();
 
+console.log(email,listingid)
 const user=await  prisma.users.findFirst({where:{email}});
 
 
