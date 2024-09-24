@@ -48,7 +48,7 @@ const Card:React.FC<props> = ({ distance,setreservation,setproperties,items,loca
   }
   
 
-  console.log(items,'hello')
+  
   const { userInfo } = context;
   const [loader, setloader] = useState(false);
   const [pop, setpop] = useState()

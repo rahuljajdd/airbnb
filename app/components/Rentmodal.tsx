@@ -526,6 +526,7 @@ return new Promise((resolve, reject) => {
 });
 }
 
+const [loader, setloader] = useState(false);
 
 const [imgs, setimgs] = useState<null|any[]>([])
 
@@ -583,16 +584,17 @@ if(step===steps.IMAGES){
   </Alert>
 
   <Button className="m-3 p-4 relative">
-    Upload
+    {loader?'uploading..':'upload'}
     <input
       className="absolute w-full h-full top-0 left-0 opacity-0 cursor-pointer"
       type="file"
       onChange={async (e) => {
         const file = e.target.files[0];
         const base64Image = await convertImageToBase64(file);
+        setloader(true)
         axios.post('/api/imageupload', { path: base64Image }).then((res) => {
           setimgs([...imgs, res.data.url]);
-        
+        setloader(false)
           console.log(imageSrc);
         });
       }}
@@ -674,7 +676,8 @@ if(step===steps.DESCRIPTION){
           className="border p-4 w-full my-3 rounded-lg" 
           onChange={(e) => setCustomvalue('description', e.target.value)} 
       ></textarea>
-      <textarea type='text'  placeholder='Extrainfo'  className='border p-4 w-full my-3 rounded-lg'  onChange={(e)=>{setCustomvalue('extrainfo',e.target.value); }}  ></textarea>
+      <diiv>Extra info</diiv>
+      <textarea type='text'  placeholder='Boat Rentals: Allow users to book boat rides or sunset cruises directly from the platform.(STRICLY FOLLOW abve formate for wriring extra info)'  className='border p-4 w-full my-3 rounded-lg'  onChange={(e)=>{setCustomvalue('extrainfo',e.target.value); }}  ></textarea>
 
       
       <div className="font-bold">Amenities</div>
@@ -744,7 +747,6 @@ if(step===steps.DESCRIPTION){
 }
 
 const [Price, setPrice] = useState(0)
-const [loader, setloader] = useState(false);
 
 if(step===steps.PRICE){
  
@@ -828,7 +830,7 @@ const ref = React.useRef();
   
   <Dialog   open={true} onOpenChange={()=>{setregister(false)}} >
 <DialogTrigger ref={ref}></DialogTrigger>
-<DialogContent className="h-screen md:max-h-[72vh] overflow-y-auto">
+<DialogContent className="h-screen md:max-h-[80vh] md:overflow-hidden overflow-y-auto">
 
 <div className="w-full ">
 

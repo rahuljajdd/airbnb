@@ -1,8 +1,8 @@
 //@ts-nocheck
 "use client"
-import React from 'react';
+import React, { useState } from 'react';
 import 'leaflet/dist/leaflet.css';
-import { MapContainer, TileLayer, Marker, Polyline,Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Polyline,Popup,Tooltip } from 'react-leaflet';
 import L from 'leaflet';
 import "leaflet-defaulticon-compatibility"
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css"
@@ -13,7 +13,38 @@ import markerIconPng from 'leaflet/dist/images/marker-icon.png';
 
 
 
+
+
+function getCurrentCoordinates() {
+  return new Promise((resolve, reject) => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          resolve({ latitude, longitude });
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    } else {
+      reject(new Error("Geolocation is not supported by this browser."));
+    }
+  });
+}
+
+
 const Map = ({ geo, encodedPolyline }) => {
+
+const [currentgeo, setcurrentgeo] = useState([34.12397, 74.83936])
+getCurrentCoordinates()
+  .then((coords) => {
+
+    setcurrentgeo([coords.latitude,coords.longitude])
+   
+  })
+
   console.log(geo);
   console.log(encodedPolyline);
 
@@ -22,19 +53,21 @@ const Map = ({ geo, encodedPolyline }) => {
 
     return (
       <div className="p-3">
-        <MapContainer scrollWheelZoom={false} center={geo || [34.12397, 74.83936]} zoom={13} className="rounded-lg">
+        <MapContainer scrollWheelZoom={true} center={geo || [34.12397, 74.83936]} zoom={9} className="rounded-lg">
           <TileLayer
             attribution='&copy;<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
+
+<Marker  position={currentgeo|| [34.12397, 74.83936]}>
+<Tooltip permanent> You are here </Tooltip> {/* Permanent displays label always */}
+  
+</Marker>
+
           <Marker position={geo || [34.12397, 74.83936]} >
 
-          <Popup>
-            <span>
-              A pretty CSS3 popup. <br/> Easily customizable.
-            </span>
-        </Popup>
+       
 
           </Marker>
           {encodedPolyline && decodedPoints && <Polyline pathOptions={{ color: 'blue' }} positions={decodedPoints} />}

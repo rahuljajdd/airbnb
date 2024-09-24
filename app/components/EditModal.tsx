@@ -1,4 +1,4 @@
-//@ts-nocheck
+
 "use client"
 import React, { useContext, useState } from 'react'
 
@@ -407,7 +407,7 @@ const [geo, setgeo] = useState([Number(location?.split('?')[1]),Number(location?
 
   const [imgs, setimgs] = useState<null|any[]>(imageSrc.split("="))
 
-
+const [loader, setloader] = useState(false)
 
 if(step===steps.IMAGES){
   bodycontent=(<>
@@ -458,7 +458,7 @@ if(step===steps.IMAGES){
   </Alert>
 
   <Button className="m-3 p-4 relative">
-    Upload
+    {loader?'uploading ...':'Upload'}
     <input
       className="absolute w-full h-full top-0 left-0 opacity-0 cursor-pointer"
       type="file"

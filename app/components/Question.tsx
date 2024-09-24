@@ -35,6 +35,7 @@ import { FaPerson } from 'react-icons/fa6'
 import { IoPersonSharp } from 'react-icons/io5'
 const Question = () => {
 
+  const [loader, setloader] = useState(false)
   const context = useContext(Context);
   const ref = React.useRef();
   // Check if the context is defined
@@ -60,7 +61,7 @@ const Question = () => {
   return (
     <div>
 
-<Card className='    w-screen md:w-[700px] min-h-42 max-h-[800px] m-0 md:mt-0 mt-6 md:m-5 mr-10 relative'>
+<Card className='    w-screen  md:w-[700px] min-h-42 max-h-[800px] m-0 md:mt-0 mt-6 md:m-5 mr-10 relative'>
   <CardHeader>
     <CardTitle className='text-2xl'> Questions from users</CardTitle>
 
@@ -86,7 +87,7 @@ const Question = () => {
 
 
 
-  <Card className='md:w-[600px] w-full   md:mt-4 '>
+  <Card className='md:w-[600px] w-[90vw] mt-3   md:mt-4 '>
 
 <CardContent className='flex justify-between'>
 
@@ -172,7 +173,7 @@ const Question = () => {
     </DialogHeader>
 
 <textarea onChange={(e)=>{setquestions(e.target.value)}} placeholder='ask question here' className='p-3 border rounded-lg min-h-28'></textarea>
-<Button disabled={!(questions.length>1&&userInfo)} className='w-min px-4' onClick={()=>{  axios.post('/api/questions',{questions,email:userInfo?.email}).then((res)=>{setquestionset([...questionset,res.data]);ref?.current?.click()})  }}>Post</Button>
+<Button disabled={!(questions.length>1&&userInfo)} className='w-min px-4' onClick={()=>{ setloader(true);  axios.post('/api/questions',{questions,email:userInfo?.email}).then((res)=>{setquestionset([...questionset,res.data]);ref?.current?.click()})  }}>{loader?'posting...':'Post'}</Button>
 
 
 

@@ -304,9 +304,11 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
   const handleReservation= function (){
   
     console.log(param);
+    setloading(true);
   axios.post('/api/reservation',{state,totalprice,listingId:param.listingId,user:userInfo}).then((res)=>{;
     
-    console.log(res.data)
+    console.log(res.data);
+    
     router.push(res.data.url)
   console.log(res.data.url)
     
@@ -349,7 +351,7 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
   
   
   
-  <div className='flex md:gap-28 w-screen '>
+  <div className='flex md:gap-28 w-screen md:w-[1600px] '>
       {image &&  
     
     <div className="grid grid-cols-2 grid-rows-2 gap-2 mt-5 md:w-4/5 w-screen pr-5  h-[80vh]  rounded-[30px] relative" onClick={() => setimgview(true)}>
@@ -458,7 +460,7 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
   
   
 
-  <div className='md:w-96 w-screen  md:m-6 md:scale-100 scale-90 -mx-4 md:-mx-0 md:mt-12  md:p-6 p-3 border  rounded-3xl shadow-xl  md:h-[850px] '>
+  <div className='md:w-[500px] w-screen  md:m-6 md:scale-100 scale-90 -mx-4 md:-mx-0 md:mt-12  md:p-6 p-3 border  rounded-3xl shadow-xl  md:h-[850px] '>
     <div className='text-2xl font-medium flex items-baseline mb-2 border-b' >{`$${price}`} <div className='text-base text-gray-500 mb-2 ml-2'>night</div></div>
   <div className='md:w-full w-screen  md:scale-100 scale-90 flex justify-center  border-b  border-black'>
     <DateRange
@@ -485,7 +487,7 @@ const Iteminfo:React.FC<info> = ({title,item, user,guest,image ,room,bathrooms,c
   
   </div>
   
-    <button  onClick={handleReservation} className='bg-gradient-to-r from-pink-500 w-full p-2 rounded-lg mt-2 mb-2 to-red-500  text-white'>Reserve</button>
+    <button  onClick={handleReservation} className='bg-gradient-to-r from-pink-500 w-full p-2 rounded-lg mt-2 mb-2 to-red-500  text-white'>{loading?'Reserving...':'Reserve'}</button>
   
     <div className='flex  w-full md:px-0 px-4 items-center justify-between  border-neutral-700 p-1 text-gray-500 '>Total<div className='text-black text-2xl'>{`$ ${totalprice}`}</div></div>
   
