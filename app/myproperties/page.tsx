@@ -6,8 +6,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { FaAirbnb } from "react-icons/fa6";
 import { IoSearchCircle } from "react-icons/io5";
-import { RxHamburgerMenu } from "react-icons/rx";
-import { RiAccountCircleFill } from "react-icons/ri";
+
 import { SessionProvider, useSession } from "next-auth/react";
 import Logpop from "../components/Logpop";
 import Register from "../components/Register";
@@ -15,14 +14,7 @@ import ClientOnly from "../components/ClientOnly";
 import Login from "../components/Login";
 import Categories from "../components/Categories";
 import { useRouter } from "next/navigation" ;
-import Rentmodal from "../components/Rentmodal";
-import Rent from "../components/Rentmodal";
-import Listings from "../components/Listings";
-import axios from "axios";
 
-import Avatar from '../components/Avatar';
-import Trips from '../components/Trips';
-import Reservation from '../components/reservations';
 import Properties from '../components/properties';
 const Page = () => {
 

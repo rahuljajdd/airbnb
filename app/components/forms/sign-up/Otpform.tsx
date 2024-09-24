@@ -14,7 +14,7 @@ import { useForm, useFormContext } from 'react-hook-form';
 import { useSignupform } from '@/hooks/useSignup';
 const Otpform = () => {
 const{handleSubmit,setValue,getValues}=useFormContext();
-const{onHandleSubmit}=useSignupform();
+const{onHandleSubmit,loading}=useSignupform();
     const router=useRouter();
     const {step,setstep}=useContext<any>(Stepcontext);
     const [otp, setotp] = useState('');
@@ -48,7 +48,7 @@ const{onHandleSubmit}=useSignupform();
       shouldDirty: true,
       shouldTouch: true,
       shouldValidate: true,
-    }) ;   console.log(getValues()); onHandleSubmit(getValues()) }}>Continue</Button>
+    }) ;   console.log(getValues()); onHandleSubmit(getValues()); }}>{loading?'loading...':'continue'}</Button>
   <Progress className='mt-10'  value={25*(step+1)}></Progress>
   <div onClick={()=>{ router.push('/auth/sign-in')}} className='font-semibold mt-5 w-full justify-center flex hover:underline cursor-pointer'>Already have an account?</div>
 
