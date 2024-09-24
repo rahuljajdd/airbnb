@@ -171,7 +171,7 @@ export default function Home() {
  
   
   <div className="flex items-center gap-4 relative ">
-    <div className="h-full hidden items-center text-sm font-medium md:flex  hover:bg-neutral-200 rounded-full px-2 cursor-pointer transition-all " onClick={()=>{ if(!userInfo){router.push('/auth/sign-up')}if(userInfo){setrent(true)}; console.log("hello")}}> Airbnb your home</div>
+    <div className="h-full hidden items-center text-sm font-medium md:flex  hover:bg-neutral-200 rounded-full px-2 cursor-pointer transition-all " onClick={()=>{ console.log(true) ; setrent(true)}}> Airbnb your home</div>
 
 
 
@@ -216,7 +216,7 @@ export default function Home() {
   <CardTitle>Card Title</CardTitle>
   <CardDescription>Card Description</CardDescription>
   </CardHeader>
-  <CardContent>
+  <CardContent
   <p>Card Content</p>
   </CardContent>
   <CardFooter>

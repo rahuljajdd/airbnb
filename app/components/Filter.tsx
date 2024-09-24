@@ -21,7 +21,7 @@ import { AiFillHeart } from "react-icons/ai";
 
 import { Icon } from 'leaflet'
 import { FaCar } from "react-icons/fa6";
-
+import { BiCurrentLocation } from "react-icons/bi"
 
 import { url } from 'inspector'
 import { useParams, usePathname } from 'next/navigation'
@@ -118,6 +118,48 @@ console.log([Number(params.get('geo')?.split(',')[0]),Number(params.get('geo')?.
 const [step, setstep] = useState('location')
   const [item, setitem] = useState([])
   const [location, setlocation] = useState('');
+
+  const getlocation=function(){                          
+
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    };
+  
+    function success(pos:any) {
+      const crd = pos.coords;
+      console.log(crd);
+      console.log("Your current position is:");
+      console.log(`Latitude: ${crd.latitude}`);
+      console.log(`Longitude: ${crd.longitude}`);
+      console.log(`More or less ${crd.accuracy} meters.`);
+     const l=[crd.latitude,crd.longitude];
+     setgeo(l);
+   
+   
+     axios.get(` https://geocode.maps.co/reverse?lat=${crd.latitude}&lon=${crd.longitude}&api_key=66439f8cd92b5061250040ubt6be173`).then((res)=>{const address=res.data.display_name; console.log(address); 
+    
+    
+     setgeo([Number(crd.latitude),Number(crd.longitude)]);
+      
+     // // `
+     setlocation(`${address}?${crd.latitude}?${crd.longitude}`);
+    
+    }).catch((e)=>{console.log(e);})
+    }
+  
+    function error(err:any) {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+  
+    navigator.geolocation.getCurrentPosition(success, error, options);
+
+
+   } 
+
+
+
   const handleOnSearch = (string, results) => {
     // onSearch will have as the first callback parameter
     axios.get(` https://api.locationiq.com/v1/autocomplete?key=pk.deb87b54fd43801d7fd7b12571d34439&q=${string}`).then((res)=>{ setitem(res.data); }).catch(e=>console.log(e))
@@ -211,6 +253,8 @@ return (
           <p className='text-sm px-1   md:pl-0 pl-3 mb-2'>All the listings will be near the chosen location</p>
           <ReactSearchAutocomplete
             items={item}
+            inputSearchString={location.split('?')[0]}
+          
             onSearch={handleOnSearch}
             onHover={handleOnHover}
             onSelect={handleOnSelect}
@@ -233,6 +277,12 @@ return (
               )}
             </div>
 
+            <div>
+            <Button onClick={()=>{getlocation();}} className="border p-2 mt-1  rounded-lg  flex items-center">
+                <BiCurrentLocation />
+                Use Current Location
+            </Button>
+        </div>
             <div className="scale-x-95 md:scale-100 pr-4 md:pr-0 w-full ">
 
             <Map geo={geo}></Map>
@@ -241,7 +291,7 @@ return (
         </TabsContent>
 
         {/* Dates Tab */}
-        <TabsContent className="pb-4" value="dates">
+        <TabsContent className="pb-4 " value="dates">
           <h1 className='text-xl p-2'>When are you going?</h1>
           <p className='text-sm px-1 mb-2'>All the listings will be available on the chosen Dates</p>
           <div className='w-[400px] text-sm flex justify-center border-b border-black'>

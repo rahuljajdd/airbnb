@@ -43,14 +43,14 @@ if(isauthenticated.status==="complete"){
 
     const active =await setActive({session:isauthenticated.createdSessionId})
     console.log(active);
-    setloading(false);
+
 toast({title:'Succes',description:'Welcome back'})
 router.push('/');
     return 
 }
     }catch(e){
 
-        setloading(false);
+ 
         toast({title:'Error',description:"incorrect password or connection error"})
 
     }
@@ -59,7 +59,7 @@ router.push('/');
 
 }
 
-setloading(false);
+
 
 return {
 

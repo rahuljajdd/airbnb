@@ -1,4 +1,4 @@
-
+//@ts-nocheck
 "use client"
 import React, { useContext, useState } from 'react'
 
@@ -159,7 +159,7 @@ let bodycontent=
             {categories.map((items: any) => {
                 return (
                     <Categoryinput 
-                        onClick={(category) => { setCustomvalue('category', category) }} 
+                        onclick={(category) => { setCustomvalue('category', category) }} 
                         selected={category === items.name} 
                         name={items.name} 
                         icon={items.icon} 
@@ -246,6 +246,47 @@ const [geo, setgeo] = useState([Number(location?.split('?')[1]),Number(location?
 
 
 
+
+  const getlocation=function(){                          
+
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    };
+  
+    function success(pos:any) {
+      const crd = pos.coords;
+      console.log(crd);
+      console.log("Your current position is:");
+      console.log(`Latitude: ${crd.latitude}`);
+      console.log(`Longitude: ${crd.longitude}`);
+      console.log(`More or less ${crd.accuracy} meters.`);
+     const l=[crd.latitude,crd.longitude];
+     setgeo(l);
+   
+   
+     axios.get(` https://geocode.maps.co/reverse?lat=${crd.latitude}&lon=${crd.longitude}&api_key=66439f8cd92b5061250040ubt6be173`).then((res)=>{const address=res.data.display_name; console.log(address); 
+    
+    
+     setgeo([Number(crd.latitude),Number(crd.longitude)]);
+      
+     
+     setCustomvalue('location',`${address}?${crd.latitude}?${crd.longitude}`)
+
+    
+    }).catch((e)=>{console.log(e);})
+    }
+  
+    function error(err:any) {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+  
+    navigator.geolocation.getCurrentPosition(success, error, options);
+
+
+   } 
+
   if(step===steps.LOCATION){
     bodycontent=(
       <div className=''>
@@ -256,8 +297,8 @@ const [geo, setgeo] = useState([Number(location?.split('?')[1]),Number(location?
     <div className="mt-5">
         <div style={{ width: "100%", maxWidth: 600 }} className="z-50 ">
             <ReactSearchAutocomplete
-                placeholder={location?.split("?")[0]}
-                items={item || location?.split("?")[0]}
+           inputSearchString={location.split('?')[0]}
+                items={item}
                 onSearch={handleOnSearch}
                 onHover={handleOnHover}
                 onSelect={handleOnSelect}
@@ -273,11 +314,11 @@ const [geo, setgeo] = useState([Number(location?.split('?')[1]),Number(location?
 
       
 
-        <div>
-            <button className="border p-2 mt-1  rounded-lg text-neutral-700 flex items-center">
+        <div className=''> 
+            <Button onClick={()=>{getlocation()}} className="border p-2 mt-5  rounded-lg  flex items-center">
                 <BiCurrentLocation />
                 Use Current Location
-            </button>
+            </Button>
         </div>
 
         <div className="min-h-96 pt-2 mb-6">

@@ -1,4 +1,3 @@
-
 //@ts-nocheck
 'use client'
 
@@ -25,7 +24,7 @@ const router=useRouter();
     <input  placeholder={'Password'}  className='border p-2 rounded-lg mt-4' {...register('password')}></input>
     {errors.email && <p  className='text-red-500 text-xs'>{errors?.password?.message}</p>}
     </div>
-    <Button className='w-full mt-5' onClick={async(e)=>{ console.log(getValues());e.preventDefault(); await handelsignin(getValues()) }}>Submit</Button>
+    <Button className='w-full mt-5' onClick={async(e)=>{ e.preventDefault(); await handelsignin(getValues()) }}>Submit</Button>
     <div  onClick={()=>{router.push('/auth/sign-up')}} className=' flex justify-center font-normal mt-4 cursor-pointer hover:underline'>Dont have an account? Signup</div>
     </div>
       </>

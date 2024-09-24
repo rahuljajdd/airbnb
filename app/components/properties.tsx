@@ -57,7 +57,7 @@ return(
 <>
 
 
-<Card setproperties={setproperties} items={item} title={item.title}  description={item.description} category={item.category} location={item.locationValue} roomcount={item.roomCount} guestcount={item.guestCount} bathroomcount={item.bathroomCount} price={item.price} imagesrc={item.imagesrc.split('=')[0]} id={item.id} delisting={false} cancelreservation={false} ></Card>
+<Card setproperties={setproperties} items={item} title={item.title}  description={item.description} category={item.category} location={item.locationValue} roomcount={item.roomCount} guestcount={item.guestCount} bathroomcount={item.bathroomCount} price={item.price} imagesrc={item.imagesrc.split('=')[0]} id={item.id} delisting={true} cancelreservation={false} ></Card>
 
 </>
 

@@ -143,7 +143,7 @@ const [Location, setLocation] = useState('')
 
   const context = useContext(Context);
 
-  // Check if the context is defined
+  
   if (!context) {
     throw new Error('MyComponent must be used within a UserProviders');
   }
@@ -215,36 +215,46 @@ let bodycontent=(<>
 
 
  
- const getlocation=function(){                          
+const getlocation=function(){                          
 
-    const options = {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0,
-    };
+  const options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0,
+  };
+
+  function success(pos:any) {
+    const crd = pos.coords;
+    console.log(crd);
+    console.log("Your current position is:");
+    console.log(`Latitude: ${crd.latitude}`);
+    console.log(`Longitude: ${crd.longitude}`);
+    console.log(`More or less ${crd.accuracy} meters.`);
+   const l=[crd.latitude,crd.longitude];
+   setgeo(l);
+ 
+ 
+   axios.get(` https://geocode.maps.co/reverse?lat=${crd.latitude}&lon=${crd.longitude}&api_key=66439f8cd92b5061250040ubt6be173`).then((res)=>{const address=res.data.display_name; console.log(address); 
   
-    function success(pos:any) {
-      const crd = pos.coords;
-      console.log(crd);
-      console.log("Your current position is:");
-      console.log(`Latitude: ${crd.latitude}`);
-      console.log(`Longitude: ${crd.longitude}`);
-      console.log(`More or less ${crd.accuracy} meters.`);
-     const l=[crd.latitude,crd.longitude];
-     setgeo(l);
+  
+   setgeo([Number(crd.latitude),Number(crd.longitude)]);
+    
    
-   
-     axios.get(` https://geocode.maps.co/reverse?lat=${crd.latitude}&lon=${crd.longitude}&api_key=66439f8cd92b5061250040ubt6be173`).then((res)=>{const address=res.data.display_name; console.log(address);  setCustomvalue('location',`${address}?${crd.latitude}?${crd.longitude}`) }).catch((e)=>{console.log(e);})
-    }
+   setCustomvalue('location',`${address}?${crd.latitude}?${crd.longitude}`)
+
   
-    function error(err:any) {
-      console.warn(`ERROR(${err.code}): ${err.message}`);
-    }
-  
-    navigator.geolocation.getCurrentPosition(success, error, options);
+  }).catch((e)=>{console.log(e);})
+  }
+
+  function error(err:any) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  }
+
+  navigator.geolocation.getCurrentPosition(success, error, options);
 
 
-   } 
+ } 
+
 
 
 
@@ -369,7 +379,7 @@ if(step===steps.LOCATION){
     <div className="mt-5">
         <div style={{ width: "100%", maxWidth: 600 }} className="z-50 ">
             <ReactSearchAutocomplete
-             
+             inputSearchString={location.split('?')[0]}
                 items={item}
                 onSearch={handleOnSearch}
                 onHover={handleOnHover}
@@ -387,13 +397,15 @@ if(step===steps.LOCATION){
       
 
         <div>
-            {/* <button onClick={async()=>{ await getlocation()}} className="border p-2 mt-1  rounded-lg text-neutral-700 flex items-center">
+        <div className="mt-4">
+            <Button onClick={()=>{getlocation();}} className="border p-2 mt-1  rounded-lg  flex items-center">
                 <BiCurrentLocation />
                 Use Current Location
-            </button> */}
+            </Button>
+        </div>
         </div>
 
-        <div className="min-h-96 pt-2 mb-6">
+        <div className=" pt-2 mb-6">
             <Map geo={geo} />
         </div>
     </div>
@@ -828,9 +840,9 @@ const ref = React.useRef();
 {register&&
   
   
-  <Dialog   open={true} onOpenChange={()=>{setregister(false)}} >
+  <Dialog    open={true} onOpenChange={()=>{setregister(false)}} >
 <DialogTrigger ref={ref}></DialogTrigger>
-<DialogContent className="h-screen md:max-h-[80vh] md:overflow-hidden overflow-y-auto">
+<DialogContent className="h-screen md:max-h-[80vh]  md:overflow-x-hidden overflow-y-auto">
 
 <div className="w-full ">
 
