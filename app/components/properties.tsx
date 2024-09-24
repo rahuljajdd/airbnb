@@ -42,7 +42,7 @@ const [loader, setloader] = useState()
         <div className='text-gray-500'>Try changing or removing some of your filters</div>
         <button className='text-sm p-3 border-2 border-black rounded-md ' onClick={()=>{router.push('/');}}>Remove all filters</button>
       </div>  </div></>} */}
-{(properties?.length===0)&&<> <div className='w-full h-96 text-2xl text-neutral-800 font-medium flex justify-center items-center flex-col '>No favourites created yet<div className='text-base font-normal text-neutral-500'>Please make reservations first</div></div>
+{(properties?.length===0)&&<> <div className='w-full h-96 text-2xl text-neutral-800 font-medium flex justify-center items-center flex-col '>You Hvent created any poperties yet <div className='text-base font-normal text-neutral-500'>Please make reservations first</div></div>
   </>}
 
 <div className='flex flex-wrap '>
