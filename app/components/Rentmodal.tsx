@@ -842,7 +842,7 @@ const ref = React.useRef();
   
   <Dialog    open={true} onOpenChange={()=>{setregister(false)}} >
 <DialogTrigger ref={ref}></DialogTrigger>
-<DialogContent className="h-screen md:max-h-[80vh]  md:overflow-x-hidden overflow-y-auto">
+<DialogContent className="h-[95vh] md:max-h-[80vh]   md:overflow-x-hidden overflow-y-auto">
 
 <div className="w-full ">
 
