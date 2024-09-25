@@ -20,7 +20,7 @@ const Maps = ({listings}) => {
   const router=useRouter();
     return (
       <div className="p-3">
-        <MapContainer style={{height:'70vh'}} center={[34.1245952,74.8388352]} zoom={5} className="rounded-lg">
+        <MapContainer scrollWheelZoom={false} style={{height:'70vh'}} center={[34.1245952,74.8388352]} zoom={5} className="rounded-lg">
           <TileLayer
             attribution='&copy;<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"

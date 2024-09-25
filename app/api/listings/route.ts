@@ -324,21 +324,20 @@ const availableListings = await prisma.listing.findMany({
 
 
       
-      const listings=JSON.parse(JSON.stringify(listing.cursor.firstBatch))
+      let listings=JSON.parse(JSON.stringify(listing.cursor.firstBatch))
+      if(availableListings){
 
-      const filteredArray = listings.filter(object => availableListings.map(item=>item.id).includes(object._id.$oid));
 
-      console.log(listings)
-      console.log(availableListings);
+         listings = listings.filter(object => availableListings.map(item=>item.id).includes(object._id.$oid));
+      }
 
-      
-        console.log(filteredArray)
+
 
 
 // const listing= await  prisma.listing.findMany();
 // console.log(listing);
 
-    return Response.json(filteredArray);
+    return Response.json(listings);
 
 
 
