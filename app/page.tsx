@@ -121,7 +121,12 @@ export default function Home() {
 
 
   <Filter></Filter>
-  <div className='flex justify-center items-center text-xs md:text-lg text-slate-600 gap-3 md:hidden '><div className="text-gray-500"> <FaSearchLocation size={20}></FaSearchLocation></div> <Switch    onCheckedChange={(value)=>{if(value){     
+
+  
+  <div className='flex justify-center items-center text-xs md:text-lg text-slate-600 gap-3 md:hidden '><div className="text-gray-500"> <FaSearchLocation size={20}></FaSearchLocation></div>
+  
+  <div className="flex flex-col pt-3 items-center">
+   <Switch    onCheckedChange={(value)=>{if(value){     
     
 
     
@@ -167,8 +172,11 @@ export default function Home() {
  } }
      
      
-     ></Switch></div>
- 
+     ></Switch>
+     
+ <div className="text-[7px]">sort by location</div>
+     </div>
+     </div>
   
   <div className="flex items-center gap-4 relative ">
     <div className="h-full hidden items-center text-sm font-medium md:flex  hover:bg-neutral-200 rounded-full px-2 cursor-pointer transition-all " onClick={()=>{ console.log(true) ; setrent(true)}}> Airbnb your home</div>
