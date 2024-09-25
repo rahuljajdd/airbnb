@@ -1,6 +1,5 @@
 
 
-//@ts-nocheck
 import { NextRequest, NextResponse } from "next/server";
 
 import { PrismaClient } from "@prisma/client";
@@ -174,9 +173,19 @@ const range= url.searchParams.get('range:');
 
 
   console.log( url.searchParams);
+  let reservations:any= null
+  if(startDate&&endDate){
+
+    console.log( new Date(startDate),new Date(endDate))
+
+  
+  console.log('hello')
+  
 
 
-  let reservations= null
+
+reservations=true
+}
   
   if(min&&maxx){
   const   price=  { $lt: Number(maxx), $gt:Number(min) }
@@ -197,6 +206,27 @@ const range= url.searchParams.get('range:');
 
 }
 
+
+const availableListings = await prisma.listing.findMany({
+    
+  select:{id:true},
+   where: {
+     reservations: {
+       none: {
+         OR: [
+           {
+             startdate: {
+               lt:new Date( startDate),
+             },
+             enddate: {
+               gt: new Date(endDate),
+             },
+           },
+         ],
+       },
+     },
+   },
+ });
 
 
     
@@ -230,7 +260,21 @@ const range= url.searchParams.get('range:');
         // Price filter
         ...(min ? { price: { $gt: parseInt(min)*10, $lt: parseInt(maxx)*10 } } : {  }),
       
-        // // Category filter
+
+...(reservations?{    reservations:{
+
+  $not: {
+    $elemMatch: {
+      $or: [
+        {
+          startdate: { $lte: new Date(startDate) },
+          enddate: { $gte: new Date(endDate) },
+        }
+      ]
+    }
+  }
+}}:{}),
+
         ...(category ? { category: category } : {  })
       }},
             {
@@ -252,10 +296,11 @@ const range= url.searchParams.get('range:');
       }
 
 
-
-
-
-
+      
+      
+      
+      
+    
     
         
         
@@ -276,14 +321,24 @@ const range= url.searchParams.get('range:');
         const listing = await getListingsWithinRadius(parseFloat(geo?.split(',')[0]), parseFloat(geo?.split(',')[1]), parseFloat(range)*10000);
         
       // @ts-ignore
-const listings=JSON.parse(JSON.stringify(listing.cursor.firstBatch))
-        
-console.log(listings)
+
+
+      
+      const listings=JSON.parse(JSON.stringify(listing.cursor.firstBatch))
+
+      const filteredArray = listings.filter(object => availableListings.map(item=>item.id).includes(object._id.$oid));
+
+      console.log(listings)
+      console.log(availableListings);
+
+      
+        console.log(filteredArray)
+
 
 // const listing= await  prisma.listing.findMany();
 // console.log(listing);
 
-    return Response.json(listings);
+    return Response.json(filteredArray);
 
 
 
