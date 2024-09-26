@@ -1,29 +1,16 @@
-//@ts-nocheck
+
 "use client"
 import React, { useState } from 'react';
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, Marker, Polyline,Popup,Tooltip, Circle ,useMap} from 'react-leaflet';
-import L from 'leaflet';
-import "leaflet-defaulticon-compatibility"
-import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css"
+ // Re-uses images from ~leaflet package
+
+
 import markerShadowPng from 'leaflet/dist/images/marker-shadow.png';
 import polyline from 'polyline';
 import markerIconPng from 'leaflet/dist/images/marker-icon.png';
 // Custom marker icon with corrected path
 import { useEffect } from 'react';
-
-const calculateZoom = (radius, mapWidth, mapHeight) => {
-  const radiusInMeters = radius * 1000; // Convert km to meters
-  const earthCircumference = 40075017; // Circumference of the Earth in meters
-  const zoomLevel = Math.log2(earthCircumference / (512 * radiusInMeters));
-  
-  // Ensure the zoom level is within the limits
-  return Math.max(0, Math.min(zoomLevel, 20)); // Assuming zoom levels between 0 and 20
-};
-const radius = 10; // Example radius in kilometers
-const mapWidth = 600; // Example width of the map in pixels
-const mapHeight = 800; // Example height of the map in pixels
-const geo = [51.505, -0.09]; // Example coordinates
 
 
 
@@ -54,8 +41,19 @@ function getCurrentCoordinates() {
 const MapAdjuster = ({ geo, radius }) => {
   const map = useMap();
 
+
+
+
   useEffect(() => {
+
+
+
+    const loadLeafletDefaults = async () => {
+      await import('leaflet-defaulticon-compatibility');
+      await import('leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css');
+  };
     if (radius) {
+
       // Calculate the bounds based on the circle's radius
       const bounds = [
         [geo[0] - radius / 111320, geo[1] - radius / (111320 * Math.cos((geo[0] * Math.PI) / 180))],

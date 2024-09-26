@@ -294,7 +294,7 @@ return (
                 Use Current Location
             </Button>
         </div>
-            <div className="scale-x-95 md:scale-100 pr-4 md:pr-0 w-full ">
+            <div className="scale-x-95 md:scale-100 min-h-[530px] pr-4 md:pr-0 w-full ">
 
             <Map radius={range[0]} geo={geo}></Map>
             </div>
