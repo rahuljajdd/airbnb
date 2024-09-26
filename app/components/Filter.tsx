@@ -4,7 +4,7 @@
 
 import { Button } from "@/app/ui/button"
 
-
+import Map from "./Map"
 import  { ReactElement, useEffect } from 'react'
 import { TbMountain } from 'react-icons/tb'
 import { RiAccountCircleFill } from 'react-icons/ri'
@@ -79,6 +79,8 @@ const Filter = () => {
   function applyfilters(){
     
 
+    
+
     if(params.get('distance')){
       params.delete('distance');
     }
@@ -109,7 +111,6 @@ const Filter = () => {
 
 
 
-  const Map = dynamic(() => import('./Map'), { ssr: false });
 
 
 console.log([Number(params.get('geo')?.split(',')[0]),Number(params.get('geo')?.split('')[1])]);
@@ -215,6 +216,14 @@ const{toast}=useToast()
 const items=Categories
 
 const ref=React.useRef();
+
+
+
+
+  
+const Map =  new dynamic(() => import('./Map'), { ssr: false });
+
+
 return (
 <Dialog>
   <DialogTrigger ref={ref}>  
@@ -287,7 +296,7 @@ return (
         </div>
             <div className="scale-x-95 md:scale-100 pr-4 md:pr-0 w-full ">
 
-            <Map geo={geo}></Map>
+            <Map radius={range[0]} geo={geo}></Map>
             </div>
           </div>
         </TabsContent>
