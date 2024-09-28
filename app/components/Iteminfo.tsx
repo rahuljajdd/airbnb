@@ -502,7 +502,7 @@ if(userInfo){
   
   </div>
   
-    <button  onClick={handleReservation} className='bg-gradient-to-r from-pink-500 w-full p-2 rounded-lg mt-2 mb-2 to-red-500  text-white'>{loading?'Reserving...':'Reserve'}</button>
+    <button disabled={!userInfo}  onClick={handleReservation} className='bg-gradient-to-r from-pink-500 w-full p-2 rounded-lg mt-2 mb-2 to-red-500  text-white'> {!userInfo&&'login first'}{loading?'Reserving...':'Reserve'}</button>
   
     <div className='flex  w-full md:px-0 px-4 items-center justify-between  border-neutral-700 p-1 text-gray-500 '>Total<div className='text-black text-2xl'>{`$ ${totalprice}`}</div></div>
   

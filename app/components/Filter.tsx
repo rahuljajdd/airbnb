@@ -240,7 +240,7 @@ return (
     </div>
   </DialogTrigger>
   {/* Dialog Content */}
-  <DialogContent className="mt-0 pb-6  md:px-7 px-3 overflow-hidden rounded-lg   md:scale-100  scale-90  w-full h-screen flex flex-col  justify-start items-center  md:h-auto  overflow-y-auto md:w-[700px]">
+  <DialogContent className="mt-0 pb-6  md:px-7 px-3  rounded-lg   md:scale-100  scale-90  w-screen h-screen flex flex-col  justify-start items-center  md:h-auto  overflow-y-auto md:w-[700px]">
     {/* Scrollable Area for Dialog Content */}
 
       <DialogHeader>
