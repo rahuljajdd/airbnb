@@ -502,7 +502,7 @@ if(userInfo){
   
   </div>
   
-   {!userInfo&&<button disabled={!userInfo}  onClick={()=>{router.push('/auth/sign-up')}} className='bg-gradient-to-r from-pink-500 w-full p-2 rounded-lg mt-2 mb-2 to-red-500  text-white'> {!userInfo&&'login first'}</button>}
+   {!userInfo&&<button  onClick={()=>{router.push('/auth/sign-up')}} className='bg-gradient-to-r from-pink-500 w-full p-2 rounded-lg mt-2 mb-2 to-red-500  text-white'> {!userInfo&&'login first'}</button>}
   
    {userInfo&& <button disabled={!userInfo}  onClick={handleReservation} className='bg-gradient-to-r from-pink-500 w-full p-2 rounded-lg mt-2 mb-2 to-red-500  text-white'> {loading?'Reserving...':'Reserve'}</button>}
   
