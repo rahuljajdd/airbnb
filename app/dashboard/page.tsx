@@ -44,8 +44,10 @@ const Page = () => {
 
   useEffect(() => {
   
-    
-    axios.post('api/dashboard' ,{userid:userInfo?.email}).then((res)=>{setreservation(res.data)})
+    if(userInfo){
+      
+      axios.post('api/dashboard' ,{userid:userInfo?.email}).then((res)=>{setreservation(res.data)})
+    }
       }, [userInfo])
 
 
