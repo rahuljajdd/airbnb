@@ -27,7 +27,10 @@ import Edituser from '../components/Edituser';
 import ReservationTable from '../components/ReservationTable';
 import Logpop from '../components/Logpop';
 import { useContext } from 'react';
+import { useRouter } from 'next/navigation';
 import { Context } from '../components/UserProvider';
+import { Dialog, DialogContent, DialogDescription } from '../ui/dialog';
+import { DialogTitle } from '@radix-ui/react-dialog';
 const Page = () => {
   const [reservation, setreservation] = useState([])
 
@@ -40,7 +43,7 @@ const Page = () => {
   }
 
   const { userInfo } = context;
-
+const router=useRouter();
 
   useEffect(() => {
   
@@ -55,6 +58,17 @@ const Page = () => {
 
   return (
     <>
+
+
+{!userInfo&&<Dialog open={true}>
+  <DialogContent>
+    <DialogTitle>Sorry Not Logined</DialogTitle>
+    <DialogDescription> First login to acess the dashbord</DialogDescription>
+    <Button onClick={()=>{router.push('/auth/sign-up')}}>Signup</Button>
+  </DialogContent>
+  </Dialog>}
+
+
     <div className="">
   
   <div className=" border-b w-full p-3 px-4 bg-white flex justify-between fixed z-40  shadow-sm">
