@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
 import "./globals.css";
+import { Poppins } from "next/font/google";
 import { ToastContainer, toast } from 'react-toastify';
 import { Nunito} from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
@@ -20,7 +21,12 @@ import {
   UserButton
 } from '@clerk/nextjs'
 import { UserProviders } from "./components/UserProvider";
-
+const poppinsinit=Poppins({
+  subsets:['latin'],
+  display:'swap',
+  variable:'--font-poppins',
+  weight:['300','600','100','200','400','500','700','800']
+})
 
 export const metadata: Metadata = {
   title: "Airbnb",
@@ -43,8 +49,9 @@ export default async function RootLayout({
       <Providers>
         <html lang="en">
           
-          <body className={inter.className}>
+          <body className={`${inter.className} ${poppinsinit.variable}` }>
      
+<div className="poppins">
 
             <UserProviders>
               {/* Toast Container for notifications */}
@@ -59,6 +66,7 @@ export default async function RootLayout({
               {/* Toaster for hot toast notifications */}
             </UserProviders>
                 <Toaster />
+</div>
            
           </body>
            

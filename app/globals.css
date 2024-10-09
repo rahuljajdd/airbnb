@@ -8,6 +8,9 @@ body{
  
 }
 
+.poppins{
+  font-family:var(--font-poppins);
+}
 
 @layer base {
   :root {
