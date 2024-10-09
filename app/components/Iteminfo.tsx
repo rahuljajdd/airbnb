@@ -357,16 +357,20 @@ if(userInfo){
    
     return (
      <>
+
+
+
+
   {imgview&&<div className=' w-screen h-[5000px] bg-black  absolute z-50 md:p-10  lg:p-40'><div className='text-white text-4xl ' onClick={(e)=>{  e.preventDefault();setimgview(false)}}><RxCross2></RxCross2></div> {image?.split("=").map(item=><div className="gallery-item relative"> <img src={item} className=" rounded-lg m-3"></img> </div>)}</div>}
-  
-    <div className='md:p-10 md:pt-24 pl-3 pt-24' >
+  <div className='w-screen flex justify-center'>
+    <div>
+    <div className='md:p-10 md:pt-24 pl-3 pt-24 ' >
         {title&&<div className='text-2xl font-medium'>{title}</div>}
       <div className=' md:text-xl text-base text-gray-500 pt-3 flex item-center gap-3   '><FaLocationDot />{locations?.split('?')[0] }</div>
      {distance&&<div className=' md:text-2xl text-lg  pt-3 flex items-center gap-3 '><FaCar />{`${parseInt((distance/1000).toString())} Km`}</div>}
   
-  
-  
-  <div className='flex md:gap-28 w-screen md:w-[1600px] '>
+
+  <div className='flex md:gap-28 w-screen md:w-[1600px]  '>
       {image &&  
     
     <div className="grid grid-cols-2 grid-rows-2 gap-2 mt-5 md:w-4/5 w-screen pr-5  h-[80vh]  rounded-[30px] relative" onClick={() => setimgview(true)}>
@@ -651,6 +655,8 @@ if(userInfo){
   
     </div>
   <Question></Question>
+  </div>
+  </div>
      </>
     )
   }
