@@ -29,12 +29,14 @@ model Users {
   verifytoken        String?
   verifytokenexpiry  DateTime?
   otpforforgotpassword Int?
+  reply Reply[]
   
   // Prisma's automatic fields for createdAt and updatedAt
   
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
   accounts Account[] 
+  comments Comments[]
   listings Listing[]
   reservation Reservation[]
   questions Question[]
@@ -58,6 +60,15 @@ model Account {
   user Users @relation( fields: [userId],references: [id], onDelete:Cascade)
  @@unique([provider,provideraccountId])
 }
+model Comments{
+   id String @id @default(auto()) @map("_id") @db.ObjectId
+   userId  String @db.ObjectId
+    user       Users    @relation(fields: [userId], references: [id])
+   comment String
+     reviewId String @db.ObjectId
+   review     Reviews    @relation(fields: [reviewId], references: [id])
+reply  Reply[]
+}
 
 model Reviews{
 
@@ -67,9 +78,22 @@ model Reviews{
   userId String @db.ObjectId
      createdat DateTime @default(now())
   description String
+  comments  Comments[]
   user       Users    @relation(fields: [userId], references: [id])
   listing Listing  @relation( fields: [listingid],references: [id],onDelete:Cascade)
 }
+
+model Reply{
+
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  commentId String @db.ObjectId
+  reply String
+
+ user       Users    @relation(fields: [userId], references: [id])
+ comment       Comments    @relation(fields: [commentId], references: [id])
+}
+
 
 
 model Listing{

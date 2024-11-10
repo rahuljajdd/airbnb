@@ -84,6 +84,7 @@ import {
 } from "@/app/ui/dialog"
 import { Description } from '@radix-ui/react-dialog';
 import { useToast } from '@/hooks/use-toast';
+import ReviewSection from './ReviewSection';
 
 
 
@@ -654,6 +655,8 @@ if(userInfo){
   
   
     </div>
+    
+  <ReviewSection reviews={reviews}></ReviewSection>
   <Question></Question>
   </div>
   </div>
