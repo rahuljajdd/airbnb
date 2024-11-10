@@ -10,7 +10,7 @@ import ImageHorizontal from "./ImageHorizontal";
 import ReviewBoard from "./ReviewBoard";
 const ReviewSection = ({reviews}) => {
   return (
-    <div className='border w-min flex rounded-xl h-auto  mx-auto mt-8 p-6 -translate-x-12   items-start gap-20 '>
+    <div className='border w-min md:flex rounded-xl h-auto  mx-auto mt-8 p-6 -translate-x-12   items-start gap-20 '>
 
 
 
@@ -94,8 +94,8 @@ const ReviewSection = ({reviews}) => {
 
 
 <div>
-
-<ImageHorizontal></ImageHorizontal>
+{/* 
+<ImageHorizontal></ImageHorizontal> */}
 
 {reviews.map((item)=><ReviewBoard reviews={item}></ReviewBoard>)}
 

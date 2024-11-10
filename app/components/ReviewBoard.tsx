@@ -72,7 +72,7 @@ const [loader, setloader] = useState(false)
 
 <Dialog>
   <DialogTrigger>
-  <div  className='text-sm py-1 cursor-pointer  '>view 23 more comments</div>
+  <div  className='text-sm py-1 cursor-pointer  '>{`view more comments`}</div>
   </DialogTrigger>
   <DialogContent className='px-0 md:px-5'>
   <div className=' flex coment card gap-2 mt-1' >
@@ -152,7 +152,7 @@ const [loader, setloader] = useState(false)
 <input  placeholder='Add a comment ' onChange={(e)=>{setcomment(e.target.value)}} className='w-full border px-2  mx-4 rounded-lg bg-neutral-100'></input>
 
 {loader&&<div className=' border p-2 bg-blue-500 text-white rounded-md ml-3 flex justify-center items-center '><ClipLoader></ClipLoader></div>}
-{!loader&&<div className='border p-2 bg-blue-500 text-white rounded-md ml-3 ' onClick={()=>{  setloader(true); console.log(reply,"hello"); if(reply){ console.log(reply); axios.put(`${'https://airdnb.vercel.app'}/api/comment`,{email:userInfo?.email,reply:reply.comment,commentId:reply.id}).then((res)=>{ getComments(); setloader(false); setreply(null) }).catch(e=>{console.log(e); setreply(null);setloader(false)});  return}  axios.post('https://airdnb.vercel.app//api/comment',{email:userInfo?.email,comment,reviewId:reviews.id}).then((res)=>{ const{error}=res.data; setloader(false); if(error){return} setcomments([...comments,res.data ])  }).catch(e=> setloader(false))}}> {reply?'Reply':'Comment'}</div>}
+{!loader&&<div className='border p-2 bg-blue-500 text-white rounded-md ml-3 ' onClick={()=>{  setloader(true); console.log(reply,"hello"); if(reply){ console.log(reply); axios.put('http://localhost:3000/api/comment',{email:userInfo?.email,reply:reply.comment,commentId:reply.id}).then((res)=>{ getComments(); setloader(false); setreply(null) }).catch(e=>{console.log(e); setreply(null);setloader(false)});  return}  axios.post('http://localhost:3000/api/comment',{email:userInfo?.email,comment,reviewId:reviews.id}).then((res)=>{ const{error}=res.data; setloader(false); if(error){return} setcomments([...comments,res.data ])  }).catch(e=> setloader(false))}}> {reply?'Reply':'Comment'}</div>}
 </div>
 </div>
 </div>

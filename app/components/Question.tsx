@@ -60,7 +60,7 @@ const router=useRouter();
     }, [])
     
   return (
-    <div>
+    <div className='w-full md:block flex justify-center'>
 
 <Card className='    w-screen  md:w-[700px] min-h-42 max-h-[800px] m-0 md:mt-0 mt-6 md:m-5 mr-10 relative'>
   <CardHeader>

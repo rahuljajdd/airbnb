@@ -365,7 +365,7 @@ if(userInfo){
   {imgview&&<div className=' w-screen h-[5000px] bg-black  absolute z-50 md:p-10  lg:p-40'><div className='text-white text-4xl ' onClick={(e)=>{  e.preventDefault();setimgview(false)}}><RxCross2></RxCross2></div> {image?.split("=").map(item=><div className="gallery-item relative"> <img src={item} className=" rounded-lg m-3"></img> </div>)}</div>}
   <div className='w-screen flex justify-center'>
     <div>
-    <div className='md:p-10 md:pt-24 pl-3 pt-24 ' >
+    <div className='md:p-10 md:pt-24 pl-3 w-screen md:w-auto pt-24 ' >
         {title&&<div className='text-2xl font-medium'>{title}</div>}
       <div className=' md:text-xl text-base text-gray-500 pt-3 flex item-center gap-3   '><FaLocationDot />{locations?.split('?')[0] }</div>
      {distance&&<div className=' md:text-2xl text-lg  pt-3 flex items-center gap-3 '><FaCar />{`${parseInt((distance/1000).toString())} Km`}</div>}
@@ -522,78 +522,14 @@ if(userInfo){
   
   </div>
   
-  <div className='text-3xl mb-9 mt-5'>Reviews</div>
-  
-  
-  {review?.map((item)=>{return(
+
   
   
   
   
   
   
-  <div className='mb-7 cursor-pointer'>
-  
-  
-  <Alert className='md:w-[700px] w-screen -mx-3 md:mx-2   '>
-  
-  
-  
-  <AlertTitle className='flex items-center   w-full justify-between'>
-    <div className='flex justify-center gap-3 items-center '>
-  
-  
-  
-  <Avatar >
-        <AvatarImage src={item.user?.image} alt="@shadcn" />
-        <AvatarFallback>{getShortForm(item.user?.username)}</AvatarFallback>
-      </Avatar>
-    
-     {item.user?.username}
-  
-      </div>
-     
-      <ReactStars
-        edit={false}
-        count={5}
-      value={Number(item?.rating)}
-        size={30}
-  
-        activeColor="#ffd700"
-      />
-     </AlertTitle>
-    <AlertDescription className=''>
-  <div className='p-5'>
-  
-  {item?.description}
-  
-  </div>
-  <div className='px-4 text-gray-500'>{   format(new Date(item?.createdat), 'yyyy-MM-dd') }</div>
-      
-    </AlertDescription>
-  </Alert>
-  
-  
-  
-  
-  </div>
-  
-  
-  
-  
-  
-  
-  )})}
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
   
   
   
@@ -655,9 +591,13 @@ if(userInfo){
   
   
     </div>
+
+    <div className='md:flex flex-none    mb-40'>
+
     
-  <ReviewSection reviews={reviews}></ReviewSection>
+  <ReviewSection reviews={review}></ReviewSection>
   <Question></Question>
+    </div>
   </div>
   </div>
      </>
