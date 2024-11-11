@@ -5,7 +5,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { StarFilledIcon } from '@radix-ui/react-icons'
 import React from 'react'
 import { IoStar } from 'react-icons/io5'
-import { Card } from "../ui/card"
+import { Card } from "../ui/card";
 import ImageHorizontal from "./ImageHorizontal";
 import ReviewBoard from "./ReviewBoard";
 const ReviewSection = ({reviews}) => {
