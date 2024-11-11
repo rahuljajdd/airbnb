@@ -23,11 +23,11 @@ import { Skeleton } from "@/app/ui/skeleton"
  
 export function SkeletonCard() {
   return (
-    <div className="flex flex-col space-y-3 p-2  relative">
-      <Skeleton className="h-52 w-52 rounded-xl" />
+    <div className="flex flex-col w-screen md:px-0 px-4 space-y-3 p-2  relative">
+      <Skeleton className="h-52 w-full md:w-52 rounded-xl" />
       <div className="space-y-2">
-        <Skeleton className="h-4 w-52" />
-        <Skeleton className="h-4 w-52" />
+        <Skeleton className="h-4 w-full md:w-52" />
+        <Skeleton className="h-4  w-full md:w-52" />
       </div>
     </div>
   )

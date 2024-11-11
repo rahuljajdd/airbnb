@@ -200,7 +200,6 @@ export default function Home() {
 
 <div className="  flex-none md:flex md:justify-between        w-full ">
 
-<div className="md:hidden block"><Maps listings={listings}></Maps></div>
   
 
  <Listings   listings={listings} setlistings={setlistings} ></Listings>
@@ -208,7 +207,7 @@ export default function Home() {
  <div className="  w-full md:w-2/5 " >
 
  
- {(listings.length!==0)?<div className="hidden md:block"><Maps listings={listings}></Maps></div>:<div className="w-full   h-full">  <Skeleton className="w-full h-[70vh]"></Skeleton></div>} 
+ {(listings.length!==0)?<div className="hidden md:block"><Maps listings={listings}></Maps></div>:<div className="w-full hidden md:block  h-full">  <Skeleton className="w-full h-[70vh]"></Skeleton></div>} 
   </div>
 </div>
 

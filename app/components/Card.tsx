@@ -75,7 +75,7 @@ const router=useRouter();
   return (
     <div className='p-5  mx-auto md:mx-0 cursor-pointer group'  >
     
-    <div className='md:w-60 w-60 h-60 relative overflow-hidden rounded-lg  ' onClick={async()=>{ 
+    <div className='md:w-60 w-full h-60 relative overflow-hidden rounded-lg  ' onClick={async()=>{ 
 
 
       // @ts-ignore
@@ -99,7 +99,7 @@ else{
 
         <IoHeart size={30}    className={ `   absolute top-3  right-3 z-10  transition-all hover:scale-110 ${like?"text-red-700":'text-gray-600 opacity-50'} shadow-2xl `}></IoHeart>
         </div>
-        <img  className ='w-full h-full rounded-lg transition-all  cursor-pointer object-cover  group-hover:scale-105'src={imagesrc}></img></div>
+        <img   style={{ width: "100%", height: "auto" }}  className ='w-full  object-cover h-full rounded-lg transition-all  cursor-pointer   group-hover:scale-105'src={imagesrc}></img></div>
     <div className='mt-1 w-60 '>{location?.split(',')[0]+","+location?.split(',')[1] }</div>
    
    <div className='flex justify-between items-center'>
