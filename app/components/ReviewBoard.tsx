@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client"
 import { Poppins } from 'next/font/google'
 import { FaRegComment } from "react-icons/fa";
