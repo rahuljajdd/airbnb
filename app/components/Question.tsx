@@ -60,9 +60,9 @@ const router=useRouter();
     }, [])
     
   return (
-    <div className='w-full md:block flex justify-center'>
+    <div className='w-full md:block flex justify-center mt-0 md:mt-3'>
 
-<Card className='    w-screen  md:w-[700px] min-h-42 max-h-[800px] m-0 md:mt-0 mt-6 md:m-5 mr-10 relative'>
+<Card className='    w-screen  md:w-[600px] min-h-42 max-h-[800px] m-0 md:mt-0 mt-6 md:m-5 mr-10 relative'>
   <CardHeader>
     <CardTitle className='text-2xl'> Questions from users</CardTitle>
 
@@ -88,7 +88,7 @@ const router=useRouter();
 
 
 
-  <Card className='md:w-[600px] w-[90vw] mt-3   md:mt-4 '>
+  <Card className='md:w-[510px] w-[90vw] mt-3   md:mt-4 '>
 
 <CardContent className='flex justify-between'>
 

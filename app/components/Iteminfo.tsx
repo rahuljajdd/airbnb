@@ -363,243 +363,213 @@ if(userInfo){
 
 
   {imgview&&<div className=' w-screen h-[5000px] bg-black  absolute z-50 md:p-10  lg:p-40'><div className='text-white text-4xl ' onClick={(e)=>{  e.preventDefault();setimgview(false)}}><RxCross2></RxCross2></div> {image?.split("=").map(item=><div className="gallery-item relative"> <img src={item} className=" rounded-lg m-3"></img> </div>)}</div>}
-  <div className='w-screen flex justify-center'>
-    <div>
-    <div className='md:p-10 md:pt-24 pl-3 w-screen md:w-auto pt-24 ' >
-        {title&&<div className='text-2xl font-medium'>{title}</div>}
-      <div className=' md:text-xl text-base text-gray-500 pt-3 flex item-center gap-3   '><FaLocationDot />{locations?.split('?')[0] }</div>
-     {distance&&<div className=' md:text-2xl text-lg  pt-3 flex items-center gap-3 '><FaCar />{`${parseInt((distance/1000).toString())} Km`}</div>}
-  
-
-  <div className='flex md:gap-28 w-screen md:w-[1600px]  '>
-      {image &&  
-    
-    <div className="grid grid-cols-2 grid-rows-2 gap-2 mt-5 md:w-4/5 w-screen pr-5  h-[80vh]  rounded-[30px] relative" onClick={() => setimgview(true)}>
-    <div className="relative col-span-2 row-span-1 overflow-hidden rounded-lg">
-        <img className="w-full h-full m transition-transform duration-300 ease-in-out hover:scale-110" src={image.split("=")[0]} alt="Image 1" />
+  <div className="w-screen flex flex-col md:flex-row justify-center px-4 md:px-0">
+  <div className="md:p-10 md:pt-24 pl-3 w-full md:w-auto pt-24">
+    {title && <div className="text-2xl font-medium">{title}</div>}
+    <div className="md:text-xl text-base text-gray-500 pt-3 flex items-center gap-3">
+      <FaLocationDot />
+      {locations?.split('?')[0]}
     </div>
-    <div className="relative overflow-hidden rounded-lg">
-        <img className="w-full h-full transition-transform duration-300 ease-in-out hover:scale-110" src={image.split("=")[1]} alt="Image 2" />
-    </div>
-    <div className="relative overflow-hidden rounded-lg">
-        <img className="w-full h-full transition-transform duration-300 ease-in-out hover:scale-110" src={image.split("=")[2]} alt="Image 3" />
-    </div>
-  </div>
-  }
-    
-  {/* info */}
-  {/*  */}
-  <div className='hidden md:large'>
-  
-  
-  <Question></Question>
-  
-  </div>
-  
-    </div>
-  
-  
-  <div className='flex flex-col lg:flex-row  gap-24 '>
-  
-  <div className=' '>
-  <div className='mt-6 text-base font-medium flex items-center gap-3'>Hosted by {user?.username}<Avatar>
-    <AvatarImage src={user?.image} />
-    <AvatarFallback>P</AvatarFallback>
-  </Avatar>
-  </div>
-   <div  className='flex  text-xs gap-2 mt-2 text-gray-500 pb-6 border-b w-[700px]'>
-      <div className='text-base'>{guest} guests</div>
-      <div className='text-base'>{room} rooms</div>
-      <div className='text-base'>{bathrooms} bathrooms</div>
-   </div>
-  
-   <div className='mt-5 flex items-center gap-1 pb-5 border-b w-[700px]'>
-     <TbMountain size={35}></TbMountain>
-     
-       <div>
-      <div className='text-[22px] font-medium'>
-          {ceta?.name}
+    {distance && (
+      <div className="md:text-2xl text-lg pt-3 flex items-center gap-3">
+        <FaCar />
+        {`${parseInt((distance / 1000).toString())} Km`}
       </div>
-  
-      <div className='text-sm text-gray-500'>{ceta?.discription}</div>
-   </div>
-   
-   
-   </div>
-   <div>
-  
-  <div className='flex '>
-  
-  
-  
-  </div>
-  
-   </div>
-    <div className='text-base tex mt-5 pb-5 border-b w-screen md:w-[700px]'><div className='text-lg font-semibold'>My description</div>
-    
-    <div className='text-md text-neutral-800 mt-2 md:pr-0 pr-2 '>{description}</div>
+    )}
+
+    <div className="flex flex-col md:flex-row md:gap-28 w-full md:w-[1600px]">
+      {image && (
+        <div
+          className="grid grid-cols-2 grid-rows-2 gap-2 mt-5 md:w-4/5 w-full pr-5 h-[80vh] rounded-[30px] relative"
+          onClick={() => setimgview(true)}
+        >
+          <div className="relative col-span-2 row-span-1 overflow-hidden rounded-lg">
+            <img
+              className="w-full h-full transition-transform duration-300 ease-in-out hover:scale-110"
+              src={image.split('=')[0]}
+              alt="Image 1"
+            />
+          </div>
+          <div className="relative overflow-hidden rounded-lg">
+            <img
+              className="w-full h-full transition-transform duration-300 ease-in-out hover:scale-110"
+              src={image.split('=')[1]}
+              alt="Image 2"
+            />
+          </div>
+          <div className="relative overflow-hidden rounded-lg">
+            <img
+              className="w-full h-full transition-transform duration-300 ease-in-out hover:scale-110"
+              src={image.split('=')[2]}
+              alt="Image 3"
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Info Section */}
+      {/* <div className="hidden md:block">
+        <Question />
+      </div> */}
+    </div>
+
+    <div className="flex flex-col lg:flex-row gap-10 md:gap-24">
+      <div className="flex flex-col">
+        <div className="mt-6 text-base font-medium flex items-center gap-3">
+          Hosted by {user?.username}
+          <Avatar>
+            <AvatarImage src={user?.image} />
+            <AvatarFallback>P</AvatarFallback>
+          </Avatar>
+        </div>
+        <div className="flex text-xs gap-2 mt-2 text-gray-500 pb-6 border-b w-full md:w-[700px]">
+          <div className="text-base">{guest} guests</div>
+          <div className="text-base">{room} rooms</div>
+          <div className="text-base">{bathrooms} bathrooms</div>
+        </div>
+
+        <div className="mt-5 flex items-center gap-1 pb-5 border-b w-full md:w-[700px]">
+          <TbMountain size={35} />
+          <div>
+            <div className="text-[22px] font-medium">{ceta?.name}</div>
+            <div className="text-sm text-gray-500">{ceta?.description}</div>
+          </div>
+        </div>
+
+        <div className="text-base text mt-5 pb-5 border-b w-full md:w-[700px]">
+          <div className="text-lg font-semibold">My description</div>
+          <div className="text-md text-neutral-800 mt-2">{description}</div>
+          <Dialog>
+            <DialogTrigger>
+              <Button variant="ghost" className="-ml-2">
+                Show more
+              </Button>
+            </DialogTrigger>
+            <ScrollArea className="max-h-5/6">
+              <DialogContent>
+                <DialogTitle>Extra info</DialogTitle>
+                <DialogDescription className="text-lg">
+                  {item.extrainfo
+                    .split('\n')
+                    .map((line) => `• ${line.trim()}`)
+                    .map((item) => (
+                      <div key={item}>{item}</div>
+                    ))}
+                </DialogDescription>
+              </DialogContent>
+            </ScrollArea>
+          </Dialog>
+        </div>
+
+        {geo && polyline && (
+          <Map
+            encodedPolyline={polyline}
+            geo={[
+              parseFloat(locations?.split('?')[1]),
+              parseFloat(locations?.split('?')[2]),
+            ]}
+          />
+        )}
+      </div>
+
+      {/* Reservation Section */}
+      <div className="md:w-[500px] w-full md:m-6 scale-90 md:scale-100 -mx-4 md:mx-0 md:mt-12 md:p-6 p-3 border rounded-3xl shadow-xl md:h-[850px]">
+        <div className="text-2xl font-medium flex items-baseline mb-2 border-b">
+          ${price} <div className="text-base text-gray-500 mb-2 ml-2">night</div>
+        </div>
+        <div className="md:w-full w-full scale-90 md:scale-100 flex justify-center border-b border-black">
+          <DateRange
+            onChange={(item) => {
+              setState([item.selection]);
+              console.log(item);
+            }}
+            showSelectionPreview
+            moveRangeOnFirstSelection={false}
+            disabledDates={disableddates}
+            ranges={state}
+            direction="horizontal"
+          />
+        </div>
+
+        {!userInfo && (
+          <button
+            onClick={() => router.push('/auth/sign-up')}
+            className="bg-gradient-to-r from-pink-500 w-full p-2 rounded-lg mt-2 mb-2 to-red-500 text-white"
+          >
+            Login first
+          </button>
+        )}
+        {userInfo && (
+          <button
+            disabled={!userInfo}
+            onClick={handleReservation}
+            className="bg-gradient-to-r from-pink-500 w-full p-2 rounded-lg mt-2 mb-2 to-red-500 text-white"
+          >
+            {loading ? 'Reserving...' : 'Reserve'}
+          </button>
+        )}
+        <div className="flex w-full items-center justify-between p-1 text-gray-500">
+          Total<div className="text-black text-2xl">${totalprice}</div>
+        </div>
+      </div>
+    </div>
+
     <Dialog>
-      <DialogTrigger ><Button variant='ghost' className='-ml-2'>Show more</Button></DialogTrigger>
-    
-    <ScrollArea className='max-h-5/6 '>
+      <DialogTrigger ref={ref}>
+        <Button className="mt-3">Add Review</Button>
+      </DialogTrigger>
       <DialogContent>
-      <DialogTitle>Extra info</DialogTitle>
-  <DialogDescription className='text-lg'>{item.extrainfo  
-      .split('\n')
-      .map(line => `• ${line.trim()}`).map(item=>{return(<div>{item}</div>)})
-    }</DialogDescription>
-  
+        <DialogHeader>
+          <DialogTitle>What was your experience?</DialogTitle>
+          <DialogDescription>Your review will help others; rate wisely</DialogDescription>
+        </DialogHeader>
+        {editreview ? (
+          <div className="flex flex-col">
+            <ReactStars count={5} onChange={(newRating) => setRating(newRating)} size={40} activeColor="#ffd700" />
+            <div className="text-2xl mt-2">Review</div>
+            <textarea
+              onChange={(e) => setrdescription(e.target.value)}
+              className="border-2 p-4 rounded-lg w-full"
+              placeholder="Write your review here..."
+            />
+            <Button
+              disabled={rdescription.length < 3 || loading}
+              variant="destructive"
+              onClick={() => {
+                setloading(true);
+                axios
+                  .post('/api/reviews', {
+                    rdescription,
+                    rating,
+                    listingId: id,
+                    email: userInfo?.email,
+                  })
+                  .then((res) => {
+                    console.log(res.data);
+                    setreview([...res.data]);
+                    setloading(false);
+                    ref.current?.click();
+                  })
+                  .catch(() => setloading(false));
+              }}
+            >
+              {loading ? 'Uploading...' : 'Add Review'}
+            </Button>
+          </div>
+        ) : (
+          <div>Sorry, you don't have a reservation at this place, so you can't add a review.</div>
+        )}
       </DialogContent>
-    </ScrollArea>  
     </Dialog>
-    </div>
-    
-   <div className=' w-full mt-3 h-full '>
-  
-    {(geo&&polyline)&&<Map 
-    // @ts-ignore
-    encodedPolyline={polyline}  geo={[parseFloat(locations?.split('?')[1]),parseFloat(locations?.split('?')[2])]}></Map>}
-  
-  
-  </div>
-  
-  </div>
-  
-  <div>    
-  
-  {/* {item.map((item)=>{
-  
-  
-  if(item.forec)
-  
-  })} */}
-  
-  
-  </div>
-  
-  
-  
 
-  <div className='md:w-[500px] w-screen  md:m-6 md:scale-100 scale-90 -mx-4 md:-mx-0 md:mt-12  md:p-6 p-3 border  rounded-3xl shadow-xl  md:h-[850px] '>
-    <div className='text-2xl font-medium flex items-baseline mb-2 border-b' >{`$${price}`} <div className='text-base text-gray-500 mb-2 ml-2'>night</div></div>
-  <div className='md:w-full w-screen  md:scale-100 scale-90 flex justify-center  border-b  border-black'>
-    <DateRange
-    onChange={(item)=> {setState([item.selection]); console.log(item)}}
-    showSelectionPreview={true}
-    moveRangeOnFirstSelection={false}
-    disabledDates={disableddates}
-    ranges={state}
-    direction="horizontal"
-  />
-  
-  
-    {/* <Calendar
-      mode="range"
-   s
-    showSelectionPreview={true}
-    moveRangeOnFirstSelection={false}
-    disabledDates={disableddates}
-    ranges={state}
-    direction="horizontal"
-      className="rounded-md border w-screen text-xl flex justify-center"
-    /> */}
-  
-  
-  </div>
-  
-   {!userInfo&&<button  onClick={()=>{router.push('/auth/sign-up')}} className='bg-gradient-to-r from-pink-500 w-full p-2 rounded-lg mt-2 mb-2 to-red-500  text-white'> {!userInfo&&'login first'}</button>}
-  
-   {userInfo&& <button disabled={!userInfo}  onClick={handleReservation} className='bg-gradient-to-r from-pink-500 w-full p-2 rounded-lg mt-2 mb-2 to-red-500  text-white'> {loading?'Reserving...':'Reserve'}</button>}
-  
-    <div className='flex  w-full md:px-0 px-4 items-center justify-between  border-neutral-700 p-1 text-gray-500 '>Total<div className='text-black text-2xl'>{`$ ${totalprice}`}</div></div>
-  
-    
-    
-  
-  
-    
-  </div>
-  
-  </div>
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-  
-  
-  <Dialog>
-    <DialogTrigger ref={ref}>
-    <Button className='mt-3'>Add Review</Button></DialogTrigger>
-    <DialogContent className=''>
-      <DialogHeader>
-        <DialogTitle>What was your experince?</DialogTitle>
-        <DialogDescription>
-       Your review will help other ,rate wisley 
-        </DialogDescription>
-      </DialogHeader>
-  
-   {editreview?<><div className='flex-row '>
-  
-  
-  <ReactStars
-  
-  count={5}
-  onChange={(newRating) => {setRating(newRating) }}
-  size={40}
-  activeColor="#ffd700"
-  />
-  </div>
-  
-  <div className='text-2xl '>Review</div>
-  
-  <textarea onChange={(e)=>{setrdescription(e.target.value)}} className='border-2 p-4 rounded-lg'>
-  
-  
-  </textarea>
-  
-  <Button disabled={rdescription.length<3||loading} variant={'destructive'}onClick={()=>{ setloading(true); axios.post('/api/reviews',{rdescription,rating,listingId:id,email:userInfo?.email}).then((res)=>{console.log(res.data);setreview([...res.data]);setloading(false);ref.current?.click()}).catch((e)=>{setloading(false)})} }>{loading?"Uploading":"Add Review"}</Button>
-  </>:<div>
-    
-    Soory you dont have a reservation at this place so you cant add review
-    
-    
-    </div>}
-  
-    
-  
-  
-    </DialogContent>
-  </Dialog>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    </div>
-
-    <div className='md:flex flex-none    mb-40'>
-
-    
-  <ReviewSection reviews={review}></ReviewSection>
-  <Question></Question>
+    {/* Review and Questions Section */}
+    <div className="flex flex-col md:flex-row gap-10 mb-40">
+      <ReviewSection reviews={review} />
+      <Question />
     </div>
   </div>
-  </div>
+</div>;
+
      </>
     )
   }

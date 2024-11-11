@@ -46,7 +46,7 @@ const [loader, setloader] = useState(false)
   return (
     <div className=''>
 
-<Card className='h-auto w-[750px] mt-4 poppins relative '>
+<Card className='h-auto w-[500px] mt-4 poppins relative '>
 
 <div className='p-3 flex gap-2'><img className='size-14 rounded-full' src='https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?cs=srgb&dl=pexels-pixabay-220453.jpg&fm=jpg'></img>
 <div className='poppins font-semibold'>{reviews.user.username}<div className='text-gray-500 font-medium text-sm'>{format(reviews.createdat, 'MMM do, yyyy')}</div></div>

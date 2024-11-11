@@ -93,7 +93,7 @@ const ReviewSection = ({reviews}) => {
 </div>
 
 
-<div>
+<div className="">
 {/* 
 <ImageHorizontal></ImageHorizontal> */}
 
